@@ -2,7 +2,7 @@ name: Notify ArgoCD
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   notify:
     runs-on: self-hosted
