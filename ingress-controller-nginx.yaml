@@ -5,10 +5,20 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: default
+    namespace: ngnix
     server: "https://kubernetes.default.svc"
   project: default
   source:
     repoURL: "https://helm.nginx.com/stable"
     targetRevision: 3.36.0
     chart: nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
+      - Timeout=600
+      - Validate=false
+      - Wait=true
