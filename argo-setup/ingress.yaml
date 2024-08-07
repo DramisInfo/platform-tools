@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: argocd.dev.dramis.info.com
+    - host: argocd.dev.dramisinfo.com
       http:
         paths:
           - path: /
