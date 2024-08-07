@@ -1,0 +1,11 @@
+name: Notify ArgoCD
+on:
+  push:
+    branches:
+      - master
+jobs:
+  notify:
+    runs-on: self-hosted
+    steps:
+      - name: Sync ArgoCD
+        run: echo "Syncing ArgoCD"
