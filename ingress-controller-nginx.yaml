@@ -25,6 +25,9 @@ spec:
         controller:
           service:
             type: NodePort
+    kustomize:
+      namePrefix: Prefix
+      nameSuffix: Suffix
 
   syncPolicy:
     automated:
