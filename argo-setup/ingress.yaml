@@ -16,4 +16,4 @@ spec:
               service:
                 name: argo-service
                 port:
-                  number: 80
+                  number: 443
