@@ -21,9 +21,9 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - SkipHooks=true
       - Timeout=600
       - Validate=false
       - Wait=true
       - PruneEmpty=true
-
