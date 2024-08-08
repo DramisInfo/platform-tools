@@ -17,6 +17,9 @@ spec:
         controller:
           admissionWebhooks:
             enabled: false
+          service:
+            type: NodePort
+
   syncPolicy:
     automated:
       prune: true
