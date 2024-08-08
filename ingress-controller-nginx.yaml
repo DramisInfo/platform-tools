@@ -14,7 +14,7 @@ spec:
     chart: ingress-nginx
     helm:
       valuesObject:
-        nameOverride: potato
+        # nameOverride: potato
         controller:
           service:
             type: NodePort
