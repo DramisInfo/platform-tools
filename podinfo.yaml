@@ -24,7 +24,7 @@ spec:
           hosts:
             - host: podinfo.dev.dramisinfo.com
               paths:
-                - /
+                - path: /
           tls:
             - secretName: podinfo-tls
               hosts:
