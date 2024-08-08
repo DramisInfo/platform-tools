@@ -15,9 +15,8 @@ spec:
     helm:
       valuesObject:
         # nameOverride: potato
-        controller:
-          service:
-            type: NodePort
+        admissionWebhooks:
+          enabled: false
   syncPolicy:
     automated:
       prune: true
