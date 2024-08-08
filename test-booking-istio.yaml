@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://raw.githubusercontent.com/istio/istio/release-1.22/samples/bookinfo/platform/kube/bookinfo.yaml"
-    targetRevision: HEAD
-    path: .
+    repoURL: "https://github.com/DramisInfo/platform-tools.git"
+    targetRevision: main
+    path: bookinfo
   destination:
     server: https://kubernetes.default.svc
     namespace: default
