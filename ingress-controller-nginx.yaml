@@ -15,8 +15,8 @@ spec:
     helm:
       valuesObject:
         controller:
-          service:
-            type: NodePort
+          admissionWebhooks:
+            enabled: false
   syncPolicy:
     automated:
       prune: true
