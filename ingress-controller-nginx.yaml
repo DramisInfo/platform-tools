@@ -15,7 +15,7 @@ spec:
     helm:
       valuesObject:
         controller:
-          name: nginx-ingress-controller
+          name: potato
           admissionWebhooks:
             enabled: false
           service:
