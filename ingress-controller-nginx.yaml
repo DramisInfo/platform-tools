@@ -14,8 +14,6 @@ spec:
     chart: ingress-nginx
     helm:
       valuesObject:
-        admissionWebhooks:
-          enabled: false
         controller:
           service:
             type: NodePort
