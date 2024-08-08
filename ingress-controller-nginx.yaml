@@ -9,13 +9,8 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "https://kubernetes.github.io/ingress-nginx"
-    targetRevision: 4.11.1
-    chart: ingress-nginx
-    helm:
-      values: |
-        admissionWebhooks:
-          enabled: false
+    repoURL: "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.1/deploy/static/provider/cloud/deploy.yaml"
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
