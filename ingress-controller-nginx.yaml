@@ -3,8 +3,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: ingress-nginx
-  labels:
-    toolkit.fluxcd.io/tenant: sre-team
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
@@ -35,27 +33,28 @@ metadata:
 #       - Validate=false
 #       - Wait=true
 #       - PruneEmpty=true
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: nginx-ingress
-#   namespace: argocd
-# spec:
-#   project: default
-#   source:
-#     repoURL: "https://github.com/DramisInfo/platform-tools.git"
-#     targetRevision: main
-#     path: ingress
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: ingress-nginx
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
-#       - SkipHooks=true
-#       - Timeout=600
-#       - Validate=false
-#       - Wait=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/DramisInfo/platform-tools.git"
+    targetRevision: main
+    path: ingress
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
+      - Timeout=600
+      - Validate=false
+      - Wait=true
