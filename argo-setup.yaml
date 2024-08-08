@@ -1,24 +1,24 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: argo-final-setup
-  namespace: argocd
-spec:
-  destination:
-    namespace: argocd
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: "https://github.com/DramisInfo/platform-tools.git"
-    targetRevision: main
-    path: argo-setup
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: argo-final-setup
+#   namespace: argocd
+# spec:
+#   destination:
+#     namespace: argocd
+#     server: "https://kubernetes.default.svc"
+#   project: default
+#   source:
+#     repoURL: "https://github.com/DramisInfo/platform-tools.git"
+#     targetRevision: main
+#     path: argo-setup
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - SkipHooks=true
+#       - Timeout=600
+#       - Validate=false
+#       - Wait=true
