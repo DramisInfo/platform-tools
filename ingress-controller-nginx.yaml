@@ -1,60 +1,24 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ingress-nginx
-# ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: nginx
+#   name: nginx-ingress
 #   namespace: argocd
 # spec:
-#   destination:
-#     namespace: ingress-nginx
-#     server: "https://kubernetes.default.svc"
 #   project: default
 #   source:
-#     repoURL: "https://kubernetes.github.io/ingress-nginx"
-#     targetRevision: 4.11.1
-#     chart: ingress-nginx
-#     helm:
-#       valuesObject:
-#         controller:
-#           service:
-#             type: NodePort
+#     repoURL: "https://github.com/DramisInfo/platform-tools.git"
+#     targetRevision: main
+#     path: ingress
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: ingress-nginx
 #   syncPolicy:
 #     automated:
 #       prune: true
 #       selfHeal: true
 #     syncOptions:
+#       - CreateNamespace=true
 #       - SkipHooks=true
 #       - Timeout=600
 #       - Validate=false
 #       - Wait=true
-#       - PruneEmpty=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: nginx-ingress
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: "https://github.com/DramisInfo/platform-tools.git"
-    targetRevision: main
-    path: ingress
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: ingress-nginx
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
