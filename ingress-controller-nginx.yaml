@@ -15,7 +15,12 @@ spec:
     helm:
       valuesObject:
         controller:
+          admissionWebhooks:
+            enabled: true
+            patch:
+              enabled: true
           service:
+            name: ingress-nginx-controller-admission
             type: NodePort
   syncPolicy:
     automated:
