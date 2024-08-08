@@ -15,7 +15,6 @@ spec:
     helm:
       valuesObject:
         controller:
-          name: potato
           admissionWebhooks:
             enabled: false
           service:
