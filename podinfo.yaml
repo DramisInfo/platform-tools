@@ -23,8 +23,6 @@ spec:
             nginx.ingress.kubernetes.io/rewrite-target: /
           hosts:
             - host: podinfo.dev.dramisinfo.com
-              paths:
-                - path: /
           tls:
             - secretName: podinfo-tls
               hosts:
