@@ -11,9 +11,9 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "https://istio-release.storage.googleapis.com/charts/istio-official"
-    targetRevision: "*"
-    chart: "base"
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    targetRevision: 1.18.1
+    chart: istio-base
   syncPolicy:
     automated:
       prune: true
