@@ -4,7 +4,7 @@
 #   name: podinfo
 #   namespace: argocd
 #   finalizers:
-#     - resources-finalizer.argocd.argoproj.io  
+#     - resources-finalizer.argocd.argoproj.io
 # spec:
 #   destination:
 #     namespace: podinfo
@@ -34,7 +34,9 @@
 #     #           hosts:
 #     #             - patate.dev.dramisinfo.com
 #   syncPolicy:
-#     automated: {}
+# automated:
+#   prune: true
+#   selfHeal: true
 #     syncOptions:
 #       - CreateNamespace=true
 #       - SkipHooks=true

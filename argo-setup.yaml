@@ -15,7 +15,9 @@ spec:
     targetRevision: main
     path: controller-config/argo-setup
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - SkipHooks=true
