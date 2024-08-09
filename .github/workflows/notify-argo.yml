@@ -8,4 +8,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Sync ArgoCD
-        run: ansible-playbook ansible/playbook.yml -i ansible/inventory.yml --tags "sync-argocd"
+        run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --tags "sync-argocd" --become-user ubuntu
