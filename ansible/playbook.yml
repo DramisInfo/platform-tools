@@ -6,3 +6,5 @@
   tasks:
     - name: Sync ArgoCD
       shell: kubectl patch application platform-tools -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
+      check_mode: no
+      changed_when: true
