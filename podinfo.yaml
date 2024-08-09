@@ -22,7 +22,7 @@ spec:
             cert-manager.io/cluster-issuer: letsencrypt-prod
             nginx.ingress.kubernetes.io/rewrite-target: /
           hosts:
-            - host: podinfo1.dev.dramisinfo.com
+            - host: patate.dev.dramisinfo.com
               paths:
                 - path: /
                   pathType: Prefix
@@ -30,7 +30,7 @@ spec:
           tls:
             - secretName: podinfo-tls
               hosts:
-                - podinfo1.dev.dramisinfo.com
+                - patate.dev.dramisinfo.com
   syncPolicy:
     automated: {}
     syncOptions:
