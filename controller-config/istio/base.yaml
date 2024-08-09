@@ -14,6 +14,11 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: 1.23.0-rc.1
     chart: base
+    helm:
+      valuesObject:
+        defaults:
+          service:
+            type: NodePort
   syncPolicy:
     automated:
       prune: true
