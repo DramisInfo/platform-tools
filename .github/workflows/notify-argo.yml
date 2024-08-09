@@ -7,5 +7,10 @@ jobs:
   notify:
     runs-on: self-hosted
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
       - name: Sync ArgoCD
         run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --tags "sync-argocd" --become-user ubuntu
