@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-official
+  name: istio
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: "https://istio-release.storage.googleapis.com/charts"
     targetRevision: "1.x"
-    chart: istio
+    chart: istio-base
   syncPolicy:
     automated:
       prune: true
