@@ -14,3 +14,5 @@ jobs:
 
       - name: Sync ArgoCD
         run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --tags "sync-argocd" --become-user ubuntu
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
