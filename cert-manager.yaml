@@ -36,7 +36,7 @@ spec:
   destination:
     namespace: cert-manager
     server: "https://kubernetes.default.svc"
-  project: cert-manager
+  project: default
   source:
     repoURL: "https://github.com/DramisInfo/platform-tools.git"
     targetRevision: main
