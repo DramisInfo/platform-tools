@@ -1,27 +1,27 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: istio-official
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: istio-system
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: "https://istio-release.storage.googleapis.com/charts"
-    targetRevision: "1.x"
-    chart: istio
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
-      - PruneEmpty=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: istio-official
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: istio-system
+#     server: "https://kubernetes.default.svc"
+#   project: default
+#   source:
+#     repoURL: "https://istio-release.storage.googleapis.com/charts"
+#     targetRevision: "1.x"
+#     chart: istio
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - SkipHooks=true
+#       - Timeout=600
+#       - Validate=false
+#       - Wait=true
+#       - PruneEmpty=true
