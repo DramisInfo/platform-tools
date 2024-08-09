@@ -42,9 +42,7 @@ spec:
     targetRevision: main
     path: controller-config/cert-manager
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated: {}
     syncOptions:
       - CreateNamespace=true
       - SkipHooks=true

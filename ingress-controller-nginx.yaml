@@ -17,9 +17,7 @@ spec:
         admissionWebhooks:
           enabled: false
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated: {}
     syncOptions:
       - CreateNamespace=true
       - SkipHooks=true
