@@ -12,7 +12,8 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Sync ArgoCD
-        run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --tags "sync-argocd" --become-user ubuntu
+      - name: Run Ansible playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook -i ansible/inventory.ini ansible/playbook.yml --tags "sync-argocd" --become-user ubuntu
