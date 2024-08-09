@@ -7,13 +7,13 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argocd
+    namespace: istio-system
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "https://github.com/DramisInfo/platform-tools.git"
-    targetRevision: main
-    path: controller-config/istio
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    targetRevision: 1.23.0-rc.1
+    chart: base
   syncPolicy:
     automated:
       prune: true
@@ -24,3 +24,4 @@ spec:
       - Timeout=600
       - Validate=false
       - Wait=true
+      - PruneEmpty=true
