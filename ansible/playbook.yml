@@ -4,11 +4,38 @@
   become: true
 
   tasks:
-    - name: Sync ArgoCD
-      shell: kubectl patch application platform-tools -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
-      check_mode: no
-      changed_when: true
+    - name: Check if this host is the first master
+      set_fact:
+        is_first_master: "{{ inventory_hostname == (groups['master'] | first) }}"
+    - name: Install k3s on first master
+      block:
+        - name: Check if k3s is already installed
+          shell: systemctl is-active --quiet k3s
+          register: k3s_installed
+          changed_when: false
+          ignore_errors: true
 
-    - name: Completed
-      debug:
-        msg: "ArgoCD sync initiated"
+        - name: Download and install k3s
+          shell: curl -sfL https://get.k3s.io | sh -s - --token 12345 --cluster-init --write-kubeconfig-mode 644  --disable traefik
+          when: k3s_installed.rc != 0
+
+        - name: Install k9s
+          shell: |
+            curl -LO https://github.com/derailed/k9s/releases/download/v0.24.2/k9s_Linux_x86_64.tar.gz && tar -xvf k9s_Linux_x86_64.tar.gz && sudo mv k9s /usr/local/bin/
+            mkdir -p ~/.kube
+            cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config
+      when: is_first_master
+
+    - name: Install additional k3s servers
+      shell: curl -sfL https://get.k3s.io | K3S_TOKEN=12345 sh -s - server --server https://{{ groups['master'][0] }}:6443 --disable traefik
+      when: not is_first_master and groups['master'] | length > 1
+
+  # tasks:
+  #   - name: Sync ArgoCD
+  #     shell: kubectl patch application platform-tools -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
+  #     check_mode: no
+  #     changed_when: true
+
+  #   - name: Completed
+  #     debug:
+  #       msg: "ArgoCD sync initiated"
