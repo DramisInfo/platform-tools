@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: "https://github.com/DramisInfo/platform-tools.git"
     targetRevision: main
-    path: patform-app/controller-config/argo-setup
+    path: platform-app/controller-config/argo-setup
   syncPolicy:
     automated:
       prune: true
