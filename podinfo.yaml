@@ -1,44 +1,44 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: podinfo
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: podinfo
-#     server: "https://kubernetes.default.svc"
-#   project: default
-#   source:
-#     repoURL: "https://stefanprodan.github.io/podinfo"
-#     targetRevision: "*"
-#     chart: podinfo
-#     helm:
-#       valuesObject:
-#         ingress:
-#           enabled: true
-#           className: nginx
-#           annotations:
-#             kubernetes.io/ingress.class: nginx
-#             cert-manager.io/cluster-issuer: letsencrypt-prod
-#             nginx.ingress.kubernetes.io/rewrite-target: /
-#           hosts:
-#             - host: patate.dev.dramisinfo.com
-#               paths:
-#                 - path: /
-#                   pathType: Prefix
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podinfo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: podinfo
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://stefanprodan.github.io/podinfo"
+    targetRevision: "*"
+    chart: podinfo
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+            nginx.ingress.kubernetes.io/rewrite-target: /
+          hosts:
+            - host: patate.dev.dramisinfo.com
+              paths:
+                - path: /
+                  pathType: Prefix
 
-#           tls:
-#             - secretName: podinfo-tls
-#               hosts:
-#                 - patate.dev.dramisinfo.com
-#   syncPolicy:
-#     automated: {}
-#     syncOptions:
-#       - CreateNamespace=true
-#       - SkipHooks=true
-#       - Timeout=600
-#       - Validate=false
-#       - Wait=true
-#       - PruneEmpty=true
+          tls:
+            - secretName: podinfo-tls
+              hosts:
+                - patate.dev.dramisinfo.com
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
+      - Timeout=600
+      - Validate=false
+      - Wait=true
+      - PruneEmpty=true
