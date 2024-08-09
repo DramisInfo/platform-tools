@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: "https://github.com/DramisInfo/platform-tools.git"
     targetRevision: main
-    path: .
+    path: platform-apps
   syncPolicy:
     automated:
       prune: true
