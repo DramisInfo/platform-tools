@@ -1,0 +1,9 @@
+---
+- name: Merge notification
+  hosts: master
+  become: true
+  user: ubuntu
+
+  tasks:
+    - name: Sync ArgoCD
+      shell: kubectl patch application platform-tools -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'

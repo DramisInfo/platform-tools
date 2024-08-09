@@ -8,5 +8,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Sync ArgoCD
-        run: |
-          ssh ubuntu@192.168.2.12 'kubectl patch application platform-tools -n argocd --type merge -p ''{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'''
+        run: ansible-playbook ansible/playbook.yml -i ansible/inventory.yml --tags "sync-argocd"
