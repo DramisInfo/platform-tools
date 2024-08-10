@@ -14,6 +14,13 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: 1.23.0-rc.1
     chart: istiod
+    helm:
+      valueObject:
+        defaults:
+          pilot:
+            cni:
+              enabled: true
+
   syncPolicy:
     automated:
       prune: true
