@@ -15,8 +15,9 @@ spec:
     targetRevision: "*"
     chart: podinfo
     helm:
-      replicaCount: 2
-      # valuesObject:
+      valuesObject:
+        replicaCount: 2
+
       #   ingress:
       #     enabled: true
       #     className: nginx
