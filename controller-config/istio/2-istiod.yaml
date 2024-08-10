@@ -20,6 +20,8 @@ spec:
           pilot:
             cni:
               enabled: true
+        sidecarInjectorWebhook:
+          enableNamespacesByDefault: true
 
   syncPolicy:
     automated:
