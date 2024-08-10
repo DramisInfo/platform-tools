@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: istio-istiod
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -27,6 +25,3 @@ spec:
       - Validate=false
       - Wait=true
       - PruneEmpty=true
-    resourceExclusions:
-      - kind: ValidatingWebhookConfiguration
-        group: admissionregistration.k8s.io
