@@ -4,10 +4,15 @@
   become: true
 
   tasks:
+    - name: Get ArgoCD applications
+      shell: kubectl get applications -n argocd -o jsonpath='{.items[*].metadata.name}'
+      register: argocd_applications
+
     - name: Sync ArgoCD
-      shell: kubectl patch application platform-tools -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
+      shell: kubectl patch application {{ item }} -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
       check_mode: no
       changed_when: true
+      with_items: "{{ argocd_applications.stdout.split(' ') }}"
 
     - name: Completed
       debug:
