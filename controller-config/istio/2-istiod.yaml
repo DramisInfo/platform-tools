@@ -1,32 +1,32 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: istio-istiod
-#   namespace: argocd
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "2"
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: istio-system
-#     server: "https://kubernetes.default.svc"
-#   project: default
-#   source:
-#     repoURL: https://istio-release.storage.googleapis.com/charts
-#     targetRevision: 1.23.0-rc.1
-#     chart: istiod
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
-#       - SkipHooks=true
-#       - Timeout=600
-#       - Validate=false
-#       - Wait=true
-#       - PruneEmpty=true
-#     resourceExclusions:
-#       - kind: ValidatingWebhookConfiguration
-#         group: admissionregistration.k8s.io
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-istiod
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: istio-system
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    targetRevision: 1.23.0-rc.1
+    chart: istiod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
+      - Timeout=600
+      - Validate=false
+      - Wait=true
+      - PruneEmpty=true
+    resourceExclusions:
+      - kind: ValidatingWebhookConfiguration
+        group: admissionregistration.k8s.io
