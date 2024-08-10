@@ -27,3 +27,6 @@ spec:
       - Validate=false
       - Wait=true
       - PruneEmpty=true
+    resourceExclusions:
+      - kind: ValidatingWebhookConfiguration
+        group: admissionregistration.k8s.io
