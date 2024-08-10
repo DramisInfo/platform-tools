@@ -1,27 +1,27 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: metallb
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: metallb-system
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: "https://metallb.github.io/metallb"
-    targetRevision: 0.14.8
-    chart: metallb
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
-      - PruneEmpty=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: metallb
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: metallb-system
+#     server: "https://kubernetes.default.svc"
+#   project: default
+#   source:
+#     repoURL: "https://metallb.github.io/metallb"
+#     targetRevision: 0.14.8
+#     chart: metallb
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - SkipHooks=true
+#       - Timeout=600
+#       - Validate=false
+#       - Wait=true
+#       - PruneEmpty=true
