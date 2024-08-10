@@ -15,6 +15,7 @@ spec:
     targetRevision: "*"
     chart: podinfo
     helm:
+      replicaCount: 2
       # valuesObject:
       #   ingress:
       #     enabled: true
