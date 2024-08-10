@@ -17,6 +17,8 @@ spec:
     helm:
       valuesObject:
         replicaCount: 2
+        service:
+          type: LoadBalancer
 
       #   ingress:
       #     enabled: true
