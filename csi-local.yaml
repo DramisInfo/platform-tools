@@ -1,26 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: local-path-provisioner
+  name: csi-local
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: kube-system
+    namespace: argocd
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "https://github.com/rancher/local-path-provisioner"
-    targetRevision: v0.0.28
-    path: deploy
+    repoURL: "https://github.com/DramisInfo/platform-tools.git"
+    targetRevision: main
+    path: controller-config/csi
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - SkipHooks=true
       - Timeout=600
       - Validate=false
       - Wait=true
-      - PruneEmpty=true
