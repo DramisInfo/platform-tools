@@ -16,7 +16,7 @@ spec:
     chart: podinfo
     helm:
       valuesObject:
-        replicaCount: 2
+        replicaCount: 6
         service:
           type: LoadBalancer
 
