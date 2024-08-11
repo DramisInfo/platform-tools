@@ -16,7 +16,7 @@ spec:
     chart: podinfo
     helm:
       valuesObject:
-        replicaCount: 6
+        replicaCount: 2
         ingress:
           enabled: true
           className: nginx
