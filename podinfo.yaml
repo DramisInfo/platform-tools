@@ -17,9 +17,6 @@ spec:
     helm:
       valuesObject:
         replicaCount: 6
-        service:
-          type: LoadBalancer
-
       #   ingress:
       #     enabled: true
       #     className: nginx
@@ -47,17 +44,3 @@ spec:
       - Validate=false
       - Wait=true
       - PruneEmpty=true
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: podinfo-2
-  namespace: podinfo
-spec:
-  ports:
-    - name: http
-      port: 9898
-      targetPort: 9898
-  selector:
-    app: podinfo
-  type: LoadBalancer
