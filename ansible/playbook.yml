@@ -4,16 +4,23 @@
   become: true
 
   tasks:
-    - name: Get ArgoCD applications
-      shell: kubectl get applications -n argocd -o jsonpath='{.items[*].metadata.name}'
-      register: argocd_applications
+    - name: Refresh
+      block:
+        - name: Get ArgoCD applications
+          shell: kubectl get applications -n argocd -o jsonpath='{.items[*].metadata.name}'
+          register: argocd_applications
+          when: true
 
-    - name: Sync ArgoCD
-      shell: kubectl patch application {{ item }} -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
-      check_mode: no
-      changed_when: true
-      with_items: "{{ argocd_applications.stdout.split(' ') }}"
+        - name: Sync ArgoCD
+          shell: kubectl patch application {{ item }} -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
+          check_mode: no
+          changed_when: true
+          with_items: "{{ argocd_applications.stdout.split(' ') }}"
+          when: true
 
-    - name: Completed
-      debug:
-        msg: "ArgoCD sync initiated"
+        - name: Completed
+          debug:
+            msg: "ArgoCD sync initiated"
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      when: true
