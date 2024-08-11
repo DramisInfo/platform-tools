@@ -11,9 +11,11 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "https://charts.containeroo.ch"
-    targetRevision: 0.1.0
-    chart: local-path-provisioner
+    repoURL: "https://github.com/rancher/local-path-provisioner"
+    targetRevision: v0.0.28
+    path: deploy
+    directory:
+      recurse: true
   syncPolicy:
     automated:
       prune: true
