@@ -13,15 +13,7 @@ spec:
   source:
     repoURL: https://kiali.org/helm-charts
     targetRevision: v1.87
-    chart: kiali-operator
-    helm:
-      valuesObject:
-        cr:
-          create: true
-          namespace: istio-system
-          spec:
-            auth:
-              strategy: anonymous
+    chart: kiali-server
   syncPolicy:
     automated:
       prune: true
