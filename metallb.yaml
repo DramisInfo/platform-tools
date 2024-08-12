@@ -14,14 +14,12 @@ spec:
     repoURL: "https://metallb.github.io/metallb"
     targetRevision: 0.14.8
     chart: metallb
-    # helm:
-    #   valuesObject:
-    #     configInline:
-    #       address-pools:
-    #         - name: default
-    #           protocol: layer2
-    #           addresses:
-    #             -
+    helm:
+      valuesObject:
+        controller:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
+
   syncPolicy:
     automated:
       prune: true
