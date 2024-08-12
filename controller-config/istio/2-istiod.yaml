@@ -22,6 +22,8 @@ spec:
               enabled: true
           sidecarInjectorWebhook:
             enableNamespacesByDefault: true
+          global:
+            configValidation: false
 
   syncPolicy:
     automated:
