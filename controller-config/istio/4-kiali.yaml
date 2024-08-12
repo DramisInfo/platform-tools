@@ -13,7 +13,12 @@ spec:
   source:
     repoURL: https://kiali.org/helm-charts
     targetRevision: v1.87
-    chart: kiali-server
+    chart: kiali-operator
+    helm:
+      valuesObject:
+        podAnnotations: 
+          sidecar.istio.io/inject: "false"
+          
   syncPolicy:
     automated:
       prune: true
