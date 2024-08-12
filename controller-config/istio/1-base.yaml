@@ -30,7 +30,7 @@ spec:
       - Wait=true
       - PruneEmpty=true
   ignoreDifferences:
-    - group: apps
+    - group: admissionregistration.k8s.io
       kind: ValidatingWebhookConfiguration
       jqPathExpressions:
-        - .webhooks[0].failurePolicy
+        - '.webhooks[].failurePolicy'
