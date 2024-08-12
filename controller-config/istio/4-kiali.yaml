@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://kiali.org/helm-charts
-    targetRevision: 1.87
+    targetRevision: v1.87
     chart: kiali-operator
     helm:
       valuesObject:
