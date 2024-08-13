@@ -1,38 +1,38 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: istio-istiod
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: istio-system
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: 1.23.0-rc.1
-    chart: istiod
-    helm:
-      valuesObject:
-        defaults:
-          pilot:
-            cni:
-              enabled: true
-          sidecarInjectorWebhook:
-            enableNamespacesByDefault: true
-          global:
-            configValidation: false
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: istio-istiod
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: istio-system
+#     server: "https://kubernetes.default.svc"
+#   project: default
+#   source:
+#     repoURL: https://istio-release.storage.googleapis.com/charts
+#     targetRevision: 1.23.0-rc.1
+#     chart: istiod
+#     helm:
+#       valuesObject:
+#         defaults:
+#           pilot:
+#             cni:
+#               enabled: true
+#           sidecarInjectorWebhook:
+#             enableNamespacesByDefault: true
+#           global:
+#             configValidation: false
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
-      - PruneEmpty=true
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - SkipHooks=true
+#       - Timeout=600
+#       - Validate=false
+#       - Wait=true
+#       - PruneEmpty=true
