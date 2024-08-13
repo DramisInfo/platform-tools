@@ -13,8 +13,9 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.1.0"
-    targetRevision: v1.1.0
+    repoURL: "https://github.com/DramisInfo/platform-tools.git"
+    targetRevision: main
+    path: controller-config/gateway-api
   syncPolicy:
     automated:
       prune: true
