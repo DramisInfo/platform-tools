@@ -9,7 +9,6 @@ spec:
     namespace: kiali
     ingress:
       enabled: true
-      class_name: nginx
       override_yaml:
         metadata:
           annotations:
@@ -17,6 +16,7 @@ spec:
             nginx.ingress.kubernetes.io/secure-backends: "true"
             nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         spec:
+          ingressClassName: nginx
           rules:
           - host: kiali.dev.dramisinfo.com
             http:
