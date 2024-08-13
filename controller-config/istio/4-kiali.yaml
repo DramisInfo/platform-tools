@@ -346,7 +346,27 @@ spec:
   selector:
     app.kubernetes.io/name: kiali
     app.kubernetes.io/instance: kiali
-...
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kiali-ingress
+  namespace: istio-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kiali.dev.dramisinfo.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kiali
+                port:
+                  number: 20001
 ---
 # Source: kiali-server/templates/deployment.yaml
 apiVersion: apps/v1
