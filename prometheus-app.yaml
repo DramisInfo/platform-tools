@@ -5,6 +5,9 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   destination:
     namespace: monitoring
@@ -14,6 +17,11 @@ spec:
     repoURL: "https://prometheus-community.github.io/helm-charts"
     targetRevision: 13.6.0
     chart: prometheus
+    helm:
+      valuesObject:
+        server:
+          service:
+            type: LoadBalancer
     # helm:
     #   valuesObject:
     #     server:
