@@ -353,6 +353,7 @@ metadata:
   name: kiali-ingress
   namespace: istio-system
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
