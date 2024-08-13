@@ -10,7 +10,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
   destination:
-    namespace: prometheus
+    namespace: telemetry
     server: "https://kubernetes.default.svc"
   project: default
   source:
