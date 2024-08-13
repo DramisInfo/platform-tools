@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: "https://prometheus-community.github.io/helm-charts"
     targetRevision: 61.9.0
-    chart: prometheus-community
+    chart: kube-prometheus-stack
   syncPolicy:
     automated:
       prune: true
