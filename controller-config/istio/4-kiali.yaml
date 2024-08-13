@@ -108,6 +108,8 @@ data:
         root_namespace: istio-system
       tracing:
         enabled: false
+    prometheus:
+        url: http://prometheus.monitoring:80
     identity:
       cert_file: ""
       private_key_file: ""
