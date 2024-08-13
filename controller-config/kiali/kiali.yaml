@@ -21,7 +21,7 @@ spec:
           - host: kiali.dev.dramisinfo.com
             http:
               paths:
-              - path: "/kiali"
+              - path: "/"
                 pathType: Prefix
                 backend:
                   service:
