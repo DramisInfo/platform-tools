@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: olm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: operators
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://github.com/DramisInfo/platform-tools.git"
+    targetRevision: main
+    path: controller-config/olm
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
+      - Timeout=600
+      - Validate=false
+      - Wait=true
+      - PruneEmpty=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: operators
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  destination:
+    namespace: operators
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://github.com/DramisInfo/platform-tools.git"
+    targetRevision: main
+    path: controller-config/operators
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
+      - Timeout=600
+      - Validate=false
+      - Wait=true
+      - PruneEmpty=true
+
