@@ -17,11 +17,6 @@ spec:
     repoURL: "https://prometheus-community.github.io/helm-charts"
     targetRevision: 13.6.0
     chart: prometheus
-    helm:
-      valuesObject:
-        server:
-          service:
-            type: LoadBalancer
   syncPolicy:
     automated:
       prune: true
