@@ -367,6 +367,10 @@ spec:
                 name: kiali
                 port:
                   number: 20001
+  tls:
+    - hosts:
+        - kiali.dev.dramisinfo.com
+      secretName: kiali-tls
 ---
 # Source: kiali-server/templates/deployment.yaml
 apiVersion: apps/v1
