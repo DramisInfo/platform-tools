@@ -1,43 +1,13 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kube-prometheus
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-options: Prune=false
-    argocd.argoproj.io/sync-wave: "3"
-spec:
-  destination:
-    namespace: telemetry
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 61.9.0
-    chart: kube-prometheus-stack
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
-      - PruneEmpty=true
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: prometheus
+#   name: kube-prometheus
 #   namespace: argocd
 #   finalizers:
 #     - resources-finalizer.argocd.argoproj.io
 #   annotations:
 #     argocd.argoproj.io/sync-options: Prune=false
-#     argocd.argoproj.io/sync-wave: "-1"
+#     argocd.argoproj.io/sync-wave: "3"
 # spec:
 #   destination:
 #     namespace: telemetry
@@ -45,8 +15,8 @@ spec:
 #   project: default
 #   source:
 #     repoURL: "https://prometheus-community.github.io/helm-charts"
-#     targetRevision: 13.6.0
-#     chart: prometheus
+#     targetRevision: 61.9.0
+#     chart: kube-prometheus-stack
 #   syncPolicy:
 #     automated:
 #       prune: true
