@@ -1,60 +1,60 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kiali-operator
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "-70"
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: kiali-operator
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "-70"
 
-spec:
-  destination:
-    namespace: operators
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: "https://kiali.org/helm-charts"
-    targetRevision: v1.87
-    chart: kiali-operator
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kiali-server
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
-spec:
-  destination:
-    namespace: kiali
-    server: "https://kubernetes.default.svc"
-  project: default
-  source:
-    repoURL: "https://github.com/DramisInfo/platform-tools.git"
-    targetRevision: main
-    path: controller-config/kiali
+# spec:
+#   destination:
+#     namespace: operators
+#     server: "https://kubernetes.default.svc"
+#   project: default
+#   source:
+#     repoURL: "https://kiali.org/helm-charts"
+#     targetRevision: v1.87
+#     chart: kiali-operator
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - SkipHooks=true
+#       - Timeout=600
+#       - Validate=false
+#       - Wait=true
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: kiali-server
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "4"
+# spec:
+#   destination:
+#     namespace: kiali
+#     server: "https://kubernetes.default.svc"
+#   project: default
+#   source:
+#     repoURL: "https://github.com/DramisInfo/platform-tools.git"
+#     targetRevision: main
+#     path: controller-config/kiali
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipHooks=true
-      - Timeout=600
-      - Validate=false
-      - Wait=true
-      - PruneEmpty=true
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - SkipHooks=true
+#       - Timeout=600
+#       - Validate=false
+#       - Wait=true
+#       - PruneEmpty=true
