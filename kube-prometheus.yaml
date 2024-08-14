@@ -19,12 +19,16 @@ spec:
     chart: kube-prometheus-stack
     helm:
       valuesObject:
+        kubeStateMetrics:
+          enabled: false
         defaultRules:
-          create: true
+          create: false
         alertmanager:
           enabled: false
         grafana:
-          enabled: true
+          enabled: false
+        nodeExporter:
+          enabled: false
   syncPolicy:
     automated:
       prune: true
