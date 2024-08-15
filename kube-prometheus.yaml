@@ -27,7 +27,7 @@ spec:
               nginx.ingress.kubernetes.io/ssl-passthrough: "true"
               nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
             hosts:
-              - host: prometheus.dev.dramisinfo.com
+              - prometheus.dev.dramisinfo.com
             paths: /
             tls:
               - hosts:
