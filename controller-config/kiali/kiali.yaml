@@ -19,7 +19,7 @@ spec:
         spec:
           ingressClassName: nginx
           rules:
-          - host: kiali.dev.dramisinfo.com
+          - host: istio.dev.dramisinfo.com
             http:
               paths:
               - path: /
@@ -31,8 +31,8 @@ spec:
                       number: 20001
           tls:
           - hosts:
-            - kiali.dev.dramisinfo.com
-            secretName: kiali-tls
+            - istio.dev.dramisinfo.com
+            secretName: istio-tls
   auth:
     strategy: anonymous
   external_services:
