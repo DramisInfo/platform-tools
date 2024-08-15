@@ -23,6 +23,8 @@ spec:
           cassandra: false
         allInOne:
           enabled: true
+        storage:
+          type: badger
   syncPolicy:
     automated:
       prune: true
