@@ -22,6 +22,7 @@ spec:
         server:
           ingress:
             enabled: true
+            ingressClassName: nginx
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-prod
               nginx.ingress.kubernetes.io/ssl-passthrough: "true"
