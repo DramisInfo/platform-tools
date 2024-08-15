@@ -19,6 +19,8 @@ spec:
     chart: jaeger
     helm:
       valuesObject:
+        provisionDataStore:
+          cassandra: false
         allInOne:
           enabled: true
   syncPolicy:
