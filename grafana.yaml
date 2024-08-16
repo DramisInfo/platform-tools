@@ -24,7 +24,7 @@ spec:
           hosts:
             - grafana.dev.dramisinfo.com
           tls:
-            - secretName: grafana-tls
+            - secretName: grafana-dramisinfo-tls
               hosts:
                 - grafana.dev.dramisinfo.com
   syncPolicy:
