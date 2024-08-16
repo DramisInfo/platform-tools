@@ -22,6 +22,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "istio"
 spec:
+  ingressClassName: istio
   rules:
   - http:
       paths:
