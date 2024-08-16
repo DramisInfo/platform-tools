@@ -14,6 +14,17 @@ spec:
     repoURL: "https://grafana.github.io/helm-charts"
     targetRevision: 8.4.4
     chart: grafana
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hosts:
+            - grafana.dev.dramisinfo.com
+          tls:
+            - secretName: grafana-tls
+              hosts:
+                - grafana.dev.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
