@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - platform/kube/bookinfo.yaml
-  - platform/kube/bookinfo-gateway.yaml
+  - gateway-api/bookinfo-gateway.yaml
