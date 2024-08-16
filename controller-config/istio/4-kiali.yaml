@@ -23,7 +23,7 @@ spec:
   - matches:
     - path:
         type: Exact
-        value: /productpage
+        value: /
     backendRefs:
     - name: kiali
       port: 20001
