@@ -22,3 +22,28 @@ spec:
     - hosts:
         - grafana.dev.dramisinfo.com
       secretName: grafana-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kiali-ingress
+  namespace: istio-system
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kiali.dev.dramisinfo.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kiali
+                port:
+                  number: 20001
+  tls:
+    - hosts:
+        - kiali.dev.dramisinfo.com
+      secretName: grafana-tls
