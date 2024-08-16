@@ -22,7 +22,7 @@ spec:
   rules:
   - matches:
     - path:
-        type: Exact
+        type: PathPrefix
         value: /
     backendRefs:
     - name: kiali
