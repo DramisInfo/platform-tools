@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - platform/kube/bookinfo.yaml
   - platform/kube/bookinfo-versions.yaml
+  - platform/kube/bookinfo-ingress.yaml
