@@ -20,7 +20,7 @@ spec:
   source:
     repoURL: "https://github.com/DramisInfo/platform-tools.git"
     targetRevision: main
-    path: booking
+    path: bookinfo
   syncPolicy:
     automated:
       prune: true
