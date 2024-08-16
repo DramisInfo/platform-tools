@@ -7,7 +7,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: grafana
+    namespace: monitoring
     server: "https://kubernetes.default.svc"
   project: default
   source:
