@@ -34,3 +34,4 @@ spec:
       - Timeout=600
       - Validate=false
       - Wait=true
+      - PruneEmpty=true
