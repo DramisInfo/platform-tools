@@ -22,8 +22,8 @@ spec:
   rules:
   - matches:
     - path:
-        type: PathPrefix
+        type: Prefix
         value: /
     backendRefs:
     - name: kiali
-      port: 9090
+      port: 20001
