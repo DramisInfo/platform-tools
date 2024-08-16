@@ -22,7 +22,7 @@ spec:
     repoURL: "https://github.com/DramisInfo/platform-tools.git"
     targetRevision: main
     path: controller-config/istio
-    recurse: false
+    recurse: true
   syncPolicy:
     automated:
       prune: true
