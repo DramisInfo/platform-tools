@@ -6,6 +6,9 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  destination:
+    namespace: grafana
+    server: "https://kubernetes.default.svc"
   project: default
   source:
     repoURL: "https://grafana.github.io/helm-charts"
