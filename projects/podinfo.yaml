@@ -90,7 +90,6 @@ spec:
   source:
     repoURL: "https://github.com/DramisInfo/test-application.git"
     targetRevision: main
-    path: overlays/development
   syncPolicy:
     automated:
       prune: true
