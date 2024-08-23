@@ -29,7 +29,7 @@ metadata:
   name: kiali-ingress
   namespace: istio-system
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   ingressClassName: nginx
   rules:

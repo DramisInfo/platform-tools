@@ -20,7 +20,7 @@ spec:
           enabled: true
           ingressClassName: nginx
           annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
+            cert-manager.io/cluster-issuer: letsencrypt-staging
           hosts:
             - grafana.dev.dramisinfo.com
           tls:
