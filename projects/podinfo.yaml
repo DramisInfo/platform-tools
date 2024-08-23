@@ -86,7 +86,7 @@ spec:
   destination:
     namespace: development-podinfo
     server: "https://kubernetes.default.svc"
-  project: podinfo
+  project: default
   source:
     repoURL: "https://github.com/DramisInfo/test-application.git"
     targetRevision: main
