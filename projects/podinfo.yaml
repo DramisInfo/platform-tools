@@ -36,11 +36,11 @@ spec:
       kind: NetworkPolicy
 
   # Deny all namespaced-scoped resources from being created, except for Deployment and StatefulSet
-  namespaceResourceWhitelist:
-    - group: "apps"
-      kind: Deployment
-    - group: "apps"
-      kind: StatefulSet
+  # namespaceResourceWhitelist:
+  #   - group: "apps"
+  #     kind: Deployment
+  #   - group: "apps"
+  #     kind: StatefulSet
 
   # Enables namespace orphaned resource monitoring.
   orphanedResources:
