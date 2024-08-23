@@ -90,7 +90,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: development-podinfo
+    namespace: podinfo
     server: "https://kubernetes.default.svc"
   project: default
   source:
