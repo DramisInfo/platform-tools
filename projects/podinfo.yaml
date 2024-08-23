@@ -23,7 +23,7 @@ spec:
     - namespace: prod-a-podinfo
       server: https://kubernetes.default.svc
       name: in-cluster
-    - namespace: prod-a-podinfo
+    - namespace: prod-b-podinfo
       server: https://kubernetes.default.svc
       name: in-cluster
 
