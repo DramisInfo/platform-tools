@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: grafana.dev.dramisinfo.com
+    - host: grafana.dev.appelatous.com
       http:
         paths:
           - path: /
@@ -20,7 +20,7 @@ spec:
                   number: 3000
   tls:
     - hosts:
-        - grafana.dev.dramisinfo.com
+        - grafana.dev.appelatous.com
       secretName: grafana-tls
 ---
 apiVersion: networking.k8s.io/v1
@@ -33,7 +33,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: kiali.dev.dramisinfo.com
+    - host: kiali.dev.appelatous.com
       http:
         paths:
           - path: /
@@ -45,5 +45,5 @@ spec:
                   number: 20001
   tls:
     - hosts:
-        - kiali.dev.dramisinfo.com
+        - kiali.dev.appelatous.com
       secretName: kiali-tls

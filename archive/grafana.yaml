@@ -22,11 +22,11 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-staging
           hosts:
-            - grafana.dev.dramisinfo.com
+            - grafana.dev.appelatous.com
           tls:
             - secretName: grafana-dramisinfo-tls
               hosts:
-                - grafana.dev.dramisinfo.com
+                - grafana.dev.appelatous.com
   syncPolicy:
     automated:
       prune: true

@@ -25,10 +25,10 @@ spec:
               nginx.ingress.kubernetes.io/ssl-passthrough: "false"
               nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
             hosts:
-              - prometheus.dev.dramisinfo.com
+              - prometheus.dev.appelatous.com
             tls:
               - hosts:
-                  - prometheus.dev.dramisinfo.com
+                  - prometheus.dev.appelatous.com
                 secretName: prometheus-tls
 
   syncPolicy:
