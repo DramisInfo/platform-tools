@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: argo.appelatous.com
+    - host: argocd.appelatous.com
       http:
         paths:
           - path: /
@@ -25,5 +25,5 @@ spec:
                   name: https
   tls:
     - hosts:
-        - argo.appelatous.com
+        - argocd.appelatous.com
       secretName: argocd-server-tls # as expected by argocd-server
