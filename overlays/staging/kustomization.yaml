@@ -3,14 +3,7 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  - namespace.yaml
   - ../../base
 
 patches:
-  - path: patches/cluster-issuer.yaml
-    target:
-      group: cert-manager.io
-      version: v1
-      kind: ClusterIssuer
-      name: letsencrypt-base
-      namespace: cert-manager
+  - path: patches/core-config.yaml
