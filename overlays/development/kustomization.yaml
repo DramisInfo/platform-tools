@@ -3,5 +3,7 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  - core-components
-  - core-config
+  - ../../base
+
+patches:
+  - path: patches/core-config.yaml
