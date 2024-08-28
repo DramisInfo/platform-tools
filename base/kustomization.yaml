@@ -6,4 +6,4 @@ resources:
   - cert-manager.yaml
   - core-config.yaml
   - ingress-controller-nginx.yaml
-  # - argo-ingress.yaml
+  - argo-ingress.yaml

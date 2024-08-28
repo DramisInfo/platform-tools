@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argocd
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-development
+spec:
+  rules:
+    - host: argocd.dev.dramisinfo.com
+  tls:
+    - hosts:
+        - argocd.dev.dramisinfo.com
