@@ -22,5 +22,5 @@
           debug:
             msg: "ArgoCD sync initiated"
       environment:
-        KUBECONFIG: /etc/kubernetes/admin.conf
+        KUBECONFIG: /etc/rancher/k3s/k3s.yaml
       when: true
