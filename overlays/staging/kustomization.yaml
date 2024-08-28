@@ -5,3 +5,12 @@ commonLabels:
 resources:
   - namespace.yaml
   - ../../base
+
+patches:
+  - path: patches/cluster-issuer.yaml
+    target:
+      group: cert-manager.io
+      version: v1
+      kind: ClusterIssuer
+      name: letsencrypt
+      namespace: cert-manager
