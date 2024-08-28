@@ -8,6 +8,16 @@ metadata:
 spec:
   rules:
     - host: argocd.dev.dramisinfo.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: https
   tls:
     - hosts:
         - argocd.dev.dramisinfo.com
+      secretName: argocd-server-tls # as expected by argocd-server
