@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - test-nginx.yaml
   - cert-manager.yaml
+  - core-config.yaml
   # - ingress-controller-nginx.yaml
   # - argo-ingress.yaml
