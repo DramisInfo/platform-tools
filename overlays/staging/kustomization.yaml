@@ -12,5 +12,5 @@ patches:
       group: cert-manager.io
       version: v1
       kind: ClusterIssuer
-      name: letsencrypt
+      name: letsencrypt-base
       namespace: cert-manager
