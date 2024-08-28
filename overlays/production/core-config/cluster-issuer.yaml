@@ -28,6 +28,6 @@ spec:
             subscriptionID: c1d22d5c-418b-4bd9-ba23-5e806c376b56
             tenantID: b66f9c3b-d384-4932-92fd-444edca3620f
             resourceGroupName: rg-dns
-            hostedZoneName: dev.dramisinfo.com
+            hostedZoneName: dramisinfo.com
             # Azure Cloud Environment, default to AzurePublicCloud
             environment: AzurePublicCloud
