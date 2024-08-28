@@ -3,7 +3,7 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  - namespace.yaml
+  - core-config
   - ../../base
 
 patches:
