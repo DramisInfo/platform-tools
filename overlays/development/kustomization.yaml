@@ -3,5 +3,5 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  - core-components.yaml
-  - core-config.yaml
+  - core-components-kustomization.yaml
+  - core-config-kustomization.yaml
