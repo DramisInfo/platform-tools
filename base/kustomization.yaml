@@ -5,3 +5,4 @@ resources:
   - cert-manager.yaml
   - test-nginx.yaml
   - ingress-controller-nginx.yaml
+  - argo-ingress.yaml
