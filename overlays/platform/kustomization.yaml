@@ -4,6 +4,7 @@ commonLabels:
   environment: staging
 resources:
   - ../../base
+  - harbor.yaml
 
 patches:
   - path: patches/core-config.yaml

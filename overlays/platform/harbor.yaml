@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: harbor
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: harbor
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://helm.goharbor.io
+    targetRevision: "1.x"
+    chart: harbor
+    helm:
+      valuesObject:
+        externalURL: https://registry.platform.dramisinfo.com
+        expose:
+          ingress:
+            className: nginx
+            hosts:
+              core: registry.platform.dramisinfo.com
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
