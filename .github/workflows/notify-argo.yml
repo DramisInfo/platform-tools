@@ -27,4 +27,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
-          ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -u ubuntu --become-method=sudo
+          ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -u ubuntu --become-method=sudo  || true
