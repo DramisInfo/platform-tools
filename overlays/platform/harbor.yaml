@@ -23,7 +23,7 @@ spec:
             hosts:
               core: registry.platform.dramisinfo.com
             annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-prod
+              cert-manager.io/cluster-issuer: letsencrypt-platform
   syncPolicy:
     automated:
       prune: true
