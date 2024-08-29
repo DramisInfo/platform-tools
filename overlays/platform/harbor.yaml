@@ -24,3 +24,13 @@ spec:
               core: registry.platform.dramisinfo.com
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=false
+      - Prune=true
+      - ApplyOutOfSyncOnly=true
+      - Force=true
