@@ -5,6 +5,7 @@ commonLabels:
 resources:
   - ../../base
   - harbor.yaml
+  - test-helm.yaml
 
 patches:
   - path: patches/core-config.yaml

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-helm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: test-helm
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://harbor.platform.dramisinfo.com/platform
+    targetRevision: "0.1.0"
+    chart: platform-core
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=false
+      - Prune=true
+      - ApplyOutOfSyncOnly=true
+      - Force=true
