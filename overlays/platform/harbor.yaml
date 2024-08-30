@@ -16,12 +16,12 @@ spec:
     chart: harbor
     helm:
       valuesObject:
-        externalURL: https://harbor.platform.dramisinfo.com
+        externalURL: https://cr.platform.dramisinfo.com
         expose:
           ingress:
             className: nginx
             hosts:
-              core: harbor.platform.dramisinfo.com
+              core: cr.platform.dramisinfo.com
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-platform
   syncPolicy:
