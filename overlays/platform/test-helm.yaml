@@ -13,6 +13,7 @@ spec:
   source:
     repoURL: oci://harbor.platform.dramisinfo.com/platform/platform-core
     targetRevision: "0.1.0"
+    chart: platform-core
     helm:
       type: oci
   syncPolicy:
