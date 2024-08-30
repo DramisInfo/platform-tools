@@ -22,10 +22,8 @@ spec:
           className: nginx
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-platform
-          # hosts:
-          #   - host: test-helm.platform.dramisinfo.com
-          #     paths:
-          #       - /
+          hosts:
+            - host: test-helm.platform.dramisinfo.com
           # tls:
           #   - secretName: test-helm-platform-tls
           #     hosts:
