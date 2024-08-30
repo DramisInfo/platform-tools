@@ -18,12 +18,15 @@ spec:
       valuesObject:
         externalURL: https://cr.platform.dramisinfo.com
         expose:
+          tls:
+            secretName: harbor-tls
           ingress:
             className: nginx
             hosts:
               core: cr.platform.dramisinfo.com
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-platform
+              kubernetes.io/tls-acme: "true"
   syncPolicy:
     automated:
       prune: true
