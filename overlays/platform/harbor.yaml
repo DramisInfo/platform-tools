@@ -19,7 +19,8 @@ spec:
         externalURL: https://registry.platform.dramisinfo.com
         expose:
           tls:
-            certSource: none
+            certSource: secret
+            secretName: harbor-tls
           ingress:
             className: nginx
             hosts:
