@@ -26,7 +26,6 @@ spec:
             className: nginx
             hosts:
               core: harbor.platform.dramisinfo.com
-              notary: notary.platform.dramisinfo.com
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-platform
   syncPolicy:
