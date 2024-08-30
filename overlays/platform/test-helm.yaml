@@ -24,6 +24,9 @@ spec:
             cert-manager.io/cluster-issuer: letsencrypt-platform
           hosts:
             - host: test-helm.platform.dramisinfo.com
+              paths:
+                - path: /
+                  pathType: Prefix
           # tls:
           #   - secretName: test-helm-platform-tls
           #     hosts:
