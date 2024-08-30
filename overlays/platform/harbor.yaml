@@ -16,18 +16,23 @@ spec:
     chart: harbor
     helm:
       valuesObject:
-        externalURL: https://registry.platform.dramisinfo.com
         expose:
-          # tls:
-          #   certSource: secret
-          #   secret:
-          #     secretName: harbor-tls
+          type: ingress
+          tls:
+            enabled: true
+            certSource: secret
           ingress:
-            className: nginx
             hosts:
-              core: registry.platform.dramisinfo.com
+              core: harbor.platform.dramisinfo.com
+              notary: notary.platform.dramisinfo.com
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-platform
+            tls:
+              - hosts:
+                  - harbor.platform.dramisinfo.com
+                secretName: harbor-tls
+
+        externalURL: https://harbor.platform.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
