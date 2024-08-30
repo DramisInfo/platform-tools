@@ -14,6 +14,7 @@ spec:
     repoURL: harbor.platform.dramisinfo.com/platform
     targetRevision: "0.1.0"
     path: platform-core
+    chart: platform-core
   syncPolicy:
     automated:
       prune: true
