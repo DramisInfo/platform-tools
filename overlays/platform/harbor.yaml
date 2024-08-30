@@ -22,9 +22,7 @@ spec:
             className: nginx
             tls:
               enabled: true
-              certSource: secret
-              secret:
-                secretName: harbor-ingress
+              certSource: auto
             hosts:
               core: harbor.platform.dramisinfo.com
             annotations:
