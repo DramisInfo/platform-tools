@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: harbor.platform.dramisinfo.com/platform
     targetRevision: "0.1.0"
-    path: platform-core
+    # path: platform-core
     chart: platform-core
   syncPolicy:
     automated:
