@@ -22,6 +22,7 @@ spec:
             enabled: true
             certSource: secret
           ingress:
+            className: nginx
             hosts:
               core: harbor.platform.dramisinfo.com
               notary: notary.platform.dramisinfo.com
