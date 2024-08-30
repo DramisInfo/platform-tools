@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://helm.goharbor.io
-    targetRevision: "1.15.0"
+    targetRevision: "1.14.3"
     chart: harbor
     helm:
       valuesObject:
@@ -20,9 +20,6 @@ spec:
         expose:
           ingress:
             className: nginx
-            tls:
-              enabled: true
-              certSource: auto
             hosts:
               core: harbor.platform.dramisinfo.com
             annotations:
