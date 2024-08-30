@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: oci://harbor.platform.dramisinfo.com/platform
+    repoURL: oci://harbor.platform.dramisinfo.com/platform/platform-core
     targetRevision: "0.1.0"
     chart: platform-core
   syncPolicy:
