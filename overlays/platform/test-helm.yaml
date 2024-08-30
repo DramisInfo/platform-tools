@@ -17,6 +17,7 @@ spec:
     chart: platform-core
     helm:
       valuesObject:
+        replicaCount: 3
         ingress:
           enabled: true
           className: nginx
