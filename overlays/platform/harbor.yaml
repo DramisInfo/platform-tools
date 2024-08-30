@@ -18,9 +18,11 @@ spec:
       valuesObject:
         externalURL: https://registry.platform.dramisinfo.com
         expose:
+          type: ingress
           tls:
             certSource: secret
-            secretName: harbor-tls
+            secret:
+              secretName: harbor-tls
           ingress:
             className: nginx
             hosts:
