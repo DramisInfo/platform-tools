@@ -27,10 +27,10 @@ spec:
               paths:
                 - path: /
                   pathType: Prefix
-          # tls:
-          #   - secretName: test-helm-platform-tls
-          #     hosts:
-          #       - test-helm.platform.dramisinfo.com
+          tls:
+            - secretName: test-helm-platform-tls
+              hosts:
+                - test-helm.platform.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
