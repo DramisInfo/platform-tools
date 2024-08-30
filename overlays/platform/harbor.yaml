@@ -18,10 +18,6 @@ spec:
       valuesObject:
         externalURL: https://harbor.platform.dramisinfo.com
         expose:
-          type: ingress
-          tls:
-            enabled: true
-            certSource: secret
           ingress:
             className: nginx
             hosts:
