@@ -30,6 +30,10 @@ spec:
               cert-manager.io/cluster-issuer: letsencrypt-platform
             tls: true
         adminPassword: admin
+        persistence:
+          persistentVolumeClaim:
+            registry:
+              size: 50Gi
   syncPolicy:
     automated:
       prune: true
