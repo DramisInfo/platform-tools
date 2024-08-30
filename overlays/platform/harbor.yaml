@@ -29,6 +29,7 @@ spec:
               nginx.ingress.kubernetes.io/proxy-body-size: "0"
               cert-manager.io/cluster-issuer: letsencrypt-platform
             tls: true
+        adminPassword: admin
   syncPolicy:
     automated:
       prune: true
