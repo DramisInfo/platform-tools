@@ -15,6 +15,21 @@ spec:
     targetRevision: "0.1.0"
     # path: platform-core
     chart: platform-core
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          hosts:
+            - host: test-helm.platform.dramisinfo.com
+              paths:
+                - /
+          tls:
+            - secretName: test-helm-platform-tls
+              hosts:
+                - test-helm.platform.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
