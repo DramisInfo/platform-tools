@@ -4,7 +4,7 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-development
+    cert-manager.io/cluster-issuer: vault-development
 spec:
   rules:
     - host: argo.dev.dramisinfo.com
