@@ -37,8 +37,6 @@ kind: ServiceAccount
 metadata:
   name: cert-manager-vault
   namespace: cert-manager
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 # ---
 # apiVersion: cert-manager.io/v1
 # kind: ClusterIssuer
