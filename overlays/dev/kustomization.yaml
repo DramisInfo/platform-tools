@@ -4,6 +4,7 @@ commonLabels:
   environment: staging
 resources:
   - ../../base
+  - test-nginx.yaml
 
 patches:
   - path: patches/core-config.yaml
