@@ -5,4 +5,4 @@ metadata:
   namespace: argocd
 spec:
   source:
-    path: overlays/development/core-config
+    path: overlays/dev/core-config
