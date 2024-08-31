@@ -43,3 +43,33 @@ spec:
       kind: MutatingWebhookConfiguration
       jqPathExpressions:
         - ".webhooks[].clientConfig.caBundle"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cert-manager-vault
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: cert-manager-vault-role
+  namespace: default
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cert-manager-vault-rolebinding
+  namespace: default
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager-vault
+    namespace: default
+roleRef:
+  kind: Role
+  name: cert-manager-vault-role
+  apiGroup: rbac.authorization.k8s.io
