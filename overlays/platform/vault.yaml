@@ -24,7 +24,6 @@ spec:
               cert-manager.io/cluster-issuer: letsencrypt-platform
             hosts:
               - host: vault.platform.dramisinfo.com
-                paths:
             tls:
               - secretName: vault-tls
                 hosts:
