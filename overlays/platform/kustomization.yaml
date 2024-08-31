@@ -5,7 +5,7 @@ commonLabels:
 resources:
   - ../../base
   - harbor.yaml
-  - vault.yaml
+  # - vault.yaml
   # - test-helm.yaml
 
 patches:
