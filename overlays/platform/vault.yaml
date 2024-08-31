@@ -73,3 +73,12 @@ roleRef:
   kind: Role
   name: cert-manager-vault-role
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cert-manager-vault-token
+  namespace: default
+  annotations:
+    kubernetes.io/service-account.name: cert-manager-vault
+type: kubernetes.io/service-account-token
