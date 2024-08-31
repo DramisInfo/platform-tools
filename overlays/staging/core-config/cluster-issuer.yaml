@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging
+  name: vault-staging
   namespace: cert-manager
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,7 +12,7 @@ spec:
     # Let's Encrypt will use this to contact you about expiring
     # certificates, and issues related to your account.
     email: frederic.simard@dramisinfo.com
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://vault.platform.dramisinfo.com/v1/pki/acme/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
       name: example-issuer-account-key

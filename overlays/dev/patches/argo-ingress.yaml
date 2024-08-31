@@ -7,7 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: vault-development
 spec:
   rules:
-    - host: argo.dev.dramisinfo.com
+    - host: argocd.dev.dramisinfo.com
       http:
         paths:
           - path: /
@@ -19,5 +19,5 @@ spec:
                   name: https
   tls:
     - hosts:
-        - argo.dev.dramisinfo.com
+        - argocd.dev.dramisinfo.com
       secretName: argocd-server-tls # as expected by argocd-server
