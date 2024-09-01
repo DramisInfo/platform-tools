@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   source:
-    targetRevision: "0.3.11"
+    targetRevision: "0.3.13"
     helm:
       valuesObject:
         clusterName: dev
