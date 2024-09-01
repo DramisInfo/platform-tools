@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   source:
-    targetRevision: "0.4.0"
+    targetRevision: "0.1.10"
     helm:
       valuesObject:
         clusterName: staging
