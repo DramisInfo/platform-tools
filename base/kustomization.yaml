@@ -6,3 +6,4 @@ resources:
   - core-config.yaml
   - ingress-controller-nginx.yaml
   - argo-ingress.yaml
+  - platform-core.yaml
