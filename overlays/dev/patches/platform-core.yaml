@@ -6,3 +6,6 @@ metadata:
 spec:
   source:
     targetRevision: "0.3.10"
+    helm:
+      valuesObject:
+        cert-manager.io/cluster-issuer: vault-dev
