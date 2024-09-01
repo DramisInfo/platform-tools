@@ -10,5 +10,4 @@ resources:
   # - test-helm.yaml
 
 patches:
-  - path: patches/argo-ingress.yaml
   - path: patches/platform-core.yaml
