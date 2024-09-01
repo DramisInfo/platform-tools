@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-core
+  namespace: argocd
+spec:
+  source:
+    targetRevision: "0.3.15"
+    helm:
+      valuesObject:
+        clusterName: platform
