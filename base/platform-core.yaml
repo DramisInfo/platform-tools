@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: harbor.platform.dramisinfo.com/platform
-    targetRevision: "0.3.6"
+    targetRevision: "0.3.7"
     # path: platform-core
     chart: platform-core
     helm:
