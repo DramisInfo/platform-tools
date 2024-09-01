@@ -3,10 +3,10 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  - ../../base
+  - cert-manager.yaml
   - harbor.yaml
   - vault.yaml
-  # - cluster-issuer.yaml
+  - cluster-issuer.yaml
   # - test-helm.yaml
 
 patches:
