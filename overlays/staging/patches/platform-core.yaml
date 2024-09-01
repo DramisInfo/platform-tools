@@ -8,4 +8,5 @@ spec:
     targetRevision: "0.1.10"
     helm:
       valuesObject:
-        clusterName: staging
+        global:
+          clusterName: staging
