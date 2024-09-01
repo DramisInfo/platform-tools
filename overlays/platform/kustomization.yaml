@@ -6,7 +6,7 @@ resources:
   - ../../base
   - harbor.yaml
   - vault.yaml
-  - cluster-issuer.yaml
+  # - cluster-issuer.yaml
   # - test-helm.yaml
 
 patches:
