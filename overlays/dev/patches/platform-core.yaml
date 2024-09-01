@@ -8,4 +8,5 @@ spec:
     targetRevision: "0.4.6"
     helm:
       valuesObject:
-        clusterName: dev
+        global:
+          clusterName: dev
