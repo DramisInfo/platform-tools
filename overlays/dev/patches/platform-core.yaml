@@ -8,15 +8,4 @@ spec:
     targetRevision: "0.3.11"
     helm:
       valuesObject:
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: vault-dev
-          hosts:
-            - host: test-helm.dev.dramisinfo.com
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - secretName: test-helm-dev-tls
-              hosts:
-                - test-helm.dev.dramisinfo.com
+        clusterName: dev
