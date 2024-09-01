@@ -8,3 +8,4 @@ resources:
 patches:
   - path: patches/core-config.yaml
   - path: patches/argo-ingress.yaml
+  - path: patches/platform-core.yaml
