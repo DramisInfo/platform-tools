@@ -8,4 +8,6 @@ spec:
     targetRevision: "0.3.10"
     helm:
       valuesObject:
-        cert-manager.io/cluster-issuer: vault-dev
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: vault-dev
