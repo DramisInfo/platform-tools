@@ -3,5 +3,5 @@ kind: Kustomization
 
 resources:
   - ingress-controller-nginx.yaml
-  - argo-ingress.yaml
-  # - platform-core.yaml
+  #  - platform-core.yaml
+  # - argo-ingress.yaml
