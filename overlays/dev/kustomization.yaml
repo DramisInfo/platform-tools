@@ -7,4 +7,3 @@ resources:
 
 patches:
   - path: patches/platform-core.yaml
-  # - path: patches/argo-ingress.yaml
