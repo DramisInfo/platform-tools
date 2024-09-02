@@ -8,6 +8,3 @@ resources:
   # - cluster-issuer.yaml
   # - harbor.yaml
   # - test-helm.yaml
-
-patches:
-  - path: patches/platform-core.yaml
