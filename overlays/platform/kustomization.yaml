@@ -5,6 +5,6 @@ commonLabels:
 resources:
   - cert-manager.yaml
   - vault.yaml
-  # - cluster-issuer.yaml
-  # - harbor.yaml
+  - cluster-issuer.yaml
+  - harbor.yaml
   # - test-helm.yaml
