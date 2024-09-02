@@ -33,7 +33,7 @@ spec:
         persistence:
           persistentVolumeClaim:
             registry:
-              size: 50Gi
+              size: 10Gi
   syncPolicy:
     automated:
       prune: true
