@@ -16,7 +16,7 @@ spec:
     chart: harbor
     helm:
       valuesObject:
-        externalURL: https://harbor.platform.dramisinfo.com
+        externalURL: https://registry.platform.dramisinfo.com
         exposureType: ingress
         ingress:
           core:
