@@ -3,7 +3,7 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  # - ../../base
+  - ../../base
 
 patches:
-  # - path: patches/platform-core.yaml
+  - path: patches/platform-core.yaml
