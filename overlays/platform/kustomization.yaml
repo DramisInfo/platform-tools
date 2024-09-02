@@ -4,9 +4,9 @@ commonLabels:
   environment: staging
 resources:
   - cert-manager.yaml
-  - harbor.yaml
   - vault.yaml
-  - cluster-issuer.yaml
+  # - cluster-issuer.yaml
+  # - harbor.yaml
   # - test-helm.yaml
 
 patches:
