@@ -21,7 +21,7 @@ spec:
         ingress:
           core:
             ingressClassName: nginx
-            hostname: harbor.platform.dramisinfo.com
+            hostname: registry.platform.dramisinfo.com
             annotations:
               ingress.kubernetes.io/ssl-redirect: "true"
               ingress.kubernetes.io/proxy-body-size: "0"
