@@ -6,7 +6,7 @@ resources:
   - cert-manager.yaml
   - ingress-controller-nginx.yaml
   - cluster-issuer.yaml
-  - harbor.yaml
+  # - harbor.yaml
   # - vault.yaml
 
   # - test-helm.yaml
