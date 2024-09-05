@@ -12,6 +12,6 @@ spec:
           clusterName: staging
         bootstrap:
           crossplane:
-            enabled: true
+            enabled: false
           atlas:
-            enabled: true
+            enabled: false
