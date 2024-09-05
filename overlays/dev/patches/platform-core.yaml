@@ -12,6 +12,6 @@ spec:
           clusterName: dev
         bootstrap:
           crossplane:
-            enabled: true
+            enabled: false
           atlas:
             enabled: false
