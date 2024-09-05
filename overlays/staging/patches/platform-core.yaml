@@ -14,4 +14,4 @@ spec:
           crossplane:
             enabled: true
           atlas:
-            enabled: true
+            enabled: false
