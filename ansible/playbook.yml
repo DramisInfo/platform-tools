@@ -11,8 +11,8 @@
           register: argocd_applications
           when: true
 
-        - name: Sync ArgoCD
-          shell: kubectl patch application {{ item }} -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"sync":{"syncStrategy":{"hook":{}}}}}'
+        - name: Refresh ArgoCD applications
+          shell: kubectl patch application {{ item }} -n argocd --type merge -p '{"operation":{"initiatedBy":{"username":"admin"},"refresh":"normal"}}'
           check_mode: no
           changed_when: true
           with_items: "{{ argocd_applications.stdout.split(' ') }}"
@@ -20,7 +20,7 @@
 
         - name: Completed
           debug:
-            msg: "ArgoCD sync initiated"
+            msg: "ArgoCD refresh initiated"
       environment:
         KUBECONFIG: /etc/rancher/k3s/k3s.yaml
       when: true
