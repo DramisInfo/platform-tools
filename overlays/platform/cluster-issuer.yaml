@@ -34,8 +34,6 @@ spec:
             # Azure Cloud Environment, default to AzurePublicCloud
             environment: AzurePublicCloud
 ---
-
----
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
