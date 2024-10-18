@@ -16,25 +16,25 @@ spec:
       namespace: crossplane-system
       name: azure-secret
       key: creds
----
-apiVersion: network.azure.upbound.io/v1beta1
-kind: VirtualNetwork
-metadata:
-  name: crossplane-quickstart-network-1
-spec:
-  forProvider:
-    addressSpace:
-      - 10.0.0.0/16
-    location: "Canada Central"
-    resourceGroupName: docs
----
-apiVersion: network.azure.upbound.io/v1beta1
-kind: VirtualNetwork
-metadata:
-  name: crossplane-quickstart-network-2
-spec:
-  forProvider:
-    addressSpace:
-      - 10.0.0.0/16
-    location: "Canada Central"
-    resourceGroupName: docs
+# ---
+# apiVersion: network.azure.upbound.io/v1beta1
+# kind: VirtualNetwork
+# metadata:
+#   name: crossplane-quickstart-network-1
+# spec:
+#   forProvider:
+#     addressSpace:
+#       - 10.0.0.0/16
+#     location: "Canada Central"
+#     resourceGroupName: docs
+# ---
+# apiVersion: network.azure.upbound.io/v1beta1
+# kind: VirtualNetwork
+# metadata:
+#   name: crossplane-quickstart-network-2
+# spec:
+#   forProvider:
+#     addressSpace:
+#       - 10.0.0.0/16
+#     location: "Canada Central"
+#     resourceGroupName: docs
