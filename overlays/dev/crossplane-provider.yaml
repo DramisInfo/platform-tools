@@ -196,10 +196,10 @@ metadata:
   name: provider-azure-compute
 spec:
   package: xpkg.upbound.io/upbound/provider-azure-compute:v0.42.1
----
-apiVersion: compute.example.com/v1alpha1
-kind: VirtualMachine
-metadata:
-  name: my-vm
-spec:
-  location: "EU"
+# ---
+# apiVersion: compute.example.com/v1alpha1
+# kind: VirtualMachine
+# metadata:
+#   name: my-vm
+# spec:
+#   location: "EU"
