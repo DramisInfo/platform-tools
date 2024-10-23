@@ -13,3 +13,5 @@ spec:
         bootstrap:
           crossplane:
             enabled: true
+          terraformOperator:
+            enabled: true
