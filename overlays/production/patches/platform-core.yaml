@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-core
+  namespace: argocd
+spec:
+  source:
+    targetRevision: "0.2.39"
+    helm:
+      valuesObject:
+        global:
+          clusterName: staging
