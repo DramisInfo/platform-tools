@@ -3,10 +3,15 @@ kind: Kustomization
 commonLabels:
   environment: staging
 resources:
-  - cert-manager.yaml
-  - cluster-issuer.yaml
-  - ingress-controller-nginx.yaml
+  - ../../base
+  # - cert-manager.yaml
+  # - cluster-issuer.yaml
+  # - ingress-controller-nginx.yaml
   - harbor.yaml
   - vault.yaml
+
+patches:
+  - path: patches/platform-core.yaml
+
 
   # - test-helm.yaml

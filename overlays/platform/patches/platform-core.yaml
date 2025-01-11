@@ -10,3 +10,7 @@ spec:
       valuesObject:
         global:
           clusterName: platform
+        bootstrap:
+          clusterIssuer:
+            letsencrypt:
+              enabled: false
