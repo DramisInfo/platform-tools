@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-core
+  namespace: argocd
+spec:
+  source:
+    targetRevision: "0.2.46"
+    helm:
+      valuesObject:
+        global:
+          clusterName: azure-1
+        bootstrap:
+          crossplane:
+            enabled: false
+          terraformOperator:
+            enabled: false
