@@ -13,5 +13,15 @@ spec:
         bootstrap:
           crossplane:
             enabled: false
+          atlas:
+            enabled: false
           terraformOperator:
+            enabled: false
+          externalSecretOperator:
+            enabled: false
+          prometheus:
+            enabled: true
+          grafana:
+            enabled: false
+          loki:
             enabled: false
