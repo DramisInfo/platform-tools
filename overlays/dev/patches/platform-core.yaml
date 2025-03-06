@@ -12,13 +12,13 @@ spec:
           clusterName: dev
         bootstrap:
           crossplane:
-            enabled: false
+            enabled: true
           atlas:
-            enabled: false
+            enabled: true
           terraformOperator:
-            enabled: false
+            enabled: true
           externalSecretOperator:
-            enabled: false
+            enabled: true
           prometheus:
             enabled: true
           grafana:
