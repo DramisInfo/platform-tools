@@ -19,6 +19,8 @@ spec:
           persistence:
             enabled: true
             size: 50Gi
+        nginx:
+          enabled: false
         ingress:
           enabled: true
           defaultBackend:
