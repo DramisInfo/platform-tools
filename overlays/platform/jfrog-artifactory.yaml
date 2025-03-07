@@ -19,20 +19,23 @@ spec:
           persistence:
             enabled: true
             size: 50Gi
-          ingress:
+        ingress:
+          enabled: true
+          defaultBackend:
             enabled: true
-            ingressClassName: nginx
-            hostname: artifactory.platform.dramisinfo.com
-            annotations:
-              ingress.kubernetes.io/ssl-redirect: "true"
-              ingress.kubernetes.io/proxy-body-size: "0"
-              nginx.ingress.kubernetes.io/ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/proxy-body-size: "0"
-              cert-manager.io/cluster-issuer: letsencrypt-platform
-            tls:
-              - secretName: artifactory-tls
-                hosts:
-                  - artifactory.platform.dramisinfo.com
+          hosts:
+            - artifactory.platform.dramisinfo.com
+          className: nginx
+          annotations:
+            ingress.kubernetes.io/ssl-redirect: "true"
+            ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true" 
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          tls:
+            - secretName: artifactory-tls
+              hosts:
+                - artifactory.platform.dramisinfo.com
   destination:
     server: https://kubernetes.default.svc
     namespace: artifactory
