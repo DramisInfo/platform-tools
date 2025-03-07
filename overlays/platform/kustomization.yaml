@@ -7,5 +7,5 @@ resources:
   - ingress-controller-nginx.yaml
   - harbor.yaml
   - vault.yaml
-
+  - jfrog-artifactory.yaml
   # - test-helm.yaml
