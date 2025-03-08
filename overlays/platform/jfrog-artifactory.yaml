@@ -16,8 +16,8 @@ spec:
     helm:
       values: |
         artifactory:
-          nginx
-            enabled = false
+          nginx:
+            enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: artifactory
