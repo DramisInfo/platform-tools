@@ -5,7 +5,7 @@ commonLabels:
 resources:
   - cluster-issuer.yaml
   - ingress-controller-nginx.yaml
-  - vault.yaml
+  # - vault.yaml
   # - harbor.yaml
   # - jfrog-artifactory.yaml
   # - test-helm.yaml
