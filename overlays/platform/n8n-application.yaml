@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: n8n
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: n8n
+    repoURL: https://n8n-io.github.io/n8n-helm-chart/
+    targetRevision: 0.10.1
+    helm:
+      values: |
+        fullnameOverride: n8n
+        image:
+          repository: n8nio/n8n
+          tag: latest
+          pullPolicy: IfNotPresent
+        
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          hosts:
+            - host: n8n.example.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: n8n-tls
+              hosts:
+                - n8n.example.com
+        
+        persistence:
+          enabled: true
+          size: 10Gi
+          
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        
+        n8n:
+          encryption:
+            enabled: true
+          env:
+            N8N_PORT: "5678"
+            N8N_PROTOCOL: "https"
+            NODE_ENV: "production"
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: n8n
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
