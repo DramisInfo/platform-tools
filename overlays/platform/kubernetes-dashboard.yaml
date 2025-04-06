@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: "https://kubernetes.github.io/dashboard"
-    targetRevision: "7.0.0"
+    targetRevision: "6.0.0"
     chart: kubernetes-dashboard
     helm:
       valuesObject:
@@ -27,37 +27,26 @@ spec:
             secretName: kubernetes-dashboard-tls
             useDefaultAnnotations: false
             annotations:
-              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
               nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
             issuer:
               name: letsencrypt-platform
               scope: cluster
 
-        kong:
-          proxy:
-            type: ClusterIP
-            tls:
-              enabled: true
+          containers:
+            args:
+              - --enable-skip-login
+              - --disable-settings-authorizer
+              - --enable-insecure-login
+              - --token-ttl=0
+              - --system-banner="PLATFORM KUBERNETES DASHBOARD"
 
-        extraArgs:
-          - --enable-skip-login
-          - --disable-settings-authorizer
-          - --enable-insecure-login
-          - --token-ttl=86400
-
-        protocolHttp: false
-
-        settings:
-          global:
-            clusterName: "Platform Kubernetes"
-            itemsPerPage: 20
-            logsAutoRefreshTimeInterval: 5
-            resourceAutoRefreshTimeInterval: 5
-            disableAccessDeniedNotifications: true
+        auth:
+          enabled: false
 
         rbac:
           clusterReadOnlyRole: true
+          create: true
 
         serviceAccount:
           create: true
