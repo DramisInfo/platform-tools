@@ -9,8 +9,8 @@ spec:
   project: default
   source:
     chart: n8n
-    repoURL: https://n8n-io.github.io/n8n-helm-chart/
-    targetRevision: 0.10.1
+    repoURL: https://community-charts.github.io/helm-charts
+    targetRevision: 1.5.4
     helm:
       values: |
         fullnameOverride: n8n
@@ -21,7 +21,7 @@ spec:
 
         ingress:
           enabled: true
-          className: nginx
+          ingressClassName: nginx
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hosts:
