@@ -13,46 +13,20 @@ spec:
     targetRevision: 1.5.4
     helm:
       values: |
-        fullnameOverride: n8n
-        image:
-          repository: n8nio/n8n
-          tag: latest
-          pullPolicy: IfNotPresent
-
         ingress:
           enabled: true
-          ingressClassName: nginx
+          className: nginx
           annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            cert-manager.io/cluster-issuer: letsencrypt-prod
           hosts:
-            - host: n8n.example.com
+            - host: n8n.platform.dramisinfo.com
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - secretName: n8n-tls
               hosts:
-                - n8n.example.com
-
-        persistence:
-          enabled: true
-          size: 10Gi
-          
-        resources:
-          limits:
-            cpu: 1
-            memory: 1Gi
-          requests:
-            cpu: 500m
-            memory: 512Mi
-
-        n8n:
-          encryption:
-            enabled: true
-          env:
-            N8N_PORT: "5678"
-            N8N_PROTOCOL: "https"
-            NODE_ENV: "production"
+                - n8n.platform.dramisinfo.com
 
   destination:
     server: https://kubernetes.default.svc
