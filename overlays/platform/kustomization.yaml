@@ -5,6 +5,8 @@ commonLabels:
 resources:
   - cluster-issuer.yaml
   - ingress-controller-nginx.yaml
+  - grafana-application.yaml
+  - prometheus-application.yaml
   - ollama-application.yaml
   - ollama-model-puller.yaml
   - open-webui-application.yaml

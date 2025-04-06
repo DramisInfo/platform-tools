@@ -38,6 +38,55 @@ spec:
             org_role: Viewer
           auth:
             disable_login_form: true
+
+        # Preconfigured datasources for Prometheus
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+              - name: Prometheus
+                type: prometheus
+                url: http://prometheus-server.monitoring.svc.cluster.local
+                access: proxy
+                isDefault: true
+
+        # Dashboards configuration
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+              - name: "kubernetes"
+                orgId: 1
+                folder: "Kubernetes"
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/kubernetes
+
+        # Predefined dashboards for cluster monitoring
+        dashboards:
+          kubernetes:
+            k8s-cluster-overview:
+              gnetId: 15757 # Kubernetes Cluster Overview
+              revision: 1
+              datasource: Prometheus
+            k8s-node-exporter:
+              gnetId: 1860 # Node Exporter Full
+              revision: 30
+              datasource: Prometheus
+            k8s-workloads:
+              gnetId: 8588 # Kubernetes Deployment Statefulset Daemonset metrics
+              revision: 1
+              datasource: Prometheus
+            k8s-resource-requests:
+              gnetId: 13770 # Kubernetes / Resources / Cluster
+              revision: 1
+              datasource: Prometheus
+            k8s-pod-monitoring:
+              gnetId: 6781 # Kubernetes Pod Monitoring
+              revision: 1
+              datasource: Prometheus
   syncPolicy:
     automated:
       prune: true
