@@ -35,17 +35,6 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "500m"
-        extraEnvVars:
-          - name: OPENAI_API_KEY
-            value: "0p3n-w3bu!"
-          - name: ADMIN_USERNAME
-            value: "admin"
-          - name: ADMIN_PASSWORD
-            value: "admin"
-          - name: ADMIN_EMAIL
-            value: "admin@example.com"
-          - name: ENABLE_SIGNUP
-            value: "false"
   destination:
     server: https://kubernetes.default.svc
     namespace: open-webui
