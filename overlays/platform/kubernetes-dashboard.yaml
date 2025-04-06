@@ -16,7 +16,6 @@ spec:
     chart: kubernetes-dashboard
     helm:
       valuesObject:
-        # Correctly placing ingress under the app section
         app:
           ingress:
             enabled: true
@@ -28,25 +27,19 @@ spec:
             secretName: kubernetes-dashboard-tls
             useDefaultAnnotations: false
             annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-platform
-              kubernetes.io/tls-acme: "true"
               nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-            tls:
-              - secretName: kubernetes-dashboard-tls
-                hosts:
-                  - k8s-dashboard.platform.dramisinfo.com
+            issuer:
+              name: letsencrypt-platform
+              scope: cluster
 
-        # Extra args for Dashboard
         extraArgs:
           - --enable-skip-login
           - --disable-settings-authorizer
           - --enable-insecure-login
           - --token-ttl=86400
 
-        # Use HTTP protocol rather than HTTPS
         protocolHttp: true
 
-        # Settings for Dashboard
         settings:
           global:
             clusterName: "Platform Kubernetes"
@@ -55,16 +48,13 @@ spec:
             resourceAutoRefreshTimeInterval: 5
             disableAccessDeniedNotifications: true
 
-        # RBAC resources
         rbac:
           clusterReadOnlyRole: true
 
-        # Service account for skip login
         serviceAccount:
           create: true
           name: kubernetes-dashboard
 
-        # Enable metrics scraper
         metricsScraper:
           enabled: true
 
