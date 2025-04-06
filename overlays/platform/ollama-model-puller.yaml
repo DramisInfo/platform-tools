@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ollama-model-puller
+  namespace: ollama
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: curl
+          image: curlimages/curl:latest
+          command:
+            - sh
+            - -c
+            - |
+              # Wait for Ollama to be ready
+              until curl -s http://ollama:11434/api/tags; do
+                echo "Waiting for Ollama to start..."
+                sleep 5
+              done
+              # Pull the model
+              curl -X POST http://ollama:11434/api/pull -d '{"name": "orca-mini:3b"}'
+              echo "Model orca-mini:3b pulled successfully"
+      restartPolicy: OnFailure
