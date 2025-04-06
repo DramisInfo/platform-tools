@@ -25,14 +25,20 @@ spec:
             pathType: Prefix
             path: /
             secretName: kubernetes-dashboard-tls
-            useDefaultAnnotations: true
+            useDefaultAnnotations: false
             annotations:
+              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
             issuer:
               name: letsencrypt-platform
               scope: cluster
+
+        kong:
+          proxy:
+            type: ClusterIP
+            tls:
+              enabled: true
 
         extraArgs:
           - --enable-skip-login
@@ -40,7 +46,7 @@ spec:
           - --enable-insecure-login
           - --token-ttl=86400
 
-        protocolHttp: true
+        protocolHttp: false
 
         settings:
           global:
