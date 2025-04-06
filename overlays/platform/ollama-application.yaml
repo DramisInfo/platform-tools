@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: ollama
+    repoURL: https://cowboysysop.github.io/charts/
+    targetRevision: 1.6.4
+    helm:
+      values: |
+        persistence:
+          enabled: true
+          size: 20Gi
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+          limits:
+            memory: "16Gi"
+            cpu: "8"
+        service:
+          type: ClusterIP
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          hosts:
+            - host: ollama.platform.dramisinfo.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: ollama-tls
+              hosts:
+                - ollama.platform.dramisinfo.com
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ollama
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
