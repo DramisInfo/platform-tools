@@ -16,27 +16,36 @@ spec:
     chart: kubernetes-dashboard
     helm:
       valuesObject:
-        # Dashboard configuration
-        dashboard:
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-platform
-            hosts:
-              - k8s-dashboard.platform.dramisinfo.com
-            tls:
-              - secretName: kubernetes-dashboard-tls
-                hosts:
-                  - k8s-dashboard.platform.dramisinfo.com
+        # Root level ingress configuration - correct structure
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hosts:
+            - k8s-dashboard.platform.dramisinfo.com
+          pathType: Prefix
+          path: /
+          secretName: kubernetes-dashboard-tls
+          useDefaultAnnotations: false
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+          tls:
+            - secretName: kubernetes-dashboard-tls
+              hosts:
+                - k8s-dashboard.platform.dramisinfo.com
 
-          extraArgs:
-            - --enable-skip-login
-            - --disable-settings-authorizer
-            - --enable-insecure-login
-            - --token-ttl=86400
+        # Extra args for Dashboard
+        extraArgs:
+          - --enable-skip-login
+          - --disable-settings-authorizer
+          - --enable-insecure-login
+          - --token-ttl=86400
 
-        # Additional settings
+        # Use HTTP protocol rather than HTTPS
+        protocolHttp: true
+
+        # Settings for Dashboard
         settings:
           clusterName: "Platform Kubernetes"
           itemsPerPage: 20
@@ -44,16 +53,16 @@ spec:
           resourceAutoRefreshTimeInterval: 5
           disableAccessDeniedNotifications: true
 
-        # Set up RBAC resources
+        # RBAC resources
         rbac:
           clusterReadOnlyRole: true
 
-        # Setup service account (for skip login)
+        # Service account for skip login
         serviceAccount:
           create: true
           name: kubernetes-dashboard
 
-        protocolHttp: true
+        # Enable metrics scraper
         metricsScraper:
           enabled: true
 
