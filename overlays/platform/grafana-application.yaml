@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: monitoring
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://grafana.github.io/helm-charts"
+    targetRevision: 8.4.4
+    chart: grafana
+    helm:
+      valuesObject:
+        adminPassword: admin
+        persistence:
+          enabled: true
+          size: 5Gi
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          hosts:
+            - grafana.platform.dramisinfo.com
+          tls:
+            - secretName: grafana-platform-tls
+              hosts:
+                - grafana.platform.dramisinfo.com
+        # Anonymous access configuration
+        grafana.ini:
+          auth.anonymous:
+            enabled: true
+            org_role: Viewer
+          auth:
+            disable_login_form: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
