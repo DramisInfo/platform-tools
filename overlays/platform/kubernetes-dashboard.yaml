@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: "https://kubernetes.github.io/dashboard"
-    targetRevision: "6.0.0"
+    targetRevision: "6.0.8"
     chart: kubernetes-dashboard
     helm:
       valuesObject:
@@ -32,39 +32,39 @@ spec:
             - secretName: kubernetes-dashboard-tls
               hosts:
                 - k8s-dashboard.platform.dramisinfo.com
-        
+
         # Skip login and disable settings authorizer
         extraArgs:
           - --enable-skip-login
           - --disable-settings-authorizer
           - --enable-insecure-login
           - --token-ttl=0
-        
+
         # Version 6.0.0 doesn't have the auth section like version 7.0.0
         # It has a simpler authentication mechanism controlled by extraArgs
-        
+
         # RBAC configuration
         rbac:
           clusterReadOnlyRole: true
           create: true
-        
+
         # Service account configuration
         serviceAccount:
           create: true
           name: kubernetes-dashboard
-        
+
         # Enable metrics scraper for dashboard
         metricsScraper:
           enabled: true
-        
+
         # Set a custom header name with your cluster name (optional)
         settings:
           clusterName: "Platform Kubernetes"
-        
+
         # This is needed for proper security context
         securityContext:
           enabled: true
-  
+
   syncPolicy:
     automated:
       prune: true
