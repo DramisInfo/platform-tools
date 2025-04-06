@@ -16,24 +16,25 @@ spec:
     chart: kubernetes-dashboard
     helm:
       valuesObject:
-        # Root level ingress configuration - correct structure
-        ingress:
-          enabled: true
-          ingressClassName: nginx
-          hosts:
-            - k8s-dashboard.platform.dramisinfo.com
-          pathType: Prefix
-          path: /
-          secretName: kubernetes-dashboard-tls
-          useDefaultAnnotations: false
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-platform
-            kubernetes.io/tls-acme: "true"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-          tls:
-            - secretName: kubernetes-dashboard-tls
-              hosts:
-                - k8s-dashboard.platform.dramisinfo.com
+        # Correctly placing ingress under the app section
+        app:
+          ingress:
+            enabled: true
+            hosts:
+              - k8s-dashboard.platform.dramisinfo.com
+            ingressClassName: nginx
+            pathType: Prefix
+            path: /
+            secretName: kubernetes-dashboard-tls
+            useDefaultAnnotations: false
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-platform
+              kubernetes.io/tls-acme: "true"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            tls:
+              - secretName: kubernetes-dashboard-tls
+                hosts:
+                  - k8s-dashboard.platform.dramisinfo.com
 
         # Extra args for Dashboard
         extraArgs:
@@ -47,11 +48,12 @@ spec:
 
         # Settings for Dashboard
         settings:
-          clusterName: "Platform Kubernetes"
-          itemsPerPage: 20
-          logsAutoRefreshTimeInterval: 5
-          resourceAutoRefreshTimeInterval: 5
-          disableAccessDeniedNotifications: true
+          global:
+            clusterName: "Platform Kubernetes"
+            itemsPerPage: 20
+            logsAutoRefreshTimeInterval: 5
+            resourceAutoRefreshTimeInterval: 5
+            disableAccessDeniedNotifications: true
 
         # RBAC resources
         rbac:
