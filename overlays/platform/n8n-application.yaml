@@ -18,7 +18,7 @@ spec:
           repository: n8nio/n8n
           tag: latest
           pullPolicy: IfNotPresent
-        
+
         ingress:
           enabled: true
           className: nginx
@@ -33,7 +33,7 @@ spec:
             - secretName: n8n-tls
               hosts:
                 - n8n.example.com
-        
+
         persistence:
           enabled: true
           size: 10Gi
@@ -45,7 +45,7 @@ spec:
           requests:
             cpu: 500m
             memory: 512Mi
-        
+
         n8n:
           encryption:
             enabled: true
@@ -53,11 +53,11 @@ spec:
             N8N_PORT: "5678"
             N8N_PROTOCOL: "https"
             NODE_ENV: "production"
-  
+
   destination:
     server: https://kubernetes.default.svc
     namespace: n8n
-  
+
   syncPolicy:
     automated:
       prune: true
