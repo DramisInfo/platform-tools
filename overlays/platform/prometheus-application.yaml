@@ -16,6 +16,22 @@ spec:
     chart: prometheus
     helm:
       valuesObject:
+        rbac:
+          create: true
+        serviceAccounts:
+          server:
+            create: true
+            name: prometheus-server
+            annotations: {}
+          alertmanager:
+            create: true
+            name: ""
+          pushgateway:
+            create: true
+            name: ""
+          node-exporter:
+            create: true
+            name: ""
         server:
           persistentVolume:
             enabled: true
@@ -42,6 +58,39 @@ spec:
             targetPort: 9090
             nameOverride: prometheus-server
             type: ClusterIP
+        # Configure kube-state-metrics for additional workload metrics
+        kube-state-metrics:
+          enabled: true
+        # Configure Prometheus to collect from the kubelet with proper auth
+        extraScrapeConfigs: |
+          - job_name: 'kubernetes-nodes'
+            kubernetes_sd_configs:
+              - role: node
+            relabel_configs:
+              - action: labelmap
+                regex: __meta_kubernetes_node_label_(.+)
+            bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+            tls_config:
+              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              insecure_skip_verify: true
+            scheme: https
+          - job_name: 'kubernetes-kubelet'
+            honor_labels: true
+            kubernetes_sd_configs:
+              - role: node
+            relabel_configs:
+              - source_labels: [__address__]
+                regex: (.+):(.+)
+                target_label: __address__
+                replacement: ${1}:10250
+              - action: labelmap
+                regex: __meta_kubernetes_node_label_(.+)
+            bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+            tls_config:
+              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              insecure_skip_verify: true
+            scheme: https
+            metrics_path: /metrics
         serverFiles:
           prometheus.yml:
             scrape_configs:
@@ -49,16 +98,6 @@ spec:
                 static_configs:
                   - targets:
                       - localhost:9090
-              - job_name: kubernetes-nodes
-                kubernetes_sd_configs:
-                  - role: node
-                relabel_configs:
-                  - action: labelmap
-                    regex: __meta_kubernetes_node_label_(.+)
-                scheme: https
-                tls_config:
-                  ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-                  insecure_skip_verify: true
               - job_name: kubernetes-pods
                 kubernetes_sd_configs:
                   - role: pod
