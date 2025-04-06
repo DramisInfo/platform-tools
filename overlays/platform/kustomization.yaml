@@ -5,10 +5,10 @@ commonLabels:
 resources:
   - cluster-issuer.yaml
   - ingress-controller-nginx.yaml
+  - ollama-application.yaml
+  - ollama-model-puller.yaml
+  - open-webui-application.yaml
   # - n8n-application.yaml
-  # - ollama-application.yaml
-  # - ollama-model-puller.yaml
-  # - open-webui-application.yaml
   # - vault.yaml
   # - harbor.yaml
   # - jfrog-artifactory.yaml
