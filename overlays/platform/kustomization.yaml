@@ -8,7 +8,7 @@ resources:
   - ollama-application.yaml
   - ollama-model-puller.yaml
   - open-webui-application.yaml
-  # - kubernetes-dashboard.yaml
+  - kubernetes-dashboard.yaml
   # - n8n-application.yaml
   # - vault.yaml
   # - harbor.yaml
