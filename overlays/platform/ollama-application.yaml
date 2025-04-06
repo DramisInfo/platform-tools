@@ -27,14 +27,14 @@ spec:
           type: ClusterIP
         ingress:
           enabled: true
+          ingressClassName: nginx
+          pathType: Prefix
           annotations:
-            kubernetes.io/ingress.class: nginx
             cert-manager.io/cluster-issuer: letsencrypt-platform
           hosts:
             - host: ollama.platform.dramisinfo.com
               paths:
-                - path: /
-                  pathType: Prefix
+                - /
           tls:
             - secretName: ollama-tls
               hosts:
