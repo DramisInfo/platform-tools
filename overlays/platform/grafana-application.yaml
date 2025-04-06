@@ -71,21 +71,9 @@ spec:
               gnetId: 15757 # Kubernetes Cluster Overview
               revision: 1
               datasource: Prometheus
-            k8s-node-exporter:
-              gnetId: 1860 # Node Exporter Full
-              revision: 30
-              datasource: Prometheus
-            k8s-workloads:
-              gnetId: 8588 # Kubernetes Deployment Statefulset Daemonset metrics
-              revision: 1
-              datasource: Prometheus
-            k8s-resource-requests:
-              gnetId: 13770 # Kubernetes / Resources / Cluster
-              revision: 1
-              datasource: Prometheus
-            k8s-pod-monitoring:
-              gnetId: 6781 # Kubernetes Pod Monitoring
-              revision: 1
+            k8s-capacity:
+              gnetId: 5228
+              revision: 6
               datasource: Prometheus
   syncPolicy:
     automated:
