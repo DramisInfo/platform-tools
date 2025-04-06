@@ -6,9 +6,9 @@ resources:
   - cluster-issuer.yaml
   - ingress-controller-nginx.yaml
   - n8n-application.yaml
-  - ollama-application.yaml
-  - ollama-model-puller.yaml
-  - open-webui-application.yaml
+  # - ollama-application.yaml
+  # - ollama-model-puller.yaml
+  # - open-webui-application.yaml
   # - vault.yaml
   # - harbor.yaml
   # - jfrog-artifactory.yaml
