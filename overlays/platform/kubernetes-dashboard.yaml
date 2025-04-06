@@ -16,45 +16,55 @@ spec:
     chart: kubernetes-dashboard
     helm:
       valuesObject:
-        app:
-          ingress:
-            enabled: true
-            hosts:
-              - k8s-dashboard.platform.dramisinfo.com
-            ingressClassName: nginx
-            pathType: Prefix
-            path: /
-            secretName: kubernetes-dashboard-tls
-            useDefaultAnnotations: false
-            annotations:
-              nginx.ingress.kubernetes.io/ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-            issuer:
-              name: letsencrypt-platform
-              scope: cluster
-
-          containers:
-            args:
-              - --enable-skip-login
-              - --disable-settings-authorizer
-              - --enable-insecure-login
-              - --token-ttl=0
-              - --system-banner="PLATFORM KUBERNETES DASHBOARD"
-
-        auth:
-          enabled: false
-
+        # Root-level ingress configuration for version 6.0.0
+        ingress:
+          enabled: true
+          paths:
+            - /
+          hosts:
+            - k8s-dashboard.platform.dramisinfo.com
+          className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          tls:
+            - secretName: kubernetes-dashboard-tls
+              hosts:
+                - k8s-dashboard.platform.dramisinfo.com
+        
+        # Skip login and disable settings authorizer
+        extraArgs:
+          - --enable-skip-login
+          - --disable-settings-authorizer
+          - --enable-insecure-login
+          - --token-ttl=0
+        
+        # Version 6.0.0 doesn't have the auth section like version 7.0.0
+        # It has a simpler authentication mechanism controlled by extraArgs
+        
+        # RBAC configuration
         rbac:
           clusterReadOnlyRole: true
           create: true
-
+        
+        # Service account configuration
         serviceAccount:
           create: true
           name: kubernetes-dashboard
-
+        
+        # Enable metrics scraper for dashboard
         metricsScraper:
           enabled: true
-
+        
+        # Set a custom header name with your cluster name (optional)
+        settings:
+          clusterName: "Platform Kubernetes"
+        
+        # This is needed for proper security context
+        securityContext:
+          enabled: true
+  
   syncPolicy:
     automated:
       prune: true
