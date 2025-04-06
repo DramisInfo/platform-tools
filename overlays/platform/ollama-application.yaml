@@ -39,10 +39,6 @@ spec:
             - secretName: ollama-tls
               hosts:
                 - ollama.platform.dramisinfo.com
-        # Use a lifecycle postStart hook to download the model when the container starts
-        extraArgs:
-          postStart: |
-            curl -X POST http://localhost:11434/api/pull -d '{"name": "orca-mini:3b"}'
   destination:
     server: https://kubernetes.default.svc
     namespace: ollama
