@@ -10,3 +10,4 @@ resources:
   - ollama-application.yaml
   - ollama-model-puller.yaml
   - open-webui-application.yaml
+  - n8n-application.yaml
