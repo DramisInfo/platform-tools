@@ -35,6 +35,7 @@ spec:
                 - gitea.platform.dramisinfo.com
         actions:
           enabled: true
+          
         gitea:
           admin:
             username: gitadmin
