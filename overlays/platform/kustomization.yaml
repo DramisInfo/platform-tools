@@ -11,4 +11,4 @@ resources:
   - ollama-model-puller.yaml
   - open-webui-application.yaml
   - n8n-application.yaml
-  # - gitea-application.yaml
+  - gitea-application.yaml
