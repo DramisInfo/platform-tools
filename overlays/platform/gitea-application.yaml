@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: "https://dl.gitea.io/charts/"
     targetRevision: 11.0.1
-    chart: gitea
+    chart: gitea-charts/gitea
     helm:
       valuesObject:
         persistence:
