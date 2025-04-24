@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: gitea
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://dl.gitea.io/charts/"
+    targetRevision: 8.1.0
+    chart: gitea
+    helm:
+      valuesObject:
+        persistence:
+          enabled: true
+          size: 10Gi
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          hosts:
+            - host: gitea.platform.dramisinfo.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: gitea-platform-tls
+              hosts:
+                - gitea.platform.dramisinfo.com
+        gitea:
+          admin:
+            username: gitadmin
+            password: changeme
+            email: admin@example.com
+          config:
+            server:
+              DOMAIN: gitea.platform.dramisinfo.com
+              ROOT_URL: https://gitea.platform.dramisinfo.com/
+            service:
+              DISABLE_REGISTRATION: true
+            repository:
+              DEFAULT_PRIVATE: true
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipHooks=true
