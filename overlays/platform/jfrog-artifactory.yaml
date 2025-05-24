@@ -12,7 +12,7 @@ spec:
   source:
     chart: artifactory-oss
     repoURL: https://charts.jfrog.io
-    targetRevision: "*"
+    targetRevision: "107.111.4"
     helm:
       values: |
         artifactory:

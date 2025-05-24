@@ -7,7 +7,7 @@ resources:
   - ingress-controller-nginx.yaml
   - grafana-application.yaml
   - prometheus-application.yaml
-  # - jfrog-artifactory.yaml
+  - jfrog-artifactory.yaml
   # - ollama-application.yaml
   # - ollama-model-puller.yaml
   # - open-webui-application.yaml
