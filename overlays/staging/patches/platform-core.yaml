@@ -12,7 +12,12 @@ spec:
           clusterName: staging
         bootstrap:
           nats:
+            enabled: true
             gateway:
               enabled: true
-              name: "dev-cluster"
+              name: "staging-cluster"
               advertise: "nats.staging.dramisinfo.com:7222"
+              gateways:
+                - name: "dev-cluster"
+                  urls: 
+                    - "nats://nats.dev.dramisinfo.com:7222"
