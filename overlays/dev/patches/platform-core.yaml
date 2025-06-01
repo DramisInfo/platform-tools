@@ -12,9 +12,9 @@ spec:
           clusterName: dev
         bootstrap:
           nats:
-            enabled: false
+            enabled: true
             gateway:
-              enabled: true
+              enabled: false
               name: "dev-cluster"
               advertise: "nats.dev.dramisinfo.com:7222"
               gateways:
