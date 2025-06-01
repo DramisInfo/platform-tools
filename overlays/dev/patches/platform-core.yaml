@@ -17,16 +17,3 @@ spec:
               enabled: true
               name: "dev-cluster"
               advertise: "nats.dev.dramisinfo.com:7222"
-          # crossplane:
-          #   enabled: true
-          # atlas:
-          #   enabled: true
-          # terraformOperator:
-          #   enabled: true
-
-          # prometheus:
-          #   enabled: true
-          # grafana:
-          #   enabled: true
-          # loki:
-          #   enabled: true

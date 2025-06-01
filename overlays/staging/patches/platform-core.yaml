@@ -5,11 +5,14 @@ metadata:
   namespace: argocd
 spec:
   source:
-    targetRevision: "v0.9.2"
+    targetRevision: "v0.9.3"
     helm:
       valuesObject:
         global:
           clusterName: staging
         bootstrap:
-          # externalSecretOperator:
-          #   enabled: true
+          nats:
+            gateway:
+              enabled: true
+              name: "dev-cluster"
+              advertise: "nats.staging.dramisinfo.com:7222"
