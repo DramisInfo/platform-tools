@@ -12,7 +12,9 @@ spec:
           clusterName: dev
         bootstrap:
           nats:
-            enabled: false
+            enabled: true
+            gateway:
+              enabled: true
           # crossplane:
           #   enabled: true
           # atlas:
