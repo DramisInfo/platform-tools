@@ -12,7 +12,7 @@ spec:
           clusterName: dev
         bootstrap:
           nats:
-            enabled: true
+            enabled: false
             gateway:
               enabled: true
               name: "dev-cluster"
