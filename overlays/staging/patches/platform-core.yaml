@@ -11,5 +11,5 @@ spec:
         global:
           clusterName: staging
         bootstrap:
-          externalSecretOperator:
-            enabled: true
+          # externalSecretOperator:
+          #   enabled: true
