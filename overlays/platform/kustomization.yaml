@@ -5,6 +5,7 @@ commonLabels:
 resources:
   - cluster-issuer.yaml
   - ingress-controller-nginx.yaml
+  - harbor.yaml
   # - grafana-application.yaml
   # - prometheus-application.yaml
   # - vault.yaml
