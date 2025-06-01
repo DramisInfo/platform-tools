@@ -13,9 +13,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: registry.platform.dramisinfo.com/platform
-    targetRevision: "0.3.7"
-    chart: platform-core
+    repoURL: https://github.com/DramisInfo/platform-helm.git
+    targetRevision: "HEAD"
+    path: platform-core
   syncPolicy:
     automated:
       prune: true
