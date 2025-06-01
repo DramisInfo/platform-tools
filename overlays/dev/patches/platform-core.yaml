@@ -11,17 +11,17 @@ spec:
         global:
           clusterName: dev
         bootstrap:
-          crossplane:
-            enabled: true
-          atlas:
-            enabled: true
-          terraformOperator:
-            enabled: true
-          externalSecretOperator:
-            enabled: true
-          prometheus:
-            enabled: true
-          grafana:
-            enabled: true
-          loki:
-            enabled: true
+          # crossplane:
+          #   enabled: true
+          # atlas:
+          #   enabled: true
+          # terraformOperator:
+          #   enabled: true
+          # externalSecretOperator:
+          #   enabled: true
+          # prometheus:
+          #   enabled: true
+          # grafana:
+          #   enabled: true
+          # loki:
+          #   enabled: true
