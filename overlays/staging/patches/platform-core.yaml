@@ -10,3 +10,6 @@ spec:
       valuesObject:
         global:
           clusterName: staging
+        bootstrap:
+          externalSecretOperator:
+            enabled: true
