@@ -17,6 +17,6 @@ spec:
               enabled: true
               name: "staging-cluster"
               advertise: "nats.staging.dramisinfo.com:7222"
-              # gateways:
-              #   - name: "dev-cluster"
-              #     url: "nats://nats.dev.dramisinfo.com:7222"
+              gateways:
+                - name: "dev-cluster"
+                  url: "nats://nats.dev.dramisinfo.com:7222"
