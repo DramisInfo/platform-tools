@@ -5,14 +5,14 @@ metadata:
   namespace: argocd
 spec:
   source:
-    targetRevision: "v0.9.7"
+    targetRevision: "v0.9.8"
     helm:
       valuesObject:
         global:
           clusterName: staging
         bootstrap:
           nats:
-            enabled: true
+            enabled: false
             gateway:
               enabled: true
               name: "staging-cluster"
