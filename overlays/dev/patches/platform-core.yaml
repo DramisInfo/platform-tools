@@ -11,8 +11,8 @@ spec:
         global:
           clusterName: dev
         bootstrap:
-          externalSecretOperator:
-            enabled: true
+          nats:
+            enabled: false
           # crossplane:
           #   enabled: true
           # atlas:
