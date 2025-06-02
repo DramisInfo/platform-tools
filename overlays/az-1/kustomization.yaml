@@ -4,7 +4,6 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  # - crossplane-provider.yaml
 
 patches:
   - path: patches/platform-core.yaml
