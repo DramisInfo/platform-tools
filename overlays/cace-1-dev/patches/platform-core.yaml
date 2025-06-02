@@ -18,5 +18,5 @@ spec:
               name: "cace-1-dev"
               advertise: "nats.cace-1-dev.dramisinfo.com:7222"
               gateways:
-                - name: "staging-cluster"
-                  url: "nats://nats.staging.dramisinfo.com:7222"
+                - name: "cace-2-dev"
+                  url: "nats://nats.cace-2-dev.dramisinfo.com:7222"
