@@ -9,14 +9,14 @@ spec:
     helm:
       valuesObject:
         global:
-          clusterName: dev
+          clusterName: cace-1-dev
         bootstrap:
           nats:
             enabled: true
             gateway:
               enabled: true
-              name: "dev-cluster"
-              advertise: "nats.dev.dramisinfo.com:7222"
+              name: "cace-1-dev"
+              advertise: "nats.cace-1-dev.dramisinfo.com:7222"
               gateways:
                 - name: "staging-cluster"
                   url: "nats://nats.staging.dramisinfo.com:7222"
