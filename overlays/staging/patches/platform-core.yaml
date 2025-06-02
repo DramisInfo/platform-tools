@@ -12,7 +12,7 @@ spec:
           clusterName: staging
         bootstrap:
           nats:
-            enabled: false
+            enabled: true
             gateway:
               enabled: true
               name: "staging-cluster"
