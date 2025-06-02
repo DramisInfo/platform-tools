@@ -9,14 +9,14 @@ spec:
     helm:
       valuesObject:
         global:
-          clusterName: az-1
+          clusterName: az-2
         bootstrap:
           nats:
             enabled: true
             gateway:
               enabled: true
-              name: "az-1-cluster"
-              advertise: "nats.az-1.dramisinfo.com:7222"
+              name: "az-2-cluster"
+              advertise: "nats.az-2.dramisinfo.com:7222"
               gateways:
-                - name: "az-2-cluster"
-                  url: "nats://nats.az-2.dramisinfo.com:7222"
+                - name: "az-1-cluster"
+                  url: "nats://nats.az-1.dramisinfo.com:7222"
