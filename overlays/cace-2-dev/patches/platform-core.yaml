@@ -9,7 +9,7 @@ spec:
     helm:
       valuesObject:
         global:
-          clusterName: cace-2-dev
+          clusterName: cace-2-dev-cluster
         bootstrap:
           nats:
             enabled: true
