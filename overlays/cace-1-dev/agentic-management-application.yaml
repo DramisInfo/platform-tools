@@ -20,13 +20,18 @@ spec:
         keda:
           enabled: true
         
-        # NATS Configuration
+        # NATS Configuration - using existing cluster NATS
         nats:
-          enabled: true
+          enabled: false  # Disable chart NATS installation
           
         # Environment-specific configuration for dev
         global:
           environment: dev
+          # External NATS configuration
+          nats:
+            url: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+            user: "app"
+            password: "nats-app-dev"
           
         # Controller configuration
         controller:
@@ -38,6 +43,33 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
+          env:
+            - name: NATS_URL
+              value: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+            - name: NATS_USER
+              value: "app"
+            - name: NATS_PASSWORD
+              value: "nats-app-dev"
+              
+        # Configuration Manager configuration
+        configurationManager:
+          env:
+            - name: NATS_URL
+              value: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+            - name: NATS_USER
+              value: "app"
+            - name: NATS_PASSWORD
+              value: "nats-app-dev"
+              
+        # NATS Gateway configuration
+        natsGateway:
+          env:
+            - name: NATS_URL
+              value: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+            - name: NATS_USER
+              value: "app"
+            - name: NATS_PASSWORD
+              value: "nats-app-dev"
               
         # UI configuration
         ui:
