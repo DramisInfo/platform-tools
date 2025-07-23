@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: agentic-management
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: agentic-management
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://github.com/DramisInfo/agentic-management"
+    targetRevision: HEAD
+    path: charts/agentic-platform
+    helm:
+      valuesObject:
+        # KEDA Configuration
+        keda:
+          enabled: true
+        
+        # NATS Configuration
+        nats:
+          enabled: true
+          
+        # Environment-specific configuration for dev
+        global:
+          environment: dev
+          
+        # Controller configuration
+        controller:
+          replicas: 1
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              
+        # UI configuration
+        ui:
+          replicas: 1
+          ingress:
+            enabled: true
+            className: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-platform
+            hosts:
+              - host: agentic-management.cace-1-dev.dramisinfo.com
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - secretName: agentic-management-cace-1-dev-tls
+                hosts:
+                  - agentic-management.cace-1-dev.dramisinfo.com
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
