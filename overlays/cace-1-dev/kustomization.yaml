@@ -8,4 +8,4 @@ resources:
 
 patches:
   - path: patches/platform-core.yaml
-  - path: patches/github-app-secret-patch.yaml
+  # - path: patches/github-app-secret-patch.yaml
