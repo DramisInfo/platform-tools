@@ -76,6 +76,7 @@ spec:
               
         # UI configuration
         ui:
+          enabled: false
           image:
             repository: ghcr.io/dramisinfo/agentic-management/ui
             tag: pr-63
