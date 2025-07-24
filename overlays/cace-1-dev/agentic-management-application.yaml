@@ -34,7 +34,7 @@ spec:
             password: "nats-app-dev"
           
         # Controller configuration
-        controller:
+        agenticPlatformController:
           enabled: false
           image:
             repository: ghcr.io/dramisinfo/agentic-management/controller
