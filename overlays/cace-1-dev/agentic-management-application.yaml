@@ -35,7 +35,7 @@ spec:
           
         # Controller configuration
         agenticPlatformController:
-          enabled: false
+          enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/controller
             tag: pr-63
