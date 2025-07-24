@@ -36,6 +36,9 @@ spec:
         # Controller configuration
         controller:
           enabled: false
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/controller
+            tag: pr-63
           replicas: 1
           resources:
             requests:
