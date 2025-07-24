@@ -35,6 +35,7 @@ spec:
           
         # Controller configuration
         controller:
+          enabled: false
           replicas: 1
           resources:
             requests:
