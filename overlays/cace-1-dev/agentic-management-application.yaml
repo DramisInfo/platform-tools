@@ -76,6 +76,9 @@ spec:
               
         # UI configuration
         ui:
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/ui
+            tag: pr-63
           replicas: 1
           ingress:
             enabled: true
