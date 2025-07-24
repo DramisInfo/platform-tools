@@ -63,6 +63,9 @@ spec:
               
         # NATS Gateway configuration
         natsGateway:
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
+            tag: pr-63
           env:
             - name: NATS_URL
               value: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
