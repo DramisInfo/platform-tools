@@ -75,6 +75,8 @@ spec:
             repository: ghcr.io/dramisinfo/agentic-management/ui
             tag: pr-63
           replicas: 1
+          env:
+            NEXT_PUBLIC_API_URL: http://agentic-management.cace-1-dev.dramisinfo.com/api
 
         ingress:
           enabled: true
