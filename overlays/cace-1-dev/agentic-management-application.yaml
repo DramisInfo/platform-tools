@@ -38,7 +38,7 @@ spec:
           enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/agentic-platform-controller
-            tag: pr-63
+            tag: pr-64
           replicas: 1
           resources:
             requests:
@@ -52,7 +52,7 @@ spec:
         configurationManager:
           image:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
-            tag: pr-63
+            tag: pr-64
           env:
             NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
             NATS_USER: "app"
@@ -62,7 +62,7 @@ spec:
         natsGateway:
           image:
             repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
-            tag: pr-63
+            tag: pr-64
           env:
             NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
             NATS_USER: "app"
@@ -73,7 +73,7 @@ spec:
           enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/ui
-            tag: pr-63
+            tag: pr-64
           replicas: 1
           env:
             NEXT_PUBLIC_API_URL: http://agentic-management.cace-1-dev.dramisinfo.com/api
