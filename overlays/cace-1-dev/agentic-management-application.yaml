@@ -51,7 +51,7 @@ spec:
               
         # Configuration Manager configuration
         configurationManager:
-          enabled: false
+          enabled: true
           replicaCount: 3
           image:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
