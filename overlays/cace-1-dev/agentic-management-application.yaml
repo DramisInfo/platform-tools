@@ -52,7 +52,7 @@ spec:
         # Configuration Manager configuration
         configurationManager:
           enabled: true
-          replicaCount: 3
+          replicaCount: 1
           image:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
             tag: pr-64
