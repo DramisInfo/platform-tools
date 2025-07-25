@@ -57,6 +57,9 @@ spec:
               
         # Configuration Manager configuration
         configurationManager:
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
+            tag: pr-63
           env:
             NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
             NATS_USER: "app"
