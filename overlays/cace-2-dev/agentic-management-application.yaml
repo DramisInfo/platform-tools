@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: agentic-system-1
+  name: agentic-system
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: agentic-system-1
+    namespace: agentic-system
     server: "https://kubernetes.default.svc"
   project: default
   source:
@@ -80,7 +80,7 @@ spec:
           className: nginx
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-platform
-          host: agentic-system-1.cace-2-dev.dramisinfo.com
+          host: agentic-system.cace-2-dev.dramisinfo.com
   syncPolicy:
     automated:
       prune: true

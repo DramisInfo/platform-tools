@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: agentic-management
+  name: agentic-system
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -80,7 +80,7 @@ spec:
           className: nginx
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-platform
-          host: agentic-management.cace-1-dev.dramisinfo.com
+          host: agentic-system.cace-1-dev.dramisinfo.com
   syncPolicy:
     automated:
       prune: true

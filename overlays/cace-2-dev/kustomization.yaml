@@ -4,8 +4,7 @@ commonLabels:
   environment: staging
 resources:
   - ../../base
-  # - agentic-management-application-1.yaml  
-  # - agentic-management-application-2.yaml  
+  - agentic-management-application.yaml  
 
 patches:
   - path: patches/platform-core.yaml
