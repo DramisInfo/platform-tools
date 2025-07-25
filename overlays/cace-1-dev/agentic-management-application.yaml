@@ -58,12 +58,9 @@ spec:
         # Configuration Manager configuration
         configurationManager:
           env:
-            - name: NATS_URL
-              value: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
-            - name: NATS_USER
-              value: "app"
-            - name: NATS_PASSWORD
-              value: "nats-app-dev"
+            NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+            NATS_USER: "app"
+            NATS_PASSWORD: "nats-app-dev"          
               
         # NATS Gateway configuration
         natsGateway:
