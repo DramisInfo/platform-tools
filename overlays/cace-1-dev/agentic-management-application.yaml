@@ -75,20 +75,13 @@ spec:
             repository: ghcr.io/dramisinfo/agentic-management/ui
             tag: pr-63
           replicas: 1
-          ingress:
-            enabled: true
-            className: nginx
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-platform
-            hosts:
-              - host: agentic-management.cace-1-dev.dramisinfo.com
-                paths:
-                  - path: /
-                    pathType: Prefix
-            tls:
-              - secretName: agentic-management-cace-1-dev-tls
-                hosts:
-                  - agentic-management.cace-1-dev.dramisinfo.com
+
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          host: agentic-management.cace-1-dev.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
