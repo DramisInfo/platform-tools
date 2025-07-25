@@ -47,10 +47,6 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
-          env:
-            NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
-            NATS_USER: "app"
-            NATS_PASSWORD: "nats-app-dev"          
               
         # Configuration Manager configuration
         configurationManager:
