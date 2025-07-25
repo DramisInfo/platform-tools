@@ -23,6 +23,7 @@ spec:
         # NATS Configuration - using existing cluster NATS
         nats:
           enabled: false  # Disable chart NATS installation
+          endpoint: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
           
         # Environment-specific configuration for dev
         global:
@@ -54,7 +55,6 @@ spec:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
             tag: pr-64
           env:
-            NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"          
               
@@ -64,7 +64,6 @@ spec:
             repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
             tag: pr-64
           env:
-            NATS_URL: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"
               
@@ -75,8 +74,6 @@ spec:
             repository: ghcr.io/dramisinfo/agentic-management/ui
             tag: pr-64
           replicas: 1
-          env:
-            NEXT_PUBLIC_API_URL: http://agentic-management.cace-1-dev.dramisinfo.com/api
 
         ingress:
           enabled: true
