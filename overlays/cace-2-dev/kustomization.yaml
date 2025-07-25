@@ -5,7 +5,7 @@ commonLabels:
 resources:
   - ../../base
   - agentic-management-application-1.yaml  
-  - agentic-management-application-2.yaml  
+  # - agentic-management-application-2.yaml  
 
 patches:
   - path: patches/platform-core.yaml
