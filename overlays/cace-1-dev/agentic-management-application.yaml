@@ -43,8 +43,14 @@ spec:
         agentRunner:
           sk:
             enabled: true
+            scaling:
+              nats:
+                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"
           agno:
-            enabled: true  
+            enabled: true
+            scaling:
+              nats:
+                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"  
         # Controller configuration
         agenticPlatformController:
           enabled: true
