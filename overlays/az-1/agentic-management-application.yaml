@@ -39,7 +39,7 @@ spec:
           enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/agentic-platform-controller
-            tag: pr-77
+            tag: pr-78
           replicas: 1
           resources:
             requests:
@@ -55,7 +55,7 @@ spec:
           replicaCount: 2
           image:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
-            tag: pr-77
+            tag: pr-78
           env:
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"
@@ -64,7 +64,7 @@ spec:
         natsGateway:
           image:
             repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
-            tag: pr-77
+            tag: pr-78
           env:
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"
@@ -74,7 +74,7 @@ spec:
           enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/ui
-            tag: pr-77
+            tag: pr-78
           replicas: 1
 
         ingress:
