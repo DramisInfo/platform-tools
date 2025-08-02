@@ -43,11 +43,17 @@ spec:
         agentRunner:
           sk:
             enabled: true
+            image:
+              repository: ghcr.io/dramisinfo/agentic-management/agent-runner-sk
+              tag: pr-72
             scaling:
               nats:
                 serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"
           agno:
             enabled: true
+            image:
+              repository: ghcr.io/dramisinfo/agentic-management/agent-runner-agno
+              tag: pr-72
             scaling:
               nats:
                 serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"  
