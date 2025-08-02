@@ -45,12 +45,12 @@ spec:
             enabled: true
             scaling:
               nats:
-                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"
+                serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"
           agno:
             enabled: true
             scaling:
               nats:
-                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"  
+                serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"  
         # Controller configuration
         agenticPlatformController:
           enabled: true
