@@ -26,6 +26,11 @@ spec:
           endpoint: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
         nack:
           enabled: false
+          jetstream:
+            stream:
+              # Cluster placement configuration for multi-node NATS clusters
+              placement:
+                cluster: "cace-1-dev-cluster"
           
         # Environment-specific configuration for dev
         global:
