@@ -25,10 +25,7 @@ spec:
           enabled: false  # Disable chart NATS installation
           endpoint: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
         nack:
-          enabled: true
-          jetstream:
-            nats:
-              url: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+          enabled: false
           
         # Environment-specific configuration for dev
         global:
