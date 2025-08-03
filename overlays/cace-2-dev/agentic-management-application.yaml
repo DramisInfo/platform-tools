@@ -26,6 +26,13 @@ spec:
         nats:
           enabled: false  # Disable chart NATS installation
           endpoint: "nats://nats-cace-2-dev.nats.svc.cluster.local:4222"
+        nack:
+          enabled: false
+          jetstream:
+            stream:
+              # Cluster placement configuration for multi-node NATS clusters
+              placement:
+                cluster: "cace-2-dev-cluster"
           
         # Environment-specific configuration for dev
         global:
@@ -35,6 +42,23 @@ spec:
             url: "nats://nats-cace-2-dev.nats.svc.cluster.local:4222"
             user: "app"
             password: "nats-app-dev"
+        agentRunner:
+          sk:
+            enabled: true
+            image:
+              repository: ghcr.io/dramisinfo/agentic-management/agent-runner-sk
+              tag: latest
+            scaling:
+              nats:
+                serverEndpoint: "nats-cace-2-dev-headless.nats.svc.cluster.local:8222"
+          agno:
+            enabled: true
+            image:
+              repository: ghcr.io/dramisinfo/agentic-management/agent-runner-agno
+              tag: latest
+            scaling:
+              nats:
+                serverEndpoint: "nats-cace-2-dev-headless.nats.svc.cluster.local:8222"
           
         # Controller configuration
         agenticPlatformController:
