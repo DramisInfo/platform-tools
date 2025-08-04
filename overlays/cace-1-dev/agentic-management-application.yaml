@@ -19,7 +19,8 @@ spec:
         # KEDA Configuration
         keda:
           enabled: true
-        
+        testConfigurations:
+          enabled: false        
         # NATS Configuration - using existing cluster NATS
         nats:
           enabled: false  # Disable chart NATS installation
