@@ -47,7 +47,7 @@ spec:
             enabled: true
             image:
               repository: ghcr.io/dramisinfo/agentic-management/agent-runner-sk
-              tag: latest
+              tag: v1.0.0
             scaling:
               nats:
                 serverEndpoint: "nats-cace-2-dev-headless.nats.svc.cluster.local:8222"
@@ -55,7 +55,7 @@ spec:
             enabled: true
             image:
               repository: ghcr.io/dramisinfo/agentic-management/agent-runner-agno
-              tag: latest
+              tag: v1.0.0
             scaling:
               nats:
                 serverEndpoint: "nats-cace-2-dev-headless.nats.svc.cluster.local:8222"
@@ -65,7 +65,7 @@ spec:
           enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/agentic-platform-controller
-            tag: latest
+            tag: v1.0.0
           replicas: 1
           resources:
             requests:
@@ -81,7 +81,7 @@ spec:
           replicaCount: 2
           image:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
-            tag: latest
+            tag: v1.0.0
           env:
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"          
@@ -90,7 +90,7 @@ spec:
         natsGateway:
           image:
             repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
-            tag: latest
+            tag: v1.0.0
           env:
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"
@@ -100,7 +100,7 @@ spec:
           enabled: true
           image:
             repository: ghcr.io/dramisinfo/agentic-management/ui
-            tag: latest
+            tag: v1.0.0
           replicas: 1
 
         ingress:
