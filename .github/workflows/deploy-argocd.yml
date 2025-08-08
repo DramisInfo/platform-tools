@@ -43,7 +43,7 @@ jobs:
           SYNC_RESPONSE=$(curl -s -w "%{http_code}" -o /tmp/${{ matrix.instance.output_key }}_refresh.json \
             -X POST \
             -H "Content-Type: application/json" \
-            ${{ matrix.instance.url }}/api/v1/applications/platform-tools/actions?action=refresh)
+            ${{ matrix.instance.url }}/api/v1/applications/platform-tools/sync)
           
           echo "${{ matrix.instance.name }} Refresh HTTP Status: $SYNC_RESPONSE"
           
