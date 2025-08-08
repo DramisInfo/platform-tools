@@ -1,4 +1,4 @@
-name: Deploy ArgoCD Applications
+name: Refresh ArgoCD Applications
 
 on:
   push:
@@ -6,14 +6,14 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      force_sync:
-        description: 'Force sync even if no changes'
+      force_refresh:
+        description: 'Force refresh even if no changes'
         required: false
         default: false
         type: boolean
 
 jobs:
-  sync-argocd:
+  refresh-argocd:
     runs-on: self-hosted
     strategy:
       matrix:
@@ -34,65 +34,76 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Sync ArgoCD Application on ${{ matrix.instance.name }}
+      - name: Refresh ArgoCD Application on ${{ matrix.instance.name }}
         id: sync
         run: |
-          echo "🚀 Syncing agentic-system application on ${{ matrix.instance.name }}..."
+          echo "� Refreshing platform-tools application on ${{ matrix.instance.name }}..."
           
-          # Trigger sync
-          SYNC_RESPONSE=$(curl -s -w "%{http_code}" -o /tmp/${{ matrix.instance.output_key }}_sync.json \
+          # Trigger refresh
+          SYNC_RESPONSE=$(curl -s -w "%{http_code}" -o /tmp/${{ matrix.instance.output_key }}_refresh.json \
             -X POST \
             -H "Content-Type: application/json" \
-            -d '{"revision": "HEAD", "prune": true, "dryRun": false}' \
-            ${{ matrix.instance.url }}/api/v1/applications/platform-tools/refresh)
-
-          echo "${{ matrix.instance.name }} Sync HTTP Status: $SYNC_RESPONSE"
+            ${{ matrix.instance.url }}/api/v1/applications/platform-tools/actions?action=refresh)
+          
+          echo "${{ matrix.instance.name }} Refresh HTTP Status: $SYNC_RESPONSE"
           
           if [[ "$SYNC_RESPONSE" == "200" ]]; then
-            echo "✅ ${{ matrix.instance.name }} sync initiated successfully"
+            echo "✅ ${{ matrix.instance.name }} refresh initiated successfully"
             echo "${{ matrix.instance.output_key }}=success" >> $GITHUB_OUTPUT
           else
-            echo "❌ ${{ matrix.instance.name }} sync failed with status: $SYNC_RESPONSE"
+            echo "❌ ${{ matrix.instance.name }} refresh failed with status: $SYNC_RESPONSE"
             echo "Response body:"
-            cat /tmp/${{ matrix.instance.output_key }}_sync.json
+            cat /tmp/${{ matrix.instance.output_key }}_refresh.json
             echo "${{ matrix.instance.output_key }}=failed" >> $GITHUB_OUTPUT
             exit 1
           fi
 
+      - name: Wait and Check Refresh Status
+        run: |
+          echo "⏳ Waiting 30 seconds for refresh operations to progress..."
+          sleep 30
+          
+          echo "🔍 Checking ${{ matrix.instance.name }} application status..."
+          curl -s ${{ matrix.instance.url }}/api/v1/applications/platform-tools | \
+            jq -r '.status.sync.status, .status.health.status' | \
+            while read sync_status; read health_status; do
+              echo "${{ matrix.instance.name }} - Sync: $sync_status, Health: $health_status"
+            done
+
   summary:
     runs-on: self-hosted
-    needs: sync-argocd
-    if: always()  # Run even if sync jobs fail
+    needs: refresh-argocd
+    if: always()  # Run even if refresh jobs fail
     
     steps:
       - name: Generate Summary
         run: |
-          echo "## ArgoCD Sync Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## ArgoCD Refresh Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Instance | Status | URL |" >> $GITHUB_STEP_SUMMARY
           echo "|----------|--------|-----|" >> $GITHUB_STEP_SUMMARY
           
           # Check CACE-1 result
-          CACE1_RESULT="${{ needs.sync-argocd.result }}"
+          CACE1_RESULT="${{ needs.refresh-argocd.result }}"
           if [[ "$CACE1_RESULT" == "success" ]]; then
-            echo "| CACE-1 | ✅ Success | [View App](https://argo.cace-1-dev.dramisinfo.com/applications/agentic-system) |" >> $GITHUB_STEP_SUMMARY
+            echo "| CACE-1 | ✅ Success | [View App](https://argo.cace-1-dev.dramisinfo.com/applications/platform-tools) |" >> $GITHUB_STEP_SUMMARY
           else
-            echo "| CACE-1 | ❌ Failed | [View App](https://argo.cace-1-dev.dramisinfo.com/applications/agentic-system) |" >> $GITHUB_STEP_SUMMARY
+            echo "| CACE-1 | ❌ Failed | [View App](https://argo.cace-1-dev.dramisinfo.com/applications/platform-tools) |" >> $GITHUB_STEP_SUMMARY
           fi
           
           # Check CACE-2 result
-          CACE2_RESULT="${{ needs.sync-argocd.result }}"
+          CACE2_RESULT="${{ needs.refresh-argocd.result }}"
           if [[ "$CACE2_RESULT" == "success" ]]; then
-            echo "| CACE-2 | ✅ Success | [View App](https://argo.cace-2-dev.dramisinfo.com/applications/agentic-system) |" >> $GITHUB_STEP_SUMMARY
+            echo "| CACE-2 | ✅ Success | [View App](https://argo.cace-2-dev.dramisinfo.com/applications/platform-tools) |" >> $GITHUB_STEP_SUMMARY
           else
-            echo "| CACE-2 | ❌ Failed | [View App](https://argo.cace-2-dev.dramisinfo.com/applications/agentic-system) |" >> $GITHUB_STEP_SUMMARY
+            echo "| CACE-2 | ❌ Failed | [View App](https://argo.cace-2-dev.dramisinfo.com/applications/platform-tools) |" >> $GITHUB_STEP_SUMMARY
           fi
           
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
 
-      - name: Fail job if any sync failed
-        if: needs.sync-argocd.result == 'failure'
+      - name: Fail job if any refresh failed
+        if: needs.refresh-argocd.result == 'failure'
         run: |
-          echo "❌ One or more ArgoCD sync operations failed"
+          echo "❌ One or more ArgoCD refresh operations failed"
           exit 1

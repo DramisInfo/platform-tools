@@ -76,7 +76,7 @@ spec:
         # Configuration Manager configuration
         configurationManager:
           enabled: true
-          replicaCount: 2
+          replicas: 1
           image:
             repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
             tag: v1.0.2
@@ -89,6 +89,7 @@ spec:
           image:
             repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
             tag: v1.0.2
+          replicas: 1
           env:
             NATS_USER: "app"
             NATS_PASSWORD: "nats-app-dev"
