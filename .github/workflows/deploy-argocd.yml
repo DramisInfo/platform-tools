@@ -44,8 +44,8 @@ jobs:
             -X POST \
             -H "Content-Type: application/json" \
             -d '{"revision": "HEAD", "prune": true, "dryRun": false}' \
-            ${{ matrix.instance.url }}/api/v1/applications/agentic-system/sync)
-          
+            ${{ matrix.instance.url }}/api/v1/applications/platform-tools/refresh)
+
           echo "${{ matrix.instance.name }} Sync HTTP Status: $SYNC_RESPONSE"
           
           if [[ "$SYNC_RESPONSE" == "200" ]]; then
@@ -58,18 +58,6 @@ jobs:
             echo "${{ matrix.instance.output_key }}=failed" >> $GITHUB_OUTPUT
             exit 1
           fi
-
-      - name: Wait and Check Sync Status
-        run: |
-          echo "⏳ Waiting 30 seconds for sync operations to progress..."
-          sleep 30
-          
-          echo "🔍 Checking ${{ matrix.instance.name }} application status..."
-          curl -s ${{ matrix.instance.url }}/api/v1/applications/agentic-system | \
-            jq -r '.status.sync.status, .status.health.status' | \
-            while read sync_status; read health_status; do
-              echo "${{ matrix.instance.name }} - Sync: $sync_status, Health: $health_status"
-            done
 
   summary:
     runs-on: self-hosted
