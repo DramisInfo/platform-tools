@@ -57,7 +57,14 @@ spec:
               tag: v1.0.10
             scaling:
               nats:
-                serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"  
+                serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"
+            crew:
+              primary:
+                scaling:
+                  successfulJobsHistoryLimit: 1
+              member:
+                scaling:
+                  successfulJobsHistoryLimit: 1  
         # Controller configuration
         agenticPlatformController:
           enabled: true
