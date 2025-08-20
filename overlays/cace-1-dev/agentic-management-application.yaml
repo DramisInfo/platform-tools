@@ -62,7 +62,7 @@ spec:
               primary:
                 scaling:
                   successfulJobsHistoryLimit: 1
-                  maxReplicaCount: 1
+                  maxReplicaCount: 10
               member:
                 scaling:
                   successfulJobsHistoryLimit: 1  
