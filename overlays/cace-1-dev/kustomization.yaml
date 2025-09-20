@@ -4,11 +4,11 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  - kagent-crds-application.yaml
-  - kagent-secrets-application.yaml
-  - kagent-application.yaml
-  - kagent-ui-ingress.yaml
-  # - agentic-management-application.yaml
+  - agentic-management-application.yaml
+  # - kagent-crds-application.yaml
+  # - kagent-secrets-application.yaml
+  # - kagent-application.yaml
+  # - kagent-ui-ingress.yaml
 
 patches:
   - path: patches/platform-core.yaml
