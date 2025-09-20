@@ -21,9 +21,9 @@ jobs:
           - name: CACE-1
             url: https://argo.cace-1-dev.dramisinfo.com
             output_key: cace1_status
-          # - name: CACE-2
-          #   url: https://argo.cace-2-dev.dramisinfo.com
-          #   output_key: cace2_status
+          - name: CACE-2
+            url: https://argo.cace-2-dev.dramisinfo.com
+            output_key: cace2_status
       fail-fast: false  # Don't stop other jobs if one fails
     
     outputs:
