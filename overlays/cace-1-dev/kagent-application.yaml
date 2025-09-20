@@ -1,0 +1,118 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kagent
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"  # Deploy after CRDs
+spec:
+  destination:
+    namespace: kagent
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "ghcr.io/kagent-dev/kagent/helm/kagent"
+    chart: kagent
+    targetRevision: "0.6.14"  # Latest version as of documentation
+    helm:
+      valuesObject:
+        # Environment configuration
+        global:
+          environment: dev
+          clusterName: "cace-1-dev"
+        
+        # LLM Provider Configuration
+        providers:
+          azureOpenAI:
+            enabled: true
+            apiKeySecret:
+              name: azure-openai-secret
+              key: api-key
+          openAI:
+            enabled: false  # Disable regular OpenAI since we're using Azure
+        
+        # Controller configuration
+        controller:
+          replicas: 1
+          image:
+            tag: "v0.6.14"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+        
+        # UI configuration
+        ui:
+          enabled: true
+          replicas: 1
+          image:
+            tag: "v0.6.14"
+          service:
+            type: ClusterIP
+            port: 8080
+          ingress:
+            enabled: false  # Enable if you want external access
+            # annotations:
+            #   kubernetes.io/ingress.class: nginx
+            # hosts:
+            #   - host: kagent-cace-1-dev.yourdomain.com
+            #     paths:
+            #       - path: /
+            #         pathType: Prefix
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+        
+        # Engine configuration
+        engine:
+          replicas: 1
+          image:
+            tag: "v0.6.14"
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+        
+        # Default tool servers (optional - can be configured later)
+        toolServers:
+          kubernetes:
+            enabled: true
+          prometheus:
+            enabled: false  # Enable if you have Prometheus in your cluster
+          grafana:
+            enabled: false  # Enable if you have Grafana in your cluster
+          helm:
+            enabled: true
+          
+        # Security context
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          fsGroup: 2000
+        
+        # Service account
+        serviceAccount:
+          create: true
+          annotations: {}
+          name: ""
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Validate=false
+      - ServerSideApply=true
