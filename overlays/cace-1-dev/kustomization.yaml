@@ -5,7 +5,7 @@ commonLabels:
 resources:
   - ../../base
   - kagent-crds-application.yaml
-  # - kagent-secrets-application.yaml
+  - kagent-secrets-application.yaml
   # - kagent-application.yaml
   # - agentic-management-application.yaml
 
