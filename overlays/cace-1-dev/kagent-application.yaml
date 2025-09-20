@@ -13,7 +13,7 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    repoURL: "oci://ghcr.io/kagent-dev/kagent/helm"
+    repoURL: "ghcr.io/kagent-dev/kagent/helm"
     chart: kagent
     targetRevision: "0.6.14"  # Latest version as of documentation
     helm:
