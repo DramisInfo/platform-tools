@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kagent-ui-ingress
+  name: kagent-ui
   namespace: kagent
   annotations:
     # Nginx ingress controller annotations
