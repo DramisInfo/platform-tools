@@ -32,4 +32,4 @@ spec:
               service:
                 name: kagent-ui  # This should match the service name created by the Helm chart
                 port:
-                  number: 80     # Port that the kagent-ui service exposes
+                  name: ui       # Use the port name instead of number
