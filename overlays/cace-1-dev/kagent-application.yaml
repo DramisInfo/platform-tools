@@ -28,7 +28,11 @@ spec:
         
         # Component-specific image overrides
         controller:
-          enabled: false  # Disable controller for now due to image pull issues
+          enabled: true  # Enable controller (was showing as running)
+          # Ensure controller runs with secure context
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
         # LLM Provider Configuration
         providers:
           azureOpenAI:
@@ -42,10 +46,6 @@ spec:
         # UI configuration
         ui:
           enabled: true  # Enable UI
-          # Run as root to let supervisord handle privilege dropping
-          securityContext:
-            runAsNonRoot: false
-            runAsUser: 0
           # annotations:
           #   kubernetes.io/ingress.class: nginx
           # hosts:
@@ -64,6 +64,10 @@ spec:
         # Engine configuration
         engine:
           enabled: false  # Disable engine for now due to image pull issues
+          # Ensure engine runs with secure context when enabled
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
         
         # Default tool servers (optional - can be configured later)
         toolServers:
@@ -104,10 +108,11 @@ spec:
           fsGroup: 2000
         
         # Container-level security context (default for most containers)
-        # Individual components can override this
+        # Note: UI component needs to run as root for supervisord, so we'll
+        # set runAsNonRoot: false globally, but specify runAsUser for non-UI components
         securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
+          runAsNonRoot: false  # Allow components to run as root if needed (UI requires this)
+          # runAsUser: 1000    # Commented out to allow UI to run as root
         
         # Service account
         serviceAccount:
