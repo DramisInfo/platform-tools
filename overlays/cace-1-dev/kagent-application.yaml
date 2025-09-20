@@ -71,7 +71,9 @@ spec:
             enabled: false  # Enable if you have Grafana in your cluster
           helm:
             enabled: true
-          
+        agents:
+          cilium-debug-agent:
+            enabled: false  
         # Pod-level security context (applies to all pods)
         podSecurityContext:
           runAsNonRoot: true
