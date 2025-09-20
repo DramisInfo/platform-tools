@@ -96,11 +96,17 @@ spec:
           helm:
             enabled: true
           
-        # Security context
-        securityContext:
+        # Pod-level security context (applies to all pods)
+        podSecurityContext:
           runAsNonRoot: true
           runAsUser: 1000
           fsGroup: 2000
+        
+        # Container-level security context (applied to individual containers)
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          # fsGroup removed - this belongs in podSecurityContext
         
         # Service account
         serviceAccount:
