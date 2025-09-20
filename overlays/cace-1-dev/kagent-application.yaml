@@ -42,8 +42,11 @@ spec:
         # UI configuration
         ui:
           enabled: true  # Enable UI with proper security context
-          # UI runs as nextjs user (uid 1001) as designed in the Dockerfile
-          # No need to override security context - let it use the container's defaults
+          # UI needs to run as nextjs user (uid 1001) as designed in Dockerfile
+          # Override the global security context that sets runAsUser: 1000
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001  # Use the nextjs user from the Dockerfile
           # annotations:
           #   kubernetes.io/ingress.class: nginx
           # hosts:
