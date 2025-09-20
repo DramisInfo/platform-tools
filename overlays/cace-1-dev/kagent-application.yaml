@@ -71,9 +71,29 @@ spec:
             enabled: false  # Enable if you have Grafana in your cluster
           helm:
             enabled: true
+        # Disable all built-in agents
         agents:
+          k8s-agent:
+            enabled: false
+          kgateway-agent:
+            enabled: false
+          istio-agent:
+            enabled: false
+          promql-agent:
+            enabled: false
+          observability-agent:
+            enabled: false
+          argo-rollouts-agent:
+            enabled: false
+          helm-agent:
+            enabled: false
+          cilium-policy-agent:
+            enabled: false
+          cilium-manager-agent:
+            enabled: false
           cilium-debug-agent:
-            enabled: false  
+            enabled: false
+        
         # Pod-level security context (applies to all pods)
         podSecurityContext:
           runAsNonRoot: true
