@@ -22,6 +22,9 @@ spec:
         global:
           environment: dev
           clusterName: "cace-1-dev"
+          # Override default image registry to use public GitHub Container Registry
+          imageRegistry: "ghcr.io"
+          imageRepository: "kagent-dev/kagent"
         
         # LLM Provider Configuration
         providers:
