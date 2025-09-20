@@ -42,27 +42,23 @@ spec:
         
         # UI configuration
         ui:
-          enabled: true  # Enable UI 
-          # Force the correct image registry and repo for UI
+          enabled: true  # Enable UI with proper security context
+          # Override image registry for UI specifically
           image:
             registry: "ghcr.io"
-            repository: "kagent-dev/kagent/ui"
-            tag: "0.6.14"
-            pullPolicy: "IfNotPresent"
-          # Remove security context overrides to let the container handle security internally
-          # The UI container is designed to run as nextjs user (uid 1001) by default
-          # and supervisord should not try to drop privileges
-          service:
-            type: ClusterIP
-            ports:
-              port: 80
+          # Disable security context to avoid supervisord privilege dropping conflicts
+          # The UI container image should handle security internally
+          securityContext: {}
+          podSecurityContext: {}
+          # Alternative: if we need to enforce security context, use:
+          # securityContext:
+          #   runAsNonRoot: true
+          #   runAsUser: 1001  # Use the nextjs user from the Dockerfile
+          # podSecurityContext:
+          #   runAsNonRoot: true  
+          #   runAsUser: 1001
+          #   fsGroup: 2000
           # annotations:
-          #   kubernetes.io/ingress.class: nginx
-          # hosts:
-          #   - host: kagent-cace-1-dev.yourdomain.com
-          #     paths:
-          #       - path: /
-          #         pathType: Prefix
           #   kubernetes.io/ingress.class: nginx
           # hosts:
           #   - host: kagent-cace-1-dev.yourdomain.com
