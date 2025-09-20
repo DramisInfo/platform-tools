@@ -41,14 +41,18 @@ spec:
         
         # UI configuration
         ui:
-          enabled: false  # Disable UI for now due to image pull issues
-            # annotations:
-            #   kubernetes.io/ingress.class: nginx
-            # hosts:
-            #   - host: kagent-cace-1-dev.yourdomain.com
-            #     paths:
-            #       - path: /
-            #         pathType: Prefix
+          enabled: true  # Enable UI now that we've fixed the security context
+          # Override security context for UI to allow privilege dropping
+          securityContext:
+            runAsNonRoot: false  # Allow running as root initially for supervisord
+            runAsUser: 0  # Start as root so supervisord can drop privileges
+          # annotations:
+          #   kubernetes.io/ingress.class: nginx
+          # hosts:
+          #   - host: kagent-cace-1-dev.yourdomain.com
+          #     paths:
+          #       - path: /
+          #         pathType: Prefix
           resources:
             requests:
               cpu: 100m
@@ -94,17 +98,17 @@ spec:
           cilium-debug-agent:
             enabled: false
         
-        # Pod-level security context (applies to all pods)
+        # Pod-level security context (applies to all pods except where overridden)
         podSecurityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
+          # Allow UI to run as root initially, others can run as non-root
+          # Individual components can override this
           fsGroup: 2000
         
-        # Container-level security context (applied to individual containers)
+        # Container-level security context (applied to individual containers unless overridden)
         securityContext:
+          # Default to non-root for most containers
           runAsNonRoot: true
           runAsUser: 1000
-          # fsGroup removed - this belongs in podSecurityContext
         
         # Service account
         serviceAccount:
