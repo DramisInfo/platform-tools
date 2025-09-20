@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     
     # Cert-manager annotation for automatic TLS certificate generation
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Adjust this to match your cert-manager ClusterIssuer name
+    cert-manager.io/cluster-issuer: "letsencrypt-prd"  # Adjust this to match your cert-manager ClusterIssuer name
     
     # Optional: Additional nginx configurations
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
