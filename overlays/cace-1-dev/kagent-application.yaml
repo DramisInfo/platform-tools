@@ -41,11 +41,9 @@ spec:
         
         # UI configuration
         ui:
-          enabled: true  # Enable UI now that we've fixed the security context
-          # Override security context for UI to allow privilege dropping
-          securityContext:
-            runAsNonRoot: false  # Allow running as root initially for supervisord
-            runAsUser: 0  # Start as root so supervisord can drop privileges
+          enabled: true  # Enable UI with proper security context
+          # UI runs as nextjs user (uid 1001) as designed in the Dockerfile
+          # No need to override security context - let it use the container's defaults
           # annotations:
           #   kubernetes.io/ingress.class: nginx
           # hosts:
@@ -98,15 +96,14 @@ spec:
           cilium-debug-agent:
             enabled: false
         
-        # Pod-level security context (applies to all pods except where overridden)
+        # Pod-level security context (applies to all pods)
+        # Allow individual components to override these settings
         podSecurityContext:
-          # Allow UI to run as root initially, others can run as non-root
-          # Individual components can override this
           fsGroup: 2000
         
-        # Container-level security context (applied to individual containers unless overridden)
+        # Container-level security context (default for most containers)
+        # Individual components can override this
         securityContext:
-          # Default to non-root for most containers
           runAsNonRoot: true
           runAsUser: 1000
         
