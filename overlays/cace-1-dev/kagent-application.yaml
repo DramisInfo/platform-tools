@@ -18,14 +18,28 @@ spec:
     targetRevision: "0.6.14"  # Latest version as of documentation
     helm:
       valuesObject:
-        # Environment configuration
+        # Global settings
         global:
-          environment: dev
+          environment: "dev"
           clusterName: "cace-1-dev"
-          # Override default image registry to use public GitHub Container Registry
-          imageRegistry: "ghcr.io"
-          imageRepository: "kagent-dev/kagent"
+          
+        # Image registry configuration to override the default cr.kagent.dev
+        imageRegistry: "ghcr.io"
         
+        # Component-specific image overrides
+        controller:
+          image:
+            registry: "ghcr.io"
+            repository: "kagent-dev/kagent/controller"
+            tag: "v0.6.14"
+          replicas: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
         # LLM Provider Configuration
         providers:
           azureOpenAI:
@@ -36,26 +50,13 @@ spec:
           openAI:
             enabled: false  # Disable regular OpenAI since we're using Azure
         
-        # Controller configuration
-        controller:
-          replicas: 1
-          image:
-            repository: "ghcr.io/kagent-dev/kagent/controller"
-            tag: "v0.6.14"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
-        
         # UI configuration
         ui:
           enabled: true
           replicas: 1
           image:
-            repository: "ghcr.io/kagent-dev/kagent/ui"
+            registry: "ghcr.io"
+            repository: "kagent-dev/kagent/ui"
             tag: "v0.6.14"
           service:
             type: ClusterIP
@@ -81,7 +82,8 @@ spec:
         engine:
           replicas: 1
           image:
-            repository: "ghcr.io/kagent-dev/kagent/engine"
+            registry: "ghcr.io"
+            repository: "kagent-dev/kagent/engine"
             tag: "v0.6.14"
           resources:
             requests:
