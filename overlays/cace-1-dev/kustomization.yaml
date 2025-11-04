@@ -4,7 +4,7 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  - agentic-management-application.yaml
+  # - agentic-management-application.yaml
   # - kagent-crds-application.yaml
   # - kagent-secrets-application.yaml
   # - kagent-application.yaml
