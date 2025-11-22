@@ -20,7 +20,7 @@ spec:
           nats:
             enabled: false
             gateway:
-              enabled: true
+              enabled: false
               name: "cace-1-dev-cluster"
               advertise: "nats.cace-1-dev.dramisinfo.com:7222"
               gateways:
