@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   source:
-    targetRevision: "v0.15.3"
+    targetRevision: "v0.15.4"
     helm:
       valuesObject:
         global:
@@ -16,7 +16,7 @@ spec:
           grafana:
             enabled: true
           loki:
-            enabled: false
+            enabled: true
           nats:
             enabled: true
             gateway:
