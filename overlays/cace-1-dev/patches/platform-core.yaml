@@ -16,7 +16,7 @@ spec:
           grafana:
             enabled: true
           loki:
-            enabled: false
+            enabled: true
           nats:
             enabled: true
             gateway:
