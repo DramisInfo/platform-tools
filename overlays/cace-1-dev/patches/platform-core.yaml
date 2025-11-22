@@ -11,6 +11,8 @@ spec:
         global:
           clusterName: cace-1-dev
         bootstrap:
+          prometheus:
+            enabled: true
           nats:
             enabled: true
             gateway:
