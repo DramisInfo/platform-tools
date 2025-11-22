@@ -12,13 +12,13 @@ spec:
           clusterName: cace-1-dev
         bootstrap:
           prometheus:
-            enabled: true
+            enabled: false
           grafana:
-            enabled: true
+            enabled: false
           loki:
-            enabled: true 
+            enabled: false
           nats:
-            enabled: true
+            enabled: false
             gateway:
               enabled: true
               name: "cace-1-dev-cluster"
