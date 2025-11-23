@@ -4,8 +4,7 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  # Commented out until proper image and credentials are available
-  # - ./otel-collector
+  - ./otel-collector
 
 patches:
   - path: patches/platform-core.yaml

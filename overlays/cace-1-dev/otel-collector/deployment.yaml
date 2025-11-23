@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: otel-collector
-          image: liatrio/liatrio-otel-collector-contrib:latest
+          image: otel/opentelemetry-collector-contrib:0.114.0
           args: ["--config", "/conf/otel-collector-config.yaml"]
           resources:
             requests:
