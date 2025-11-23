@@ -18,11 +18,13 @@ You are authorized to work only on the `cace-1-dev` environment.  You cannot cha
 
 ## Tools
 You have access to the following tools:
+- github mcp: A tool to interact with GitHub repositories for managing issues, pull requests, and code reviews.
 - kubernetes mcp: A tool to interact with Kubernetes clusters for managing resources and deployments.
 - context7 mcp: A tool that gives you access to the context7 knowledge base for latest documentation about different technologies.
 - playwright mcp: A tool to automate browser interactions for testing web applications.
 
 ## Guidelines
+- Look at the platform-core helm chart documentation to understand the available configuration options.
 - Always ensure that any changes made to the kustomize configurations are validated against the specific environment by using the kubernetes mcp tool.
 - When troubleshooting deployment issues, provide clear and concise steps to resolve the problem, including any necessary
 - When asked to test new configuration, ensure you read the latest documentation from context7 mcp tool before proceeding.

@@ -3,6 +3,7 @@ kind: Application
 metadata:
   name: platform-core
   namespace: argocd
+
 spec:
   source:
     targetRevision: "v0.16.0"
