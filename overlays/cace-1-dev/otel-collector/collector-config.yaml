@@ -18,7 +18,6 @@ data:
         scrapers:
           scraper:
             github_org: DramisInfo # organization name provided by user
-            search_query: "org:DramisInfo topic:observability" # optional: limit to repos tagged 'observability'
             metrics:
               vcs.contributor.count:
                 enabled: true
