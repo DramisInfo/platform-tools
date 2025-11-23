@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-github-collector-config
+  namespace: monitoring
+data:
+  otel-collector-config.yaml: |
+    extensions:
+      githubappauth:
+        app_id: ${env:GITHUB_APP_ID}
+        installation_id: ${env:GITHUB_INSTALLATION_ID}
+        private_key_file: /etc/githubapp/key.pem
+
+    receivers:
+      github:
+        initial_delay: 10s
+        collection_interval: 300s
+        scrapers:
+          scraper:
+            github_org: DramisInfo # organization name provided by user
+            search_query: "org:DramisInfo topic:observability" # optional: limit to repos tagged 'observability'
+            metrics:
+              vcs.contributor.count:
+                enabled: true
+              vcs.cve.count:
+                enabled: true
+            auth:
+              authenticator: githubappauth
+
+    exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8888"
+
+    service:
+      extensions: [githubappauth]
+      pipelines:
+        metrics:
+          receivers: [github]
+          processors: []
+          exporters: [prometheus]

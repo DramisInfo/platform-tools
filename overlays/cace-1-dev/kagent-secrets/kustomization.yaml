@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - azure-openai-secret.yaml
   - azure-openai-modelconfig.yaml
+  - github-app-secret.yaml

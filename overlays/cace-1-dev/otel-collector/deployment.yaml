@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-github-collector
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-github-collector
+  template:
+    metadata:
+      labels:
+        app: otel-github-collector
+    spec:
+      containers:
+        - name: otel-collector
+          image: liatrio/liatrio-otel-collector-contrib:latest
+          args: ["--config", "/conf/otel-collector-config.yaml"]
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: GITHUB_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: github-app-secret
+                  key: github_app_id
+            - name: GITHUB_INSTALLATION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: github-app-secret
+                  key: github_installation_id
+            - name: GITHUB_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-app-secret
+                  key: github_webhook_secret
+          volumeMounts:
+            - name: config
+              mountPath: /conf
+              readOnly: true
+            - name: github-key
+              mountPath: /etc/githubapp
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: otel-github-collector-config
+            items:
+              - key: otel-collector-config.yaml
+                path: otel-collector-config.yaml
+        - name: github-key
+          secret:
+            secretName: github-app-secret
+            items:
+              - key: github_private_key_pem
+                path: key.pem
