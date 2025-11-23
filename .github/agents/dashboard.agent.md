@@ -1,6 +1,6 @@
 ---
 description: 'Manages Grafana dashboards using API operations and UI validation'
-tools: ['microsoft/playwright-mcp/*']
+tools: ['edit', 'runNotebooks', 'search', 'new', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'usages', 'vscodeAPI', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'extensions', 'todos', 'runSubagent', 'runTests']
 ---
 # Dashboard Management Agent
 
