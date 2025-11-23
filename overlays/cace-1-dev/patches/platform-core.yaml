@@ -15,7 +15,7 @@ spec:
           prometheus:
             enabled: true
           grafana:
-            enabled: true
+            enabled: false
             # Install GitHub grafana plugin and provision a GitHub datasource
             plugins:
               # plugin IDs or full download URLs are accepted. Example plugin id below.
