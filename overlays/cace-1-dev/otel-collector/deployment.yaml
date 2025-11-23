@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: otel-collector
-          image: ghcr.io/liatrio/liatrio-otel-collector:latest
+          image: ghcr.io/liatrio/liatrio-otel-collector:0.96.0
           args: ["--config", "/conf/otel-collector-config.yaml"]
           resources:
             requests:
