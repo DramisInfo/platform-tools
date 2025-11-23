@@ -16,6 +16,12 @@ spec:
             enabled: true
           grafana:
             enabled: true
+            # Install GitHub grafana plugin and provision a GitHub datasource
+            plugins:
+              # plugin IDs or full download URLs are accepted. Example plugin id below.
+              - grafana-github-datasource
+            pluginsPreinstallSync: true
+            # NOTE: Datasources can be added later; currently only the plugin is enabled
           loki:
             enabled: true
           nats:
