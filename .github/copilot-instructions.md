@@ -1,6 +1,8 @@
 # Repository Definition
 This repository is used for deploying applications with ArgoCD.  It uses kustomize for templating and supports multiple environments. The shared base configuration is located in the `base` directory, while environment-specific overlays can be found in the `overlays` directory.
 
+The base directory points to a platform-core helm chart.  The code of this helm chart is availabel in the following repository: https://github.com/DramisInfo/platform-helm
+
 List of Environments:
 - cace-1-dev: CACE homelab development environment 1
 - cace-2-dev: CACE homelab development environment 2
