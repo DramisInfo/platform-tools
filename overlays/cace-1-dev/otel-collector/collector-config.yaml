@@ -15,6 +15,10 @@ data:
       github:
         initial_delay: 10s
         collection_interval: 300s
+        webhook:
+          endpoint: "localhost:8080"
+          path: "/events"
+          health_path: "/health"
         scrapers:
           scraper:
             github_org: DramisInfo # organization name provided by user
