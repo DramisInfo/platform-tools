@@ -4,8 +4,8 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  - kagent-secrets/kustomization.yaml
-  - otel-collector/kustomization.yaml
+  - kagent-secrets
+  - otel-collector
 
 patches:
   - path: patches/platform-core.yaml
