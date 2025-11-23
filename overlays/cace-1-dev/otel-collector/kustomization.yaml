@@ -4,4 +4,5 @@ resources:
   - collector-config.yaml
   - deployment.yaml
   - service.yaml
-  - servicemonitor.yaml
+  # Commented out until Prometheus Operator ServiceMonitor CRD is installed
+  # - servicemonitor.yaml
