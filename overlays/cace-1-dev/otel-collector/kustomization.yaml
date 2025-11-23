@@ -4,4 +4,5 @@ resources:
   - collector-config.yaml
   - deployment.yaml
   - service.yaml
-  - servicemonitor.yaml
+  # ServiceMonitor requires Prometheus Operator CRDs - using regular Prometheus scraping instead
+  # - servicemonitor.yaml
