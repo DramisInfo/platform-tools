@@ -24,12 +24,14 @@ spec:
           type: postgresql
           driver: org.postgresql.Driver
           url: "jdbc:postgresql://artifactory-pg-rw.artifactory.svc.cluster.local:5432/artifactory"
-          user: artifactory
-          # Password will be provided via secret
+          # Database credentials via secret with correct key names
           secrets:
+            user:
+              name: artifactory-db-credentials
+              key: db-user
             password:
               name: artifactory-db-credentials
-              key: password
+              key: db-password
         
         # Single-node configuration (no HA for test environment)
         artifactory:
@@ -172,8 +174,8 @@ metadata:
   namespace: artifactory
 type: Opaque
 stringData:
-  username: artifactory
-  password: "artifactory-db-password-test123"
+  db-user: artifactory
+  db-password: "artifactory-db-password-test123"
 
 ---
 # Artifactory master and join keys
