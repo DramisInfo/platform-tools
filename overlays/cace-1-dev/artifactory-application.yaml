@@ -35,7 +35,7 @@ spec:
         
         # Single-node configuration (no HA for test environment)
         artifactory:
-          replicaCount: 1
+          replicaCount: 0  # Scale down to apply DB credential fix
           
           # Master and join keys via secrets (to be created separately)
           masterKeySecretName: artifactory-keys
