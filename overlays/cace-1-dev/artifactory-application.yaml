@@ -37,7 +37,7 @@ spec:
         
         # Single-node configuration (no HA for test environment)
         artifactory:
-          replicaCount: 0
+          replicaCount: 1
           
           # Master and join keys via secrets (to be created separately)
           masterKeySecretName: artifactory-keys
