@@ -41,6 +41,10 @@ spec:
           
           # License will be added via UI after deployment
           
+          # Force pod recreation by adding annotation
+          podAnnotations:
+            restart: "2025-12-19-fix-license-volume"
+          
           # Node selector if needed for specific nodes
           # nodeSelector: {}
           
