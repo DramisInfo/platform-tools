@@ -4,8 +4,6 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  - ./otel-collector
-  - dora-metrics-dashboard.yaml
 
 patches:
   - path: patches/platform-core.yaml
