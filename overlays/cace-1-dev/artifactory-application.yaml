@@ -39,10 +39,7 @@ spec:
           masterKeySecretName: artifactory-keys
           joinKeySecretName: artifactory-keys
           
-          # License configuration (for Pro version)
-          license:
-            secret: artifactory-license
-            dataKey: license
+          # License will be added via UI after deployment
           
           # Node selector if needed for specific nodes
           # nodeSelector: {}
@@ -86,9 +83,6 @@ spec:
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
             nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-            nginx.ingress.kubernetes.io/configuration-snippet: |
-              proxy_pass_header Server;
-              proxy_set_header X-JFrog-Override-Base-Url https://artifactory.cace-1-dev.dramisinfo.com;
           tls:
             - secretName: artifactory-tls
               hosts:
@@ -193,15 +187,3 @@ type: Opaque
 stringData:
   master-key: "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
   join-key: "fedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321"
-
----
-# Artifactory Pro license
-# TODO: Replace with your actual Artifactory Pro license key
-apiVersion: v1
-kind: Secret
-metadata:
-  name: artifactory-license
-  namespace: artifactory
-type: Opaque
-stringData:
-  license: "REPLACE_WITH_YOUR_ACTUAL_ARTIFACTORY_PRO_LICENSE_KEY"
