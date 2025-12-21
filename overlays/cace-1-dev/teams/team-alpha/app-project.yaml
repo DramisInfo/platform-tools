@@ -13,4 +13,4 @@ spec:
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
-  clusterResourceWhitelist: []  # No cluster-level resources allowed
+  clusterResourceWhitelist: []  # No cluster-level resources - namespaces managed by platform team
