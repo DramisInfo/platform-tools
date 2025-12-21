@@ -1,21 +1,31 @@
 replicaCount: 2
 
 image:
-  repository: nginx
-  tag: "1.25-alpine"
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: "6.5.4"
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
-  port: 80
+  port: 9898
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  host: podinfo.cace-1-dev.dramisinfo.com
+  tls:
+    enabled: true
+    secretName: podinfo-tls
 
 resources:
   requests:
-    cpu: 50m
-    memory: 32Mi
-  limits:
     cpu: 100m
     memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
 
 postgres:
   enabled: true
