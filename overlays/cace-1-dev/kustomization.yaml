@@ -4,8 +4,7 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  # - artifactory-application.yaml
-  - teams/team-alpha
+  # - teams/team-alpha
 
 patches:
   - path: patches/platform-core.yaml

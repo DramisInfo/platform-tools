@@ -22,10 +22,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  ignoreDifferences:
-  - group: postgresql.cnpg.io
-    kind: Cluster
-    managedFieldsManagers:
-    - cnpg-manager
-    jsonPointers:
-    - /status
