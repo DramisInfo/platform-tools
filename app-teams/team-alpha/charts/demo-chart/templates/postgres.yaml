@@ -10,6 +10,26 @@ spec:
   
   imageName: {{ .Values.postgres.image }}
   
+  # Affinity settings
+  affinity:
+    podAntiAffinityType: preferred
+  
+  # PDB and access settings
+  enablePDB: true
+  enableSuperuserAccess: false
+  
+  # Failover settings
+  failoverDelay: 0
+  stopDelay: 1800
+  switchoverDelay: 40000000
+  
+  # Logging
+  logLevel: info
+  
+  # Sync replicas
+  maxSyncReplicas: 0
+  minSyncReplicas: 0
+  
   storage:
     size: {{ .Values.postgres.storage.size }}
     storageClass: {{ .Values.postgres.storage.storageClass }}
@@ -23,7 +43,8 @@ spec:
   
   monitoring:
     enabled: {{ .Values.postgres.monitoring.enabled }}
-    podMonitorEnabled: {{ .Values.postgres.monitoring.podMonitorEnabled }}
+    enablePodMonitor: {{ .Values.postgres.monitoring.enablePodMonitor }}
+    disableDefaultQueries: false
   
   postgresql:
     parameters:

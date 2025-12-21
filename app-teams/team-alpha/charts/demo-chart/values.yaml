@@ -29,7 +29,7 @@ postgres:
     storageClass: local-path
   monitoring:
     enabled: true
-    podMonitorEnabled: true
+    enablePodMonitor: true
   parameters:
     maxConnections: "100"
     sharedBuffers: 256MB
