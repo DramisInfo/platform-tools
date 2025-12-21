@@ -8,18 +8,18 @@ spec:
     - git:
         repoURL: https://github.com/DramisInfo/platform-tools
         revision: HEAD
-        files:
-          - path: app-teams/team-alpha/cace-1-dev/**/application.yaml
+        directories:
+          - path: app-teams/team-alpha/cace-1-dev/*
   template:
     metadata:
-      name: 'team-alpha-{{path[3]}}'
+      name: 'team-alpha-{{path.basename}}'
       namespace: argocd
     spec:
       project: default
       source:
         repoURL: https://github.com/DramisInfo/platform-tools
         targetRevision: HEAD
-        path: '{{path.path | dirname}}'
+        path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
       syncPolicy:
