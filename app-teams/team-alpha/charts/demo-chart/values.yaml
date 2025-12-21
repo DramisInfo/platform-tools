@@ -16,3 +16,27 @@ resources:
   limits:
     cpu: 100m
     memory: 64Mi
+
+postgres:
+  enabled: true
+  instances: 2
+  image: ghcr.io/cloudnative-pg/postgresql:16
+  database: demo_app
+  username: demo_user
+  password: changeme123
+  storage:
+    size: 1Gi
+    storageClass: local-path
+  monitoring:
+    enabled: true
+    podMonitorEnabled: true
+  parameters:
+    maxConnections: "100"
+    sharedBuffers: 256MB
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+      cpu: 500m
