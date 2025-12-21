@@ -42,7 +42,6 @@ spec:
         name: {{ .Chart.Name }}-postgres-credentials
   
   monitoring:
-    enabled: {{ .Values.postgres.monitoring.enabled }}
     enablePodMonitor: {{ .Values.postgres.monitoring.enablePodMonitor }}
     disableDefaultQueries: false
   
