@@ -63,23 +63,23 @@ jobs:
             exit 1
           fi
 
-      - name: Refresh team ApplicationSets
+      - name: Refresh team applications
         id: sync-team-apps
         run: |
-          echo "🔄 Refreshing team ApplicationSets..."
+          echo "🔄 Refreshing team applications..."
           
-          # Get all ApplicationSets that match team-*-apps pattern
-          APPSETS=$(curl -s ${{ env.ARGOCD_URL }}/api/v1/applications | \
-            jq -r '.items[] | select(.metadata.name | test("^team-.*-apps$")) | .metadata.name')
+          # Get all applications that belong to team projects (team-*)
+          TEAM_APPS=$(curl -s ${{ env.ARGOCD_URL }}/api/v1/applications | \
+            jq -r '.items[] | select(.spec.project | test("^team-")) | .metadata.name')
           
-          if [[ -z "$APPSETS" ]]; then
-            echo "⚠️ No team ApplicationSets found"
+          if [[ -z "$TEAM_APPS" ]]; then
+            echo "⚠️ No team applications found"
             exit 0
           fi
           
-          echo "Found ApplicationSets: $APPSETS"
+          echo "Found team applications: $TEAM_APPS"
           
-          for app in $APPSETS; do
+          for app in $TEAM_APPS; do
             echo "🔄 Refreshing $app..."
             SYNC_RESPONSE=$(curl -s -w "%{http_code}" -o /tmp/${app}-refresh.json \
               -X POST \
@@ -101,7 +101,7 @@ jobs:
           
           echo "🔍 Checking application statuses..."
           
-          for app in platform-tools platform-core team-alpha-apps; do
+          for app in platform-tools platform-core demo-chart; do
             echo ""
             echo "--- $app ---"
             curl -s ${{ env.ARGOCD_URL }}/api/v1/applications/$app 2>/dev/null | \
@@ -117,7 +117,7 @@ jobs:
           echo "|-------------|-----|" >> $GITHUB_STEP_SUMMARY
           echo "| platform-tools | [View](https://argo.cace-1-dev.dramisinfo.com/applications/platform-tools) |" >> $GITHUB_STEP_SUMMARY
           echo "| platform-core | [View](https://argo.cace-1-dev.dramisinfo.com/applications/platform-core) |" >> $GITHUB_STEP_SUMMARY
-          echo "| team-alpha-apps | [View](https://argo.cace-1-dev.dramisinfo.com/applications/team-alpha-apps) |" >> $GITHUB_STEP_SUMMARY
+          echo "| demo-chart | [View](https://argo.cace-1-dev.dramisinfo.com/applications/demo-chart) |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
