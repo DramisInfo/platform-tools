@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: team-alpha
+  namespace: argocd
+spec:
+  description: Team Alpha applications
+  sourceRepos:
+    - '*'  # For testing; restrict to specific repos in production
+  destinations:
+    - namespace: 'team-alpha-*'
+      server: 'https://kubernetes.default.svc'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  clusterResourceWhitelist: []  # No cluster-level resources allowed

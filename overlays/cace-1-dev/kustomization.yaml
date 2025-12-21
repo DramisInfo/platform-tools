@@ -5,6 +5,8 @@ commonLabels:
 resources:
   - ../../base
   # - artifactory-application.yaml
+  - app-projects.yaml
+  - team-alpha-appset.yaml
 
 patches:
   - path: patches/platform-core.yaml

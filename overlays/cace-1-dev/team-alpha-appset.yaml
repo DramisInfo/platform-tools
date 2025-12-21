@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: team-alpha-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/DramisInfo/platform-tools
+        revision: HEAD
+        directories:
+          - path: app-teams/team-alpha/cace-1-dev/*
+  template:
+    metadata:
+      name: 'team-alpha-{{path.basename}}'
+      namespace: argocd
+    spec:
+      project: team-alpha
+      source:
+        repoURL: https://github.com/DramisInfo/platform-tools
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
