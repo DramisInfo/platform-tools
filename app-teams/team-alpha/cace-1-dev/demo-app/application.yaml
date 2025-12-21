@@ -1,21 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: podinfo
+  name: demo-chart
   namespace: argocd
 spec:
   project: team-alpha
   source:
-    repoURL: https://stefanprodan.github.io/podinfo
-    targetRevision: 6.*
-    chart: podinfo
+    repoURL: https://github.com/DramisInfo/platform-tools
+    targetRevision: HEAD
+    path: app-teams/team-alpha/charts/demo-chart
     helm:
       values: |
-        replicaCount: 2
-        resources:
-          requests:
-            cpu: 100m
-            memory: 64Mi
+        replicaCount: 3
+        image:
+          repository: nginx
+          tag: "1.25-alpine"
   destination:
     server: https://kubernetes.default.svc
     namespace: team-alpha-demo-app

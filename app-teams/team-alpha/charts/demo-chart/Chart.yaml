@@ -1,0 +1,6 @@
+apiVersion: v2
+name: demo-chart
+description: A simple demo Helm chart for team-alpha
+type: application
+version: 0.1.0
+appVersion: "1.0"
