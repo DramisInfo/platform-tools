@@ -25,7 +25,7 @@ spec:
   ignoreDifferences:
   - group: postgresql.cnpg.io
     kind: Cluster
-    jqPathExpressions:
-    - .spec.instances
-    - .status
-    - .metadata
+    managedFieldsManagers:
+    - cnpg-manager
+    jsonPointers:
+    - /status
