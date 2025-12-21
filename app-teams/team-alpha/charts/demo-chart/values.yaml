@@ -13,7 +13,7 @@ ingress:
   enabled: true
   className: nginx
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-prd
   host: podinfo.cace-1-dev.dramisinfo.com
   tls:
     enabled: true
