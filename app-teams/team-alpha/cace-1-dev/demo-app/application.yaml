@@ -12,9 +12,6 @@ spec:
     helm:
       values: |
         replicaCount: 3
-        image:
-          repository: nginx
-          tag: "1.25-alpine"
   destination:
     server: https://kubernetes.default.svc
     namespace: team-alpha-demo-app
