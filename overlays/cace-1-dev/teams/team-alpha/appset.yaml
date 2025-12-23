@@ -3,6 +3,8 @@ kind: ApplicationSet
 metadata:
   name: team-alpha-apps
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   generators:
     - git:
