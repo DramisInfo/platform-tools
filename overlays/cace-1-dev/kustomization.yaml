@@ -3,8 +3,8 @@ kind: Kustomization
 commonLabels:
   environment: dev
 resources:
-  - ../../base
+  # - ../../base
   # - teams/team-alpha
 
-patches:
-  - path: patches/platform-core.yaml
+# patches:
+#   - path: patches/platform-core.yaml
