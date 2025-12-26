@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demo-chart
+  name: media-server
   namespace: argocd
 spec:
   project: team-alpha
   source:
     repoURL: https://github.com/DramisInfo/platform-tools
     targetRevision: HEAD
-    path: app-teams/team-alpha/charts/demo-chart
+    path: app-teams/team-alpha/charts/media-server
     helm:
       values: |
         replicaCount: 3
   destination:
     server: https://kubernetes.default.svc
-    namespace: team-alpha-demo-app
+    namespace: team-alpha-media-server
   syncPolicy:
     automated:
       prune: true

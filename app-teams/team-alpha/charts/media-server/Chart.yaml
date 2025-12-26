@@ -1,5 +1,5 @@
 apiVersion: v2
-name: demo-chart
+name: media-server
 description: A simple demo Helm chart for team-alpha
 type: application
 version: 0.1.0
