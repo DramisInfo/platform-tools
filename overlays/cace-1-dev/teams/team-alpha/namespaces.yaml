@@ -29,7 +29,7 @@ spec:
   limits:
   - max:
       cpu: "1"
-      memory: 1Gi
+      memory: 2Gi
     min:
       cpu: 10m
       memory: 16Mi
