@@ -43,19 +43,19 @@ jellyfin:
     
     # Media storage - supports SMB/CIFS, NFS, or PVC
     media:
-      type: hostPath  # Options: smb, nfs, pvc, hostPath
+      type: smb  # Options: smb, nfs, pvc, hostPath
       mountPath: /media
       readOnly: false
       
       # SMB/CIFS Configuration
       smb:
-        server: ""  # e.g., 192.168.1.100
-        share: ""   # e.g., /media or //server/media
+        server: "192.168.2.30"  # e.g., 192.168.1.100
+        share: "/medias"   # e.g., /media or //server/media
         # Credentials stored in a secret
         secretName: ""  # If empty, will create one named: {release}-jellyfin-smb
         # Set these if secretName is empty (will create secret automatically)
-        username: ""
-        password: ""
+        username: "truenas"
+        password: "truenas"
         domain: ""
         options: "vers=3.0,file_mode=0755,dir_mode=0755"
       
