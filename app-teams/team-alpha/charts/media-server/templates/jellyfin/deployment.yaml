@@ -1,0 +1,137 @@
+{{- if .Values.jellyfin.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+spec:
+  replicas: {{ .Values.jellyfin.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "media-server.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: jellyfin
+  template:
+    metadata:
+      labels:
+        {{- include "media-server.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: jellyfin
+    spec:
+      containers:
+      - name: jellyfin
+        image: "{{ .Values.jellyfin.image.repository }}:{{ .Values.jellyfin.image.tag }}"
+        imagePullPolicy: {{ .Values.jellyfin.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 8096
+          protocol: TCP
+        - name: https
+          containerPort: 8920
+          protocol: TCP
+        - name: discovery
+          containerPort: 7359
+          protocol: UDP
+        - name: dlna
+          containerPort: 1900
+          protocol: UDP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        resources:
+          {{- toYaml .Values.jellyfin.resources | nindent 10 }}
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: cache
+          mountPath: /cache
+        - name: media
+          mountPath: {{ .Values.jellyfin.persistence.media.mountPath }}
+          {{- if .Values.jellyfin.persistence.media.readOnly }}
+          readOnly: true
+          {{- end }}
+        {{- with .Values.jellyfin.env }}
+        env:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      volumes:
+      - name: config
+        {{- if .Values.jellyfin.persistence.config.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ include "media-server.fullname" . }}-jellyfin-config
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
+      - name: cache
+        {{- if eq .Values.jellyfin.persistence.cache.type "pvc" }}
+        {{- if .Values.jellyfin.persistence.cache.pvc.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ include "media-server.fullname" . }}-jellyfin-cache
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
+        {{- else }}
+        emptyDir:
+          {{- if .Values.jellyfin.persistence.cache.emptyDir.sizeLimit }}
+          sizeLimit: {{ .Values.jellyfin.persistence.cache.emptyDir.sizeLimit }}
+          {{- end }}
+        {{- end }}
+      - name: media
+        {{- if eq .Values.jellyfin.persistence.media.type "smb" }}
+        csi:
+          driver: smb.csi.k8s.io
+          readOnly: {{ .Values.jellyfin.persistence.media.readOnly }}
+          volumeAttributes:
+            source: "//{{ .Values.jellyfin.persistence.media.smb.server }}{{ .Values.jellyfin.persistence.media.smb.share }}"
+            {{- if .Values.jellyfin.persistence.media.smb.options }}
+            mountOptions: {{ .Values.jellyfin.persistence.media.smb.options | quote }}
+            {{- end }}
+          nodeStageSecretRef:
+            name: {{ .Values.jellyfin.persistence.media.smb.secretName | default (printf "%s-jellyfin-smb" (include "media-server.fullname" .)) }}
+        {{- else if eq .Values.jellyfin.persistence.media.type "nfs" }}
+        nfs:
+          server: {{ .Values.jellyfin.persistence.media.nfs.server }}
+          path: {{ .Values.jellyfin.persistence.media.nfs.path }}
+          readOnly: {{ .Values.jellyfin.persistence.media.readOnly }}
+        {{- else if eq .Values.jellyfin.persistence.media.type "hostPath" }}
+        hostPath:
+          path: {{ .Values.jellyfin.persistence.media.hostPath.path }}
+          type: {{ .Values.jellyfin.persistence.media.hostPath.type | default "Directory" }}
+        {{- else if eq .Values.jellyfin.persistence.media.type "pvc" }}
+        {{- if .Values.jellyfin.persistence.media.pvc.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.jellyfin.persistence.media.pvc.existingClaim | default (printf "%s-jellyfin-media" (include "media-server.fullname" .)) }}
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
+      {{- with .Values.jellyfin.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.jellyfin.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.jellyfin.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

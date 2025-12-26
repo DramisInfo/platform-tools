@@ -1,0 +1,61 @@
+{{- if .Values.jellyfin.enabled }}
+{{- if and .Values.jellyfin.persistence.config.enabled (not .Values.jellyfin.persistence.config.existingClaim) }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-config
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+spec:
+  accessModes:
+    - {{ .Values.jellyfin.persistence.config.accessMode }}
+  {{- if .Values.jellyfin.persistence.config.storageClass }}
+  storageClassName: {{ .Values.jellyfin.persistence.config.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.jellyfin.persistence.config.size }}
+{{- end }}
+
+{{- if and (eq .Values.jellyfin.persistence.cache.type "pvc") .Values.jellyfin.persistence.cache.pvc.enabled (not .Values.jellyfin.persistence.cache.pvc.existingClaim) }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-cache
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+spec:
+  accessModes:
+    - {{ .Values.jellyfin.persistence.cache.pvc.accessMode }}
+  {{- if .Values.jellyfin.persistence.cache.pvc.storageClass }}
+  storageClassName: {{ .Values.jellyfin.persistence.cache.pvc.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.jellyfin.persistence.cache.pvc.size }}
+{{- end }}
+
+{{- if and (eq .Values.jellyfin.persistence.media.type "pvc") .Values.jellyfin.persistence.media.pvc.enabled (not .Values.jellyfin.persistence.media.pvc.existingClaim) }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-media
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+spec:
+  accessModes:
+    - {{ .Values.jellyfin.persistence.media.pvc.accessMode }}
+  {{- if .Values.jellyfin.persistence.media.pvc.storageClass }}
+  storageClassName: {{ .Values.jellyfin.persistence.media.pvc.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.jellyfin.persistence.media.pvc.size }}
+{{- end }}
+{{- end }}

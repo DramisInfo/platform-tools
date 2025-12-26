@@ -1,0 +1,102 @@
+# Media Server Helm Chart Values
+
+# Jellyfin Configuration
+jellyfin:
+  enabled: true
+  replicaCount: 1
+  
+  image:
+    repository: jellyfin/jellyfin
+    tag: "10.9.11"
+    pullPolicy: IfNotPresent
+  
+  service:
+    type: ClusterIP
+    port: 8096
+    annotations: {}
+  
+  ingress:
+    enabled: false
+    className: ""
+    annotations: {}
+    hosts:
+      - host: jellyfin.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+  
+  persistence:
+    config:
+      enabled: true
+      storageClass: ""
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      # existingClaim: ""
+    
+    # Media storage - supports SMB/CIFS, NFS, or PVC
+    media:
+      type: smb  # Options: smb, nfs, pvc, hostPath
+      mountPath: /media
+      readOnly: false
+      
+      # SMB/CIFS Configuration
+      smb:
+        server: ""  # e.g., 192.168.1.100
+        share: ""   # e.g., /media or //server/media
+        # Credentials stored in a secret
+        secretName: ""  # If empty, will create one named: {release}-jellyfin-smb
+        # Set these if secretName is empty (will create secret automatically)
+        username: ""
+        password: ""
+        domain: ""
+        options: "vers=3.0,file_mode=0755,dir_mode=0755"
+      
+      # NFS Configuration (alternative)
+      nfs:
+        server: ""
+        path: ""
+        options: "rw,nfsvers=4.1"
+      
+      # HostPath Configuration (alternative)
+      hostPath:
+        path: ""
+        type: Directory
+      
+      # PVC Configuration (alternative)
+      pvc:
+        enabled: false
+        storageClass: ""
+        accessMode: ReadWriteMany
+        size: 100Gi
+        existingClaim: ""
+    
+    cache:
+      # Use emptyDir by default (lost on restart but saves space)
+      type: emptyDir  # Options: emptyDir, pvc
+      emptyDir:
+        sizeLimit: 5Gi
+      pvc:
+        enabled: false
+        storageClass: ""
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        existingClaim: ""
+  
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+  
+  nodeSelector: {}
+  
+  tolerations: []
+  
+  affinity: {}
+  
+  env: []
+    # - name: JELLYFIN_PublishedServerUrl
+    #   value: "https://jellyfin.example.com"
