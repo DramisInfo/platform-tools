@@ -15,9 +15,9 @@ jellyfin:
     autoSetup: false
     serverName: "Jellyfin Media Server"
     publicUrl: "https://jellyfin.cace-1-dev.dramisinfo.com"
-    # Initial admin user (created automatically)
+    # Initial admin user (manual setup via wizard)
     adminUser:
-      enabled: true
+      enabled: false
       username: "admin"
       password: "truenas"  # Change this!
     

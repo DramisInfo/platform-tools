@@ -64,30 +64,26 @@ spec:
             sleep 5
           done
           
-          # Check if wizard is already completed
-          if curl -s "${JELLYFIN_URL}/Startup/Configuration" | grep -q '"IsStartupWizardCompleted":true'; then
-            echo "==> Setup wizard already completed"
+          # Check if any users exist (wizard completed)
+          if curl -s "${JELLYFIN_URL}/Users/Public" 2>/dev/null | grep -q '"Id"'; then
+            echo "==> Setup already completed, users exist"
             exit 0
           fi
           
-          echo "==> Creating admin user via startup wizard..."
+          echo "==> Creating admin user..."
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${JELLYFIN_URL}/Startup/User" \
             -H "Content-Type: application/json" \
             -d "{\"Name\": \"${ADMIN_USERNAME}\", \"Password\": \"${ADMIN_PASSWORD}\"}")
           
           HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | head -n-1)
           
           if [ "$HTTP_CODE" != "204" ] && [ "$HTTP_CODE" != "200" ]; then
-            echo "ERROR: Failed to create admin user (HTTP $HTTP_CODE)"
-            echo "Response: $BODY"
+            echo "ERROR: Failed to create user (HTTP $HTTP_CODE): $(echo "$RESPONSE" | head -n-1)"
             exit 1
           fi
           
-          echo "==> Completing startup wizard..."
+          echo "==> Completing wizard..."
           curl -s -X POST "${JELLYFIN_URL}/Startup/Complete"
-          
-          echo "==> Waiting for Jellyfin to restart after wizard completion..."
           sleep 10
           
           echo "==> Authenticating as admin user..."
