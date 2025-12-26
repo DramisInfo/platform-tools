@@ -20,6 +20,17 @@ spec:
         {{- include "media-server.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: jellyfin
     spec:
+      {{- if .Values.jellyfin.config.autoSetup }}
+      initContainers:
+      - name: init-config
+        image: busybox:1.36
+        command: ["/bin/sh", "/tmp/jellyfin-config/init-script.sh"]
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: jellyfin-config
+          mountPath: /tmp/jellyfin-config
+      {{- end }}
       containers:
       - name: jellyfin
         image: "{{ .Values.jellyfin.image.repository }}:{{ .Values.jellyfin.image.tag }}"
@@ -114,6 +125,12 @@ spec:
         {{- else }}
         emptyDir: {}
         {{- end }}
+      {{- if .Values.jellyfin.config.autoSetup }}
+      - name: jellyfin-config
+        configMap:
+          name: {{ include "media-server.fullname" . }}-jellyfin-config
+          defaultMode: 0755
+      {{- end }}
       {{- with .Values.jellyfin.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -1,0 +1,115 @@
+{{- if and .Values.jellyfin.enabled .Values.jellyfin.config.autoSetup .Values.jellyfin.config.adminUser.enabled }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-admin
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+type: Opaque
+stringData:
+  username: {{ .Values.jellyfin.config.adminUser.username | quote }}
+  password: {{ .Values.jellyfin.config.adminUser.password | quote }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-init-{{ .Release.Revision | default "1" }}
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin-init
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  ttlSecondsAfterFinished: 300
+  backoffLimit: 10
+  template:
+    metadata:
+      labels:
+        {{- include "media-server.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: jellyfin-init
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: init-admin
+        image: curlimages/curl:8.5.0
+        env:
+        - name: JELLYFIN_URL
+          value: "http://{{ include "media-server.fullname" . }}-jellyfin:{{ .Values.jellyfin.service.port }}"
+        - name: ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "media-server.fullname" . }}-jellyfin-admin
+              key: username
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "media-server.fullname" . }}-jellyfin-admin
+              key: password
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -e
+          
+          echo "Waiting for Jellyfin to be ready..."
+          
+          # Wait for Jellyfin to start (max 5 minutes)
+          for i in $(seq 1 60); do
+            if curl -f -s "${JELLYFIN_URL}/health" > /dev/null 2>&1; then
+              echo "Jellyfin is ready!"
+              break
+            fi
+            echo "Waiting for Jellyfin... ($i/60)"
+            sleep 5
+          done
+          
+          # Check if startup wizard is completed
+          if curl -s "${JELLYFIN_URL}/Startup/Configuration" | grep -q '"IsStartupWizardCompleted":true'; then
+            echo "Startup wizard already completed, checking for existing users..."
+            
+            # Try to get users (this will fail if no auth is set up)
+            USER_COUNT=$(curl -s "${JELLYFIN_URL}/Users" | grep -o '"Id"' | wc -l || echo "0")
+            
+            if [ "$USER_COUNT" -gt "0" ]; then
+              echo "Admin user already exists. Nothing to do."
+              exit 0
+            fi
+          fi
+          
+          echo "Creating initial admin user..."
+          
+          # Create the initial user via Startup wizard API
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${JELLYFIN_URL}/Startup/User" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"Name\": \"${ADMIN_USERNAME}\",
+              \"Password\": \"${ADMIN_PASSWORD}\"
+            }")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | head -n-1)
+          
+          if [ "$HTTP_CODE" = "204" ] || [ "$HTTP_CODE" = "200" ]; then
+            echo "Admin user created successfully!"
+            
+            # Complete the startup wizard
+            echo "Completing startup wizard..."
+            curl -s -X POST "${JELLYFIN_URL}/Startup/Complete"
+            
+            echo "Jellyfin initialization complete!"
+          else
+            echo "Failed to create admin user. HTTP Code: $HTTP_CODE"
+            echo "Response: $BODY"
+            
+            # Check if it's because user already exists
+            if echo "$BODY" | grep -qi "already.*exist"; then
+              echo "User already exists, considering this a success."
+              exit 0
+            fi
+            
+            exit 1
+          fi
+{{- end }}

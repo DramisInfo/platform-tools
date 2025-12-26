@@ -10,6 +10,17 @@ jellyfin:
     tag: "10.9.11"
     pullPolicy: IfNotPresent
   
+  # Automated configuration
+  config:
+    autoSetup: true
+    serverName: "Jellyfin Media Server"
+    publicUrl: "https://jellyfin.cace-1-dev.dramisinfo.com"
+    # Initial admin user (created automatically)
+    adminUser:
+      enabled: true
+      username: "admin"
+      password: "truenas"  # Change this!
+  
   service:
     type: ClusterIP
     port: 8096
