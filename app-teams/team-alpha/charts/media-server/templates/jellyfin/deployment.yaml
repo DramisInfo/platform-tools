@@ -101,8 +101,11 @@ spec:
             {{- if .Values.jellyfin.persistence.media.smb.options }}
             mountOptions: {{ .Values.jellyfin.persistence.media.smb.options | quote }}
             {{- end }}
+            {{- $secretName := .Values.jellyfin.persistence.media.smb.secretName | default (printf "%s-jellyfin-smb" (include "media-server.fullname" .)) }}
+            csi.storage.k8s.io/node-stage-secret-name: {{ $secretName | quote }}
+            csi.storage.k8s.io/node-stage-secret-namespace: {{ .Release.Namespace | quote }}
           nodePublishSecretRef:
-            name: {{ .Values.jellyfin.persistence.media.smb.secretName | default (printf "%s-jellyfin-smb" (include "media-server.fullname" .)) }}
+            name: {{ $secretName }}
         {{- else if eq .Values.jellyfin.persistence.media.type "nfs" }}
         nfs:
           server: {{ .Values.jellyfin.persistence.media.nfs.server }}
