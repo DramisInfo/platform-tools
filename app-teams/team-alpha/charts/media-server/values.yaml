@@ -16,15 +16,22 @@ jellyfin:
     annotations: {}
   
   ingress:
-    enabled: false
-    className: ""
-    annotations: {}
+    enabled: true
+    className: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prd"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     hosts:
-      - host: jellyfin.local
+      - host: jellyfin.cace-1-dev.dramisinfo.com
         paths:
           - path: /
             pathType: Prefix
-    tls: []
+    tls:
+      - secretName: jellyfin-tls
+        hosts:
+          - jellyfin.cace-1-dev.dramisinfo.com
   
   persistence:
     config:
