@@ -1,0 +1,46 @@
+{{- if and .Values.jellyfin.enabled (eq .Values.jellyfin.persistence.media.type "smb") }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-media
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  mountOptions:
+    {{- $options := .Values.jellyfin.persistence.media.smb.options | split "," }}
+    {{- range $options }}
+    - {{ . }}
+    {{- end }}
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: {{ include "media-server.fullname" . }}-jellyfin-media
+    volumeAttributes:
+      source: "//{{ .Values.jellyfin.persistence.media.smb.server }}{{ .Values.jellyfin.persistence.media.smb.share }}"
+    nodeStageSecretRef:
+      name: {{ .Values.jellyfin.persistence.media.smb.secretName | default (printf "%s-jellyfin-smb" (include "media-server.fullname" .)) }}
+      namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "media-server.fullname" . }}-jellyfin-media
+  labels:
+    {{- include "media-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jellyfin
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  volumeName: {{ include "media-server.fullname" . }}-jellyfin-media
+  resources:
+    requests:
+      storage: 100Gi
+{{- end }}
