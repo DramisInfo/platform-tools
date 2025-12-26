@@ -74,42 +74,99 @@ spec:
             USER_COUNT=$(curl -s "${JELLYFIN_URL}/Users" | grep -o '"Id"' | wc -l || echo "0")
             
             if [ "$USER_COUNT" -gt "0" ]; then
-              echo "Admin user already exists. Nothing to do."
-              exit 0
+              echo "Admin user already exists."
             fi
           fi
           
-          echo "Creating initial admin user..."
+          # Check if user exists, if not create
+          USER_COUNT=$(curl -s "${JELLYFIN_URL}/Users/Public" | grep -o '"Id"' | wc -l || echo "0")
+          if [ "$USER_COUNT" -eq "0" ]; then
+            echo "Creating initial admin user..."
+            
+            # Create the initial user via Startup wizard API
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${JELLYFIN_URL}/Startup/User" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"Name\": \"${ADMIN_USERNAME}\",
+                \"Password\": \"${ADMIN_PASSWORD}\"
+              }")
+            
+            HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+            BODY=$(echo "$RESPONSE" | head -n-1)
+            
+            if [ "$HTTP_CODE" = "204" ] || [ "$HTTP_CODE" = "200" ]; then
+              echo "Admin user created successfully!"
+              
+              # Complete the startup wizard
+              echo "Completing startup wizard..."
+              curl -s -X POST "${JELLYFIN_URL}/Startup/Complete"
+              
+              # Wait a bit for user to be ready
+              sleep 5
+            else
+              echo "Failed to create admin user. HTTP Code: $HTTP_CODE"
+              echo "Response: $BODY"
+              exit 1
+            fi
+          else
+            echo "Users already exist, skipping user creation."
+          fi
           
-          # Create the initial user via Startup wizard API
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${JELLYFIN_URL}/Startup/User" \
+          echo "Authenticating..."
+          
+          # Authenticate to get access token
+          AUTH_RESPONSE=$(curl -s -X POST "${JELLYFIN_URL}/Users/AuthenticateByName" \
             -H "Content-Type: application/json" \
+            -H "X-Emby-Authorization: MediaBrowser Client=\"Jellyfin Init\", Device=\"Init Job\", DeviceId=\"init-job\", Version=\"1.0.0\"" \
             -d "{
-              \"Name\": \"${ADMIN_USERNAME}\",
-              \"Password\": \"${ADMIN_PASSWORD}\"
+              \"Username\": \"${ADMIN_USERNAME}\",
+              \"Pw\": \"${ADMIN_PASSWORD}\"
             }")
           
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | head -n-1)
+          ACCESS_TOKEN=$(echo "$AUTH_RESPONSE" | grep -o '"AccessToken":"[^"]*' | cut -d'"' -f4)
+          USER_ID=$(echo "$AUTH_RESPONSE" | grep -o '"Id":"[^"]*' | cut -d'"' -f4 | head -n1)
           
-          if [ "$HTTP_CODE" = "204" ] || [ "$HTTP_CODE" = "200" ]; then
-            echo "Admin user created successfully!"
-            
-            # Complete the startup wizard
-            echo "Completing startup wizard..."
-            curl -s -X POST "${JELLYFIN_URL}/Startup/Complete"
-            
-            echo "Jellyfin initialization complete!"
-          else
-            echo "Failed to create admin user. HTTP Code: $HTTP_CODE"
-            echo "Response: $BODY"
-            
-            # Check if it's because user already exists
-            if echo "$BODY" | grep -qi "already.*exist"; then
-              echo "User already exists, considering this a success."
-              exit 0
-            fi
-            
+          if [ -z "$ACCESS_TOKEN" ]; then
+            echo "Failed to authenticate!"
+            echo "Response: $AUTH_RESPONSE"
             exit 1
           fi
+          
+          echo "Authenticated successfully! User ID: $USER_ID"
+          
+          # Get existing libraries
+          EXISTING_LIBS=$(curl -s -H "X-Emby-Token: $ACCESS_TOKEN" "${JELLYFIN_URL}/Library/VirtualFolders")
+          
+          {{- range .Values.jellyfin.config.libraries }}
+          echo "Creating library: {{ .name }}..."
+          
+          # Check if library already exists
+          if echo "$EXISTING_LIBS" | grep -q '"Name":"{{ .name }}"'; then
+            echo "Library '{{ .name }}' already exists, skipping..."
+          else
+            # Create library
+            curl -s -X POST "${JELLYFIN_URL}/Library/VirtualFolders?collectionType={{ .type }}&refreshLibrary=false&name={{ .name | urlquery }}" \
+              -H "X-Emby-Token: $ACCESS_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "LibraryOptions": {
+                  "EnablePhotos": false,
+                  "EnableRealtimeMonitor": true,
+                  "EnableChapterImageExtraction": false,
+                  "ExtractChapterImagesDuringLibraryScan": false,
+                  "PathInfos": [
+                    {{- range $index, $path := .paths }}
+                    {{- if $index }},{{- end }}
+                    {"Path": "{{ $path }}"}
+                    {{- end }}
+                  ]
+                }
+              }'
+            
+            echo "Library '{{ .name }}' created!"
+          fi
+          
+          {{- end }}
+          
+          echo "Jellyfin initialization complete!"
 {{- end }}

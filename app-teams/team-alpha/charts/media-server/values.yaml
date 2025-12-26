@@ -20,6 +20,17 @@ jellyfin:
       enabled: true
       username: "admin"
       password: "truenas"  # Change this!
+    
+    # Media libraries to create automatically
+    libraries:
+      - name: "Movies"
+        type: "movies"
+        paths:
+          - "/media/movies"
+      - name: "TV Shows"
+        type: "tvshows"
+        paths:
+          - "/media/shows"
   
   service:
     type: ClusterIP
