@@ -1,4 +1,4 @@
-{{- if and .Values.jellyfin.enabled .Values.jellyfin.config.autoSetup .Values.jellyfin.config.adminUser.enabled }}
+{{- if and .Values.jellyfin.enabled .Values.jellyfin.config.adminUser.enabled }}
 ---
 apiVersion: v1
 kind: Secret

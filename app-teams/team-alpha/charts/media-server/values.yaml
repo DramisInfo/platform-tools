@@ -12,7 +12,7 @@ jellyfin:
   
   # Automated configuration
   config:
-    autoSetup: true
+    autoSetup: false
     serverName: "Jellyfin Media Server"
     publicUrl: "https://jellyfin.cace-1-dev.dramisinfo.com"
     # Initial admin user (created automatically)
