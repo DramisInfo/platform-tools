@@ -43,7 +43,7 @@ jellyfin:
     
     # Media storage - supports SMB/CIFS, NFS, or PVC
     media:
-      type: smb  # Options: smb, nfs, pvc, hostPath
+      type: hostPath  # Options: smb, nfs, pvc, hostPath
       mountPath: /media
       readOnly: false
       
@@ -67,7 +67,7 @@ jellyfin:
       
       # HostPath Configuration (alternative)
       hostPath:
-        path: ""
+        path: "/mnt/media"
         type: Directory
       
       # PVC Configuration (alternative)
