@@ -101,9 +101,8 @@ spec:
             {{- if .Values.jellyfin.persistence.media.smb.options }}
             mountOptions: {{ .Values.jellyfin.persistence.media.smb.options | quote }}
             {{- end }}
-          nodeStageSecretRef:
+          nodePublishSecretRef:
             name: {{ .Values.jellyfin.persistence.media.smb.secretName | default (printf "%s-jellyfin-smb" (include "media-server.fullname" .)) }}
-            namespace: {{ .Release.Namespace }}
         {{- else if eq .Values.jellyfin.persistence.media.type "nfs" }}
         nfs:
           server: {{ .Values.jellyfin.persistence.media.nfs.server }}
