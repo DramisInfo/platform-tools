@@ -11,7 +11,7 @@ spec:
           clusterName: cace-2-dev
         bootstrap:
           nats:
-            enabled: false
+            enabled: true
             gateway:
               enabled: true
               name: "cace-2-dev-cluster"
