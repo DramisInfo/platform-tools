@@ -3,7 +3,6 @@ kind: Application
 metadata:
   name: platform-core
   namespace: argocd
-  
 spec:
   source:
     helm:
@@ -12,7 +11,7 @@ spec:
           clusterName: cace-2-dev
         bootstrap:
           nats:
-            enabled: true
+            enabled: false
             gateway:
               enabled: true
               name: "cace-2-dev-cluster"
