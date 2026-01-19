@@ -3,9 +3,9 @@ kind: Application
 metadata:
   name: platform-core
   namespace: argocd
+  
 spec:
   source:
-    targetRevision: "v0.11.2"
     helm:
       valuesObject:
         global:
