@@ -6,13 +6,13 @@ metadata:
 spec:
   description: Team Alpha applications
   sourceRepos:
-    - '*'  # For testing; restrict to specific repos in production
+    - "*" # For testing; restrict to specific repos in production
   destinations:
-    - namespace: 'team-alpha-*'
-      server: 'https://kubernetes.default.svc'
+    - namespace: "team-alpha-*"
+      server: "https://kubernetes.default.svc"
   namespaceResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"
   clusterResourceWhitelist:
-    - group: ''
-      kind: PersistentVolume
+    - group: "*"
+      kind: "*"
