@@ -24,6 +24,10 @@ spec:
         nats:
           enabled: false # Disable chart NATS installation
           endpoint: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+
+        nack:
+          enabled: false
+
         natsBox:
           # Enable NATS box for CLI troubleshooting
           enabled: false
