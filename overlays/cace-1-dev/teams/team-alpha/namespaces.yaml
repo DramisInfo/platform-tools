@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: team-alpha
+  name: team-alpha-agentic-system
   labels:
     team: team-alpha
     environment: dev
@@ -11,7 +11,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: compute-quota
-  namespace: team-alpha
+  namespace: team-alpha-agentic-system
 spec:
   hard:
     requests.cpu: "2"
@@ -24,7 +24,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: resource-limits
-  namespace: team-alpha
+  namespace: team-alpha-agentic-system
 spec:
   limits:
   - max:
