@@ -1,21 +1,92 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: media-server
+  name: agentic-system
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
-  project: team-alpha
-  source:
-    repoURL: https://github.com/DramisInfo/platform-tools
-    targetRevision: HEAD
-    path: app-teams/team-alpha/charts/media-server
-    helm:
-      values: |
-        replicaCount: 3
   destination:
-    server: https://kubernetes.default.svc
-    namespace: team-alpha-media-server
+    namespace: agentic-system
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    repoURL: "https://github.com/DramisInfo/agentic-management"
+    targetRevision: HEAD
+    path: charts/agentic-platform
+    helm:
+      valuesObject:
+        # KEDA Configuration
+        keda:
+          enabled: true
+
+        # NATS Configuration - using existing cluster NATS
+        nats:
+          enabled: false # Disable chart NATS installation
+          endpoint: "nats://nats-az-1.nats.svc.cluster.local:4222"
+
+        # Environment-specific configuration for dev
+        global:
+          environment: dev
+          # External NATS configuration
+          nats:
+            url: "nats://nats-az-1.nats.svc.cluster.local:4222"
+            user: "app"
+            password: "nats-app-dev"
+
+        # Controller configuration
+        agenticPlatformController:
+          enabled: true
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/agentic-platform-controller
+            tag: pr-70
+          replicas: 1
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+        # Configuration Manager configuration
+        configurationManager:
+          enabled: true
+          replicaCount: 2
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/configuration-manager
+            tag: pr-70
+          env:
+            NATS_USER: "app"
+            NATS_PASSWORD: "nats-app-dev"
+
+        # NATS Gateway configuration
+        natsGateway:
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/nats-gateway
+            tag: pr-70
+          env:
+            NATS_USER: "app"
+            NATS_PASSWORD: "nats-app-dev"
+
+        # UI configuration
+        ui:
+          enabled: true
+          image:
+            repository: ghcr.io/dramisinfo/agentic-management/ui
+            tag: pr-70
+          replicas: 1
+
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-platform
+          host: agentic-system.az-1.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
