@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: team-alpha-media-server
+  name: team-alpha
   labels:
     team: team-alpha
     environment: dev
@@ -11,7 +11,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: compute-quota
-  namespace: team-alpha-media-server
+  namespace: team-alpha
 spec:
   hard:
     requests.cpu: "2"
@@ -24,7 +24,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: resource-limits
-  namespace: team-alpha-media-server
+  namespace: team-alpha
 spec:
   limits:
   - max:
