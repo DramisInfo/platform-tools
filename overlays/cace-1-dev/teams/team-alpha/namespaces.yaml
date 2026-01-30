@@ -14,9 +14,9 @@ metadata:
   namespace: team-alpha-agentic-system
 spec:
   hard:
-    requests.cpu: "2"
+    requests.cpu: 4000m
     requests.memory: 4Gi
-    limits.cpu: "4"
+    limits.cpu: 4000m
     limits.memory: 8Gi
     persistentvolumeclaims: "3"
 ---
@@ -27,16 +27,16 @@ metadata:
   namespace: team-alpha-agentic-system
 spec:
   limits:
-  - max:
-      cpu: "1"
-      memory: 2Gi
-    min:
-      cpu: 10m
-      memory: 16Mi
-    default:
-      cpu: 200m
-      memory: 256Mi
-    defaultRequest:
-      cpu: 100m
-      memory: 128Mi
-    type: Container
+    - max:
+        cpu: 4000m
+        memory: 2Gi
+      min:
+        cpu: 10m
+        memory: 16Mi
+      default:
+        cpu: 200m
+        memory: 256Mi
+      defaultRequest:
+        cpu: 100m
+        memory: 128Mi
+      type: Container
