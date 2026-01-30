@@ -30,7 +30,7 @@ spec:
           environment: dev
           # External NATS configuration
           nats:
-            url: "nats://nats-az-1.nats.svc.cluster.local:4222"
+            url: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
             user: "app"
             password: "nats-app-dev"
 
