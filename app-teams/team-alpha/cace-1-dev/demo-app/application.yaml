@@ -81,7 +81,7 @@ spec:
           enabled: true
           className: nginx
           annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-platform
+            cert-manager.io/cluster-issuer: letsencrypt-prd
           host: agentic-system.cace-1-dev.dramisinfo.com
   syncPolicy:
     automated:
