@@ -27,6 +27,19 @@ spec:
 
         nack:
           enabled: false
+          jetstream:
+            nats:
+              # Connect to our NATS cluster
+              url: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
+              # Use default account (no authentication for now)
+              # user: "app"
+              # password: "nats-app-dev"
+
+            # JetStream Stream configuration
+            stream:
+              # Cluster placement configuration for multi-node NATS clusters
+              placement:
+                cluster: "cace-1-dev-cluster"
 
         natsBox:
           # Enable NATS box for CLI troubleshooting
