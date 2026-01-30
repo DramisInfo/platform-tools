@@ -23,7 +23,7 @@ spec:
         # NATS Configuration - using existing cluster NATS
         nats:
           enabled: false # Disable chart NATS installation
-          endpoint: "nats://nats-az-1.nats.svc.cluster.local:4222"
+          endpoint: "nats://nats-cace-1-dev.nats.svc.cluster.local:4222"
 
         # Environment-specific configuration for dev
         global:
@@ -82,7 +82,7 @@ spec:
           className: nginx
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-platform
-          host: agentic-system.az-1.dramisinfo.com
+          host: agentic-system.cace-1-dev.dramisinfo.com
   syncPolicy:
     automated:
       prune: true
