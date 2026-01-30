@@ -4,7 +4,7 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
-  - teams/team-alpha
+  # - teams/team-alpha
 
 patches:
   - path: patches/platform-core.yaml
