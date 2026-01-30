@@ -10,6 +10,8 @@ spec:
   destinations:
     - namespace: "team-alpha-*"
       server: "https://kubernetes.default.svc"
+    - namespace: "kube-system"
+      server: "https://kubernetes.default.svc"
   namespaceResourceWhitelist:
     - group: "*"
       kind: "*"
