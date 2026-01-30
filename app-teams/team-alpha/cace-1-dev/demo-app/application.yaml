@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: agentic-system
     server: "https://kubernetes.default.svc"
-  project: default
+  project: team-alpha
   source:
     repoURL: "https://github.com/DramisInfo/agentic-management"
     targetRevision: HEAD
