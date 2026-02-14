@@ -12,7 +12,7 @@ spec:
           clusterName: cace-1-dev
         bootstrap:
           istio:
-            enabled: true
+            enabled: false
           nats:
             enabled: true
             gateway:
