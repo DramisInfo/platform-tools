@@ -10,10 +10,6 @@ spec:
         global:
           clusterName: cace-2-dev
         bootstrap:
-          ingressNginx:
-            enabled: false
-          istio:
-            enabled: true
           nats:
             enabled: true
             gateway:
