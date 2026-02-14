@@ -215,19 +215,8 @@ show_cluster_status() {
     fi
 }
 
-# Function to run interactive test
-interactive_test() {
-    print_section "INTERACTIVE MESSAGING TEST"
-    
-    echo -e "${BOLD}This test allows you to send messages between NATS servers interactively${NC}"
-    echo
-    echo -e "${CYAN}Instructions:${NC}"
-    echo -e "  1. This will start a subscriber on dev 2 server"
-    echo -e "  2. You can then publish messages from dev 1 server in another terminal"
-    echo -e "  3. Press ${BOLD}Ctrl+C${NC} to stop the subscriber when finished"
-    echo
-    read -p "Press Enter to continue..."
-    
+# Function to run interactive pub/sub test
+interactive_pubsub_test() {
     print_status $YELLOW "Starting subscriber on dev 2 (listening to 'interactive.test')..."
     echo
     echo -e "${BOLD}How to send messages:${NC}"
@@ -240,6 +229,66 @@ interactive_test() {
     echo
     
     nats sub --server="$DEV_2_NATS_URL" "interactive.test"
+}
+
+# Function to run interactive request-reply test
+interactive_request_reply_test() {
+    print_status $YELLOW "Starting responder on dev 2 (listening to 'interactive.request')..."
+    echo
+    echo -e "${BOLD}How to send requests:${NC}"
+    echo -e "${GREEN}-------------------------------------------------------${NC}"
+    echo -e "Run this command in another terminal:"
+    echo -e "${BOLD}nats request --server=\"$DEV_1_NATS_URL\" \"interactive.request\" \"Your request here\"${NC}"
+    echo -e "${GREEN}-------------------------------------------------------${NC}"
+    echo
+    echo -e "${YELLOW}Waiting for requests... (Press Ctrl+C to stop)${NC}"
+    echo
+    
+    nats reply --server="$DEV_2_NATS_URL" "interactive.request" "Response from dev 2: received your request"
+}
+
+# Function to run interactive test
+interactive_test() {
+    print_section "INTERACTIVE MESSAGING TEST"
+    
+    echo -e "${BOLD}This test allows you to test NATS messaging patterns between servers interactively${NC}"
+    echo
+    echo -e "${CYAN}Choose a messaging pattern to test:${NC}"
+    echo -e "  ${BOLD}1${NC} - Pub/Sub (publish messages from dev 1, subscribe on dev 2)"
+    echo -e "  ${BOLD}2${NC} - Request/Reply (send requests from dev 1, reply from dev 2)"
+    echo
+    read -p "Enter your choice (1 or 2): " choice
+    echo
+    
+    case "$choice" in
+        1)
+            print_section "PUB/SUB INTERACTIVE TEST"
+            echo -e "${CYAN}Instructions:${NC}"
+            echo -e "  1. This will start a subscriber on dev 2 server"
+            echo -e "  2. You can then publish messages from dev 1 server in another terminal"
+            echo -e "  3. Press ${BOLD}Ctrl+C${NC} to stop the subscriber when finished"
+            echo
+            read -p "Press Enter to continue..."
+            echo
+            interactive_pubsub_test
+            ;;
+        2)
+            print_section "REQUEST/REPLY INTERACTIVE TEST"
+            echo -e "${CYAN}Instructions:${NC}"
+            echo -e "  1. This will start a responder on dev 2 server"
+            echo -e "  2. You can then send requests from dev 1 server in another terminal"
+            echo -e "  3. The responder will echo back your request data"
+            echo -e "  4. Press ${BOLD}Ctrl+C${NC} to stop the responder when finished"
+            echo
+            read -p "Press Enter to continue..."
+            echo
+            interactive_request_reply_test
+            ;;
+        *)
+            print_status $RED "Invalid choice. Please run the command again and choose 1 or 2."
+            exit 1
+            ;;
+    esac
 }
 
 # Function to display test summary
