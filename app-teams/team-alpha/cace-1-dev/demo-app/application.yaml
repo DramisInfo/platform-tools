@@ -102,11 +102,11 @@ spec:
           sk:
             scaling:
               nats:
-                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"
+                serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"
           agno:
             scaling:
               nats:
-                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"
+                serverEndpoint: "nats-cace-1-dev-headless.nats.svc.cluster.local:8222"
 
         ingress:
           enabled: false  # Disabled - using Istio VirtualService instead
