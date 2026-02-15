@@ -12,6 +12,8 @@ spec:
           clusterName: cace-1-dev
         bootstrap:
           gatekeeper:
+            enabled: true
+          prometheus:
             enabled: false
           nats:
             enabled: false
