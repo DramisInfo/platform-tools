@@ -10,6 +10,8 @@ spec:
         global:
           clusterName: cace-2-dev
         bootstrap:
+          monitoring:
+            enabled: false
           nats:
             enabled: true
             gateway:
