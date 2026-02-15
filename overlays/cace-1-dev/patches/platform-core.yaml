@@ -14,7 +14,7 @@ spec:
           gatekeeper:
             enabled: true
           prometheus:
-            enabled: false
+            enabled: true
           nats:
             enabled: false
             gateway:
