@@ -14,7 +14,7 @@ spec:
           gatekeeper:
             enabled: true
           monitoring:
-            enabled: false
+            enabled: true
           nats:
             enabled: true
             gateway:
