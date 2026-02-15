@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: agentic-system
+  namespace: team-alpha-agentic-system
+spec:
+  hosts:
+    - agentic-system.cace-1-dev.dramisinfo.com
+  gateways:
+    - istio-system/shared-gateway
+  http:
+    # API routes go to NATS gateway
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: agentic-system-agentic-platform-nats-gateway
+            port:
+              number: 8080
+    # Default route goes to UI
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: agentic-system-agentic-platform-ui
+            port:
+              number: 80

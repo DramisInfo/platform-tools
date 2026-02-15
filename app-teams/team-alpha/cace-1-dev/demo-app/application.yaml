@@ -98,11 +98,7 @@ spec:
           replicas: 1
 
         ingress:
-          enabled: true
-          className: nginx
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prd
-          host: agentic-system.cace-1-dev.dramisinfo.com
+          enabled: false  # Disabled - using Istio VirtualService instead
   syncPolicy:
     automated:
       prune: true
