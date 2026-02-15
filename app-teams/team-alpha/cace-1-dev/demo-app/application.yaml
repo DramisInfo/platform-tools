@@ -18,7 +18,7 @@ spec:
       valuesObject:
         # KEDA Configuration
         keda:
-          enabled: true
+          enabled: false
 
         # NATS Configuration - using existing cluster NATS
         nats:
