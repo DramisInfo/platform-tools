@@ -25,5 +25,3 @@ spec:
       - SkipDryRunOnMissingResource=true
       - Validate=false
       - Prune=true
-      - ApplyOutOfSyncOnly=true
-      - Force=true
