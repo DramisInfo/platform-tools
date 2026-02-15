@@ -97,6 +97,17 @@ spec:
             tag: pr-116
           replicas: 1
 
+        # Agent Runner scaling configuration - override NATS endpoints for external cluster
+        agentRunner:
+          sk:
+            scaling:
+              nats:
+                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"
+          agno:
+            scaling:
+              nats:
+                serverEndpoint: "nats-cace-1-dev.nats.svc.cluster.local:8222"
+
         ingress:
           enabled: false  # Disabled - using Istio VirtualService instead
   syncPolicy:
