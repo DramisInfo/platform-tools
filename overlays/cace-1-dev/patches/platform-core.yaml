@@ -12,11 +12,11 @@ spec:
           clusterName: cace-1-dev
         bootstrap:
           gatekeeper:
-            enabled: true
+            enabled: false
           nats:
-            enabled: true
+            enabled: false
             gateway:
-              enabled: true
+              enabled: false
               name: "cace-1-dev-cluster"
               advertise: "nats.cace-1-dev.dramisinfo.com:7222"
               gateways:
