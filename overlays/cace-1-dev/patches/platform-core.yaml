@@ -13,8 +13,8 @@ spec:
         bootstrap:
           gatekeeper:
             enabled: true
-          prometheus:
-            enabled: true
+          monitoring:
+            enabled: false
           nats:
             enabled: true
             gateway:
