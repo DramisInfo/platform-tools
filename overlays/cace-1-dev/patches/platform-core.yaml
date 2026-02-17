@@ -22,3 +22,13 @@ spec:
               gateways:
                 - name: "cace-2-dev-cluster"
                   url: "nats://nats.cace-2-dev.dramisinfo.com:7222"
+          gatekeeper:
+            policies:
+              excludedNamespaces:
+                - kube-system
+                - gatekeeper-system
+                - cert-manager
+                - istio-system
+                - ingress-nginx
+                - argocd
+                - azure-arc
