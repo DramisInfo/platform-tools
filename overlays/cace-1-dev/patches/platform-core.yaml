@@ -32,3 +32,4 @@ spec:
                 - ingress-nginx
                 - argocd
                 - azure-arc
+                - arc-workload-identity
