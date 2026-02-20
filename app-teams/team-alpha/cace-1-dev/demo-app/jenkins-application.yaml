@@ -37,7 +37,11 @@ spec:
             # as ${GITHUB_APP_ID} and ${GITHUB_PRIVATE_KEY}.
             JCasC:
               enabled: true
-              defaultConfig: true
+              # defaultConfig generates a Kubernetes cloud config which requires the
+              # kubernetes plugin to be loaded at JCasC init time. With Jenkins 2.176.1
+              # this causes a boot failure: "No hudson.slaves.Cloud implementation
+              # found for kubernetes". Disable it since we use custom configScripts.
+              defaultConfig: false
               pluginVersion: "1.32"
               configScripts:
                 locale: |
