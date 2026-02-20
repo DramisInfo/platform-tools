@@ -10,56 +10,61 @@ spec:
     namespace: team-alpha-jenkins
     server: "https://kubernetes.default.svc"
   project: team-alpha
-  source:
-    # Using the deprecated stable/jenkins chart (1.9.x era) because Jenkins 2.176.1
-    # is an LTS release from July 2019. The modern charts.jenkins.io chart requires
-    # Jenkins 2.249+ due to plugin version requirements.
-    repoURL: "https://charts.helm.sh/stable"
-    chart: jenkins
-    targetRevision: 1.9.9
-    helm:
-      valuesObject:
-        master:
-          image: "jenkins/jenkins"
-          tag: "2.176.1"
-          # Run as jenkins user (uid 1000) to satisfy the psp-pods-must-run-as-nonroot
-          # OPA Gatekeeper constraint active on this cluster.
-          runAsUser: 1000
-          fsGroup: 1000
-          serviceType: ClusterIP
-          jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
-          # Base plugins required by the chart + additional plugins compatible with Jenkins 2.176.1
-          # Inject GitHub App secret keys as environment variables.
-          # Note: additionalExistingSecrets is not available in chart 1.9.x.
-          # Instead we use envVars with secretKeyRef, and reference them in JCasC
-          # as ${GITHUB_APP_ID} and ${GITHUB_PRIVATE_KEY}.
-          JCasC:
+  # spec.sources (multi-source) allows the VirtualService to be managed as part
+  # of the same ArgoCD Application as the Helm chart, so it appears together in the UI.
+  sources:
+    - # Using the deprecated stable/jenkins chart (1.9.x era) because Jenkins 2.176.1
+      # is an LTS release from July 2019. The modern charts.jenkins.io chart requires
+      # Jenkins 2.249+ due to plugin version requirements.
+      repoURL: "https://charts.helm.sh/stable"
+      chart: jenkins
+      targetRevision: 1.9.9
+      helm:
+        valuesObject:
+          master:
+            image: "jenkins/jenkins"
+            tag: "2.176.1"
+            # Run as jenkins user (uid 1000) to satisfy the psp-pods-must-run-as-nonroot
+            # OPA Gatekeeper constraint active on this cluster.
+            runAsUser: 1000
+            fsGroup: 1000
+            serviceType: ClusterIP
+            jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
+            # Base plugins required by the chart + additional plugins compatible with Jenkins 2.176.1
+            # Inject GitHub App secret keys as environment variables.
+            # Note: additionalExistingSecrets is not available in chart 1.9.x.
+            # Instead we use envVars with secretKeyRef, and reference them in JCasC
+            # as ${GITHUB_APP_ID} and ${GITHUB_PRIVATE_KEY}.
+            JCasC:
+              enabled: true
+              defaultConfig: true
+              pluginVersion: "1.32"
+              configScripts:
+                locale: |
+                  appearance:
+                    locale:
+                      ignoreAcceptLanguage: true
+                      systemLocale: "en"
+            resources:
+              requests:
+                cpu: "250m"
+                memory: "512Mi"
+              limits:
+                cpu: "1000m"
+                memory: "1Gi"
+            javaOpts: "-Xms256m -Xmx512m -Duser.language=en -Duser.country=US"
+          persistence:
             enabled: true
-            defaultConfig: true
-            pluginVersion: "1.32"
-            configScripts:
-              locale: |
-                appearance:
-                  locale:
-                    ignoreAcceptLanguage: true
-                    systemLocale: "en"
-          resources:
-            requests:
-              cpu: "250m"
-              memory: "512Mi"
-            limits:
-              cpu: "1000m"
-              memory: "1Gi"
-          javaOpts: "-Xms256m -Xmx512m -Duser.language=en -Duser.country=US"
-        persistence:
-          enabled: true
-          size: 5Gi
-        serviceAccount:
-          create: true
-        # NOTE: extraObjects is not supported in stable/jenkins 1.9.x.
-        # The VirtualService for jenkins.cace-1-dev.dramisinfo.com must be
-        # managed separately (e.g., via the virtualservice.yaml in this folder
-        # or as a standalone ArgoCD Application).
+            size: 5Gi
+          serviceAccount:
+            create: true
+    - # Second source: raw manifests from this repo (VirtualService).
+      # These appear under the same Jenkins Application in the ArgoCD UI.
+      repoURL: "https://github.com/DramisInfo/platform-tools"
+      targetRevision: HEAD
+      path: app-teams/team-alpha/cace-1-dev/demo-app
+      directory:
+        include: "jenkins-virtualservice.yaml"
   syncPolicy:
     automated:
       prune: true
