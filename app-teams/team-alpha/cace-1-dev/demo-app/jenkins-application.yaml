@@ -18,6 +18,7 @@ spec:
       valuesObject:
         controller:
           serviceType: ClusterIP
+          jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
           resources:
             requests:
               cpu: "250m"
@@ -31,6 +32,23 @@ spec:
           size: 5Gi
         serviceAccount:
           create: true
+        extraObjects:
+          - apiVersion: networking.istio.io/v1beta1
+            kind: VirtualService
+            metadata:
+              name: jenkins
+              namespace: team-alpha-jenkins
+            spec:
+              hosts:
+                - jenkins.cace-1-dev.dramisinfo.com
+              gateways:
+                - istio-system/shared-gateway
+              http:
+                - route:
+                    - destination:
+                        host: jenkins
+                        port:
+                          number: 8080
   syncPolicy:
     automated:
       prune: true
