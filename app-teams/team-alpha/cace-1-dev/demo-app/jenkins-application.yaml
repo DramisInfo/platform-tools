@@ -58,12 +58,13 @@ spec:
             size: 5Gi
           serviceAccount:
             create: true
-    - # Second source: stable/raw chart to embed the VirtualService inline.
+    - # Second source: bedag/raw chart to embed the VirtualService inline.
+      # stable/raw does not exist; bedag/raw is the maintained equivalent.
       # This avoids needing a separate Git file while still appearing under
       # the same Jenkins Application in the ArgoCD UI.
-      repoURL: "https://charts.helm.sh/stable"
+      repoURL: "https://bedag.github.io/helm-charts/"
       chart: raw
-      targetRevision: 0.1.0
+      targetRevision: 2.0.2
       helm:
         valuesObject:
           resources:
