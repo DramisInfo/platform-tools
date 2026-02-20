@@ -58,13 +58,31 @@ spec:
             size: 5Gi
           serviceAccount:
             create: true
-    - # Second source: raw manifests from this repo (VirtualService).
-      # These appear under the same Jenkins Application in the ArgoCD UI.
-      repoURL: "https://github.com/DramisInfo/platform-tools"
-      targetRevision: HEAD
-      path: app-teams/team-alpha/cace-1-dev/demo-app
-      directory:
-        include: "jenkins-virtualservice.yaml"
+    - # Second source: stable/raw chart to embed the VirtualService inline.
+      # This avoids needing a separate Git file while still appearing under
+      # the same Jenkins Application in the ArgoCD UI.
+      repoURL: "https://charts.helm.sh/stable"
+      chart: raw
+      targetRevision: 0.1.0
+      helm:
+        valuesObject:
+          resources:
+            - apiVersion: networking.istio.io/v1beta1
+              kind: VirtualService
+              metadata:
+                name: jenkins
+                namespace: team-alpha-jenkins
+              spec:
+                hosts:
+                  - jenkins.cace-1-dev.dramisinfo.com
+                gateways:
+                  - istio-system/shared-gateway
+                http:
+                  - route:
+                      - destination:
+                          host: jenkins
+                          port:
+                            number: 8080
   syncPolicy:
     automated:
       prune: true
