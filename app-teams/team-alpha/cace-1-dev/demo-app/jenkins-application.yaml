@@ -19,6 +19,15 @@ spec:
         controller:
           serviceType: ClusterIP
           jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
+          additionalPlugins:
+            - locale:latest
+          JCasC:
+            configScripts:
+              locale: |
+                appearance:
+                  locale:
+                    ignoreAcceptLanguage: true
+                    stapleLocale: "en"
           resources:
             requests:
               cpu: "250m"
