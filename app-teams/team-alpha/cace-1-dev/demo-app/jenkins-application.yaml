@@ -29,31 +29,10 @@ spec:
           serviceType: ClusterIP
           jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
           # Base plugins required by the chart + additional plugins compatible with Jenkins 2.176.1
-          installPlugins:
-            - kubernetes:1.21.2
-            - workflow-job:2.36
-            - workflow-aggregator:2.6
-            - credentials-binding:1.20
-            - git:4.0.0
-            - configuration-as-code:1.32
-            - locale:1.4
-            - github:1.29.5
-            - github-branch-source:2.6.0
           # Inject GitHub App secret keys as environment variables.
           # Note: additionalExistingSecrets is not available in chart 1.9.x.
           # Instead we use envVars with secretKeyRef, and reference them in JCasC
           # as ${GITHUB_APP_ID} and ${GITHUB_PRIVATE_KEY}.
-          envVars:
-            - name: GITHUB_APP_ID
-              valueFrom:
-                secretKeyRef:
-                  name: jenkins-github-app
-                  key: app-id
-            - name: GITHUB_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: jenkins-github-app
-                  key: private-key
           JCasC:
             enabled: true
             defaultConfig: true
@@ -64,22 +43,6 @@ spec:
                   locale:
                     ignoreAcceptLanguage: true
                     systemLocale: "en"
-              github: |
-                credentials:
-                  system:
-                    domainCredentials:
-                      - credentials:
-                          - gitHubApp:
-                              appID: "${GITHUB_APP_ID}"
-                              description: "GitHub App"
-                              id: "github-app"
-                              privateKey: "${GITHUB_PRIVATE_KEY}"
-                unclassified:
-                  gitHubPluginConfig:
-                    configs:
-                      - credentialsId: "github-app"
-                        name: "GitHub"
-                        apiUrl: "https://api.github.com"
           resources:
             requests:
               cpu: "250m"
