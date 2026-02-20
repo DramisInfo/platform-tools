@@ -11,24 +11,49 @@ spec:
     server: "https://kubernetes.default.svc"
   project: team-alpha
   source:
-    repoURL: "https://charts.jenkins.io"
+    # Using the deprecated stable/jenkins chart (1.9.x era) because Jenkins 2.176.1
+    # is an LTS release from July 2019. The modern charts.jenkins.io chart requires
+    # Jenkins 2.249+ due to plugin version requirements.
+    repoURL: "https://charts.helm.sh/stable"
     chart: jenkins
-    targetRevision: 5.x.x
+    targetRevision: 1.9.9
     helm:
       valuesObject:
-        controller:
+        master:
+          image: "jenkins/jenkins"
+          tag: "2.176.1"
           serviceType: ClusterIP
           jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
-          additionalPlugins:
-            - locale:latest
-            - github:latest
-            - github-branch-source:latest
-          additionalExistingSecrets:
-            - name: jenkins-github-app
-              keyName: app-id
-            - name: jenkins-github-app
-              keyName: private-key
+          # Base plugins required by the chart + additional plugins compatible with Jenkins 2.176.1
+          installPlugins:
+            - kubernetes:1.21.2
+            - workflow-job:2.36
+            - workflow-aggregator:2.6
+            - credentials-binding:1.20
+            - git:4.0.0
+            - configuration-as-code:1.32
+            - locale:1.4
+            - github:1.29.5
+            - github-branch-source:2.6.0
+          # Inject GitHub App secret keys as environment variables.
+          # Note: additionalExistingSecrets is not available in chart 1.9.x.
+          # Instead we use envVars with secretKeyRef, and reference them in JCasC
+          # as ${GITHUB_APP_ID} and ${GITHUB_PRIVATE_KEY}.
+          envVars:
+            - name: GITHUB_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins-github-app
+                  key: app-id
+            - name: GITHUB_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins-github-app
+                  key: private-key
           JCasC:
+            enabled: true
+            defaultConfig: true
+            pluginVersion: "1.32"
             configScripts:
               locale: |
                 appearance:
@@ -41,10 +66,10 @@ spec:
                     domainCredentials:
                       - credentials:
                           - gitHubApp:
-                              appID: "${jenkins-github-app-app-id}"
+                              appID: "${GITHUB_APP_ID}"
                               description: "GitHub App"
                               id: "github-app"
-                              privateKey: "${jenkins-github-app-private-key}"
+                              privateKey: "${GITHUB_PRIVATE_KEY}"
                 unclassified:
                   gitHubPluginConfig:
                     configs:
@@ -64,23 +89,10 @@ spec:
           size: 5Gi
         serviceAccount:
           create: true
-        extraObjects:
-          - apiVersion: networking.istio.io/v1beta1
-            kind: VirtualService
-            metadata:
-              name: jenkins
-              namespace: team-alpha-jenkins
-            spec:
-              hosts:
-                - jenkins.cace-1-dev.dramisinfo.com
-              gateways:
-                - istio-system/shared-gateway
-              http:
-                - route:
-                    - destination:
-                        host: jenkins
-                        port:
-                          number: 8080
+        # NOTE: extraObjects is not supported in stable/jenkins 1.9.x.
+        # The VirtualService for jenkins.cace-1-dev.dramisinfo.com must be
+        # managed separately (e.g., via the virtualservice.yaml in this folder
+        # or as a standalone ArgoCD Application).
   syncPolicy:
     automated:
       prune: true
