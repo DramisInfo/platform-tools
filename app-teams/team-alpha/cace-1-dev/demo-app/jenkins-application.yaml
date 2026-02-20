@@ -30,23 +30,11 @@ spec:
             fsGroup: 1000
             serviceType: ClusterIP
             jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
-            # Base plugins required by the chart + additional plugins compatible with Jenkins 2.176.1
-            # Inject GitHub App secret keys as environment variables.
-            # Note: additionalExistingSecrets is not available in chart 1.9.x.
-            # Instead we use envVars with secretKeyRef, and reference them in JCasC
-            # as ${GITHUB_APP_ID} and ${GITHUB_PRIVATE_KEY}.
+            # JCasC disabled: the 'appearance' root element didn't exist in
+            # JCasC 1.32 / Jenkins 2.176.1, and the kubernetes cloud config
+            # also crashes this old version. Locale is handled via javaOpts.
             JCasC:
-              enabled: true
-              # defaultConfig generates a Kubernetes cloud config which requires the
-              # kubernetes plugin to be loaded at JCasC init time. With Jenkins 2.176.1
-              # this causes a boot failure: "No hudson.slaves.Cloud implementation
-              # found for kubernetes". Disable it since we use custom configScripts.
-              defaultConfig: false
-              pluginVersion: "1.32"
-              configScripts:
-                # NOTE: The 'appearance' JCasC root element did not exist in
-                # JCasC 1.32 / Jenkins 2.176.1 — locale must be set manually
-                # via the UI or via javaOpts (already set below).
+              enabled: false
             resources:
               requests:
                 cpu: "250m"
