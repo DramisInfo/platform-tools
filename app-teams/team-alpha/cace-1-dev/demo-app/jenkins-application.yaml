@@ -44,11 +44,9 @@ spec:
               defaultConfig: false
               pluginVersion: "1.32"
               configScripts:
-                locale: |
-                  appearance:
-                    locale:
-                      ignoreAcceptLanguage: true
-                      systemLocale: "en"
+                # NOTE: The 'appearance' JCasC root element did not exist in
+                # JCasC 1.32 / Jenkins 2.176.1 — locale must be set manually
+                # via the UI or via javaOpts (already set below).
             resources:
               requests:
                 cpu: "250m"
