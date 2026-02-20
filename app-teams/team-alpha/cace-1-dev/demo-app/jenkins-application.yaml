@@ -26,7 +26,7 @@ spec:
             limits:
               cpu: "1000m"
               memory: "1Gi"
-          javaOpts: "-Xms256m -Xmx512m"
+          javaOpts: "-Xms256m -Xmx512m -Duser.language=en -Duser.country=US"
         persistence:
           enabled: true
           size: 5Gi
