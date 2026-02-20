@@ -22,6 +22,10 @@ spec:
         master:
           image: "jenkins/jenkins"
           tag: "2.176.1"
+          # Run as jenkins user (uid 1000) to satisfy the psp-pods-must-run-as-nonroot
+          # OPA Gatekeeper constraint active on this cluster.
+          runAsUser: 1000
+          fsGroup: 1000
           serviceType: ClusterIP
           jenkinsUrl: "https://jenkins.cace-1-dev.dramisinfo.com"
           # Base plugins required by the chart + additional plugins compatible with Jenkins 2.176.1
