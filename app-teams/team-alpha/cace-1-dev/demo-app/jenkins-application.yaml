@@ -23,6 +23,11 @@ spec:
             - locale:latest
             - github:latest
             - github-branch-source:latest
+          additionalExistingSecrets:
+            - name: jenkins-github-app
+              keyName: app-id
+            - name: jenkins-github-app
+              keyName: private-key
           JCasC:
             configScripts:
               locale: |
@@ -30,6 +35,22 @@ spec:
                   locale:
                     ignoreAcceptLanguage: true
                     systemLocale: "en"
+              github: |
+                credentials:
+                  system:
+                    domainCredentials:
+                      - credentials:
+                          - gitHubApp:
+                              appID: "${jenkins-github-app-app-id}"
+                              description: "GitHub App"
+                              id: "github-app"
+                              privateKey: "${jenkins-github-app-private-key}"
+                unclassified:
+                  gitHubPluginConfig:
+                    configs:
+                      - credentialsId: "github-app"
+                        name: "GitHub"
+                        apiUrl: "https://api.github.com"
           resources:
             requests:
               cpu: "250m"
