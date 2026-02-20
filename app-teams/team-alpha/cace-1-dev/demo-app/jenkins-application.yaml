@@ -27,7 +27,7 @@ spec:
                 appearance:
                   locale:
                     ignoreAcceptLanguage: true
-                    stapleLocale: "en"
+                    systemLocale: "en"
           resources:
             requests:
               cpu: "250m"
