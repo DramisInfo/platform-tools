@@ -33,3 +33,10 @@ spec:
                 - argocd
                 - azure-arc
                 - arc-workload-identity
+  syncPolicy:
+    retry:
+      limit: 10
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
