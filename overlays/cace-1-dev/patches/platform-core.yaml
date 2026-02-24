@@ -14,6 +14,8 @@ spec:
           monitoring:
             enabled: true
           kong:
+            enabled: false
+          envoyGateway:
             enabled: true
           nats:
             enabled: true
