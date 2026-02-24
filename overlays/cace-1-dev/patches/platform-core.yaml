@@ -13,6 +13,8 @@ spec:
         bootstrap:
           monitoring:
             enabled: true
+          kong:
+            enabled: true
           nats:
             enabled: true
             gateway:
