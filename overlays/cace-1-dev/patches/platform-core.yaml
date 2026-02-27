@@ -16,7 +16,7 @@ spec:
           kong:
             enabled: false
           envoyGateway:
-            enabled: true
+            enabled: false
           nats:
             enabled: true
             gateway:
