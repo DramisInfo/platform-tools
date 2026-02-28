@@ -13,6 +13,8 @@ spec:
         bootstrap:
           cnpg:
             enabled: true
+          crossplane:
+            enabled: true
           monitoring:
             enabled: true
           nats:
