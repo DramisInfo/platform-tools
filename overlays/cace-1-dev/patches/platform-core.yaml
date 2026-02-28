@@ -18,13 +18,13 @@ spec:
           envoyGateway:
             enabled: false
           crossplane:
-            enabled: false
+            enabled: true
           kubevela:
             enabled: true
           keda:
             enabled: true
           nats:
-            enabled: false
+            enabled: true
             gateway:
               enabled: true
               name: "cace-1-dev-cluster"
