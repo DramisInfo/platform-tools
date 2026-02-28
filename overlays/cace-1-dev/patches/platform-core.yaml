@@ -33,7 +33,7 @@ spec:
 
           # wave -110
           certManager:
-            enabled: false
+            enabled: true
 
           # wave -100
           istio:
