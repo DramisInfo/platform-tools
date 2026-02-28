@@ -1,0 +1,63 @@
+services:
+
+  # ─── Subscriber ────────────────────────────────────────────────────────────
+  # Listens on cace-2-dev and logs throughput + cross-cluster latency.
+  subscriber:
+    build:
+      context: ./subscriber
+    restart: unless-stopped
+    environment:
+      NATS_URL:          "nats://nats.cace-2-dev.dramisinfo.com:4222"
+      SUBJECT:           "loadtest.cross"
+      STATS_INTERVAL_MS: "2000"
+      # Set NATS_QUEUE to enable competing-consumers mode (queue group).
+      # All replicas share the group: each message is delivered to only one.
+      # Leave empty (default) for fan-out: every replica gets every message.
+      NATS_QUEUE:        ""
+
+  # ─── Publisher ─────────────────────────────────────────────────────────────
+  # REST API (POST /publish) that forwards messages to NATS on cace-1-dev.
+  # k6 calls this endpoint instead of speaking NATS directly.
+  publisher:
+    build:
+      context: ./publisher
+    restart: unless-stopped
+    environment:
+      NATS_URL: "nats://nats.cace-1-dev.dramisinfo.com:4222"
+      SUBJECT:  "loadtest.cross"
+      PORT:     "3000"
+    healthcheck:
+      test: ["CMD", "node", "-e",
+        "require('http').get('http://localhost:3000/health', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    # Fixed host port removed to allow --scale publisher=N.
+    # ports:
+    #   - "3000:3000"
+
+  # ─── k6 Load Generator ─────────────────────────────────────────────────────
+  # Uses the official grafana/k6 image — no custom build required.
+  #
+  # Live output options:
+  #   Option A — all logs mixed:
+  #       docker compose up --build
+  #
+  #   Option B — k6 output in its own TTY (recommended):
+  #       docker compose up --build subscriber publisher -d
+  #       docker compose run --rm k6
+  k6:
+    build:
+      context: ./k6
+    container_name: nats-k6
+    depends_on:
+      - publisher
+      - subscriber
+    environment:
+      PUBLISHER_URL: "http://publisher:3000"
+      SUBJECT:       "loadtest.cross"
+      VUS:           "10"    # concurrent virtual users
+      DURATION:      "60s"   # test duration
+    # Uncomment to stream metrics to a Prometheus remote-write endpoint:
+    # K6_PROMETHEUS_RW_SERVER_URL: "http://prometheus:9090/api/v1/write"

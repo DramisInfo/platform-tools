@@ -1,0 +1,10 @@
+{
+  "name": "nats-subscriber",
+  "version": "1.0.0",
+  "description": "NATS subscriber for load test - listens on cace-2-dev",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "nats": "^2.28.2"
+  }
+}

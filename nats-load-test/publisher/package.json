@@ -1,0 +1,11 @@
+{
+  "name": "nats-publisher",
+  "version": "1.0.0",
+  "description": "REST API → NATS publisher for load test",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "fastify": "^5.2.1",
+    "nats": "^2.28.2"
+  }
+}
