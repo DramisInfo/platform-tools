@@ -11,53 +11,7 @@ spec:
         global:
           clusterName: cace-1-dev
         bootstrap:
-          # Enable components one by one in sync-wave order (most negative = deployed first)
 
-          # wave -120
-          gatekeeper:
-            enabled: true
-            policies:
-              excludedNamespaces:
-                - kube-system
-                - gatekeeper-system
-                - cert-manager
-                - istio-system
-                - ingress-nginx
-                - argocd
-                - azure-arc
-                - arc-workload-identity
-
-          # wave -115
-          monitoring:
-            enabled: false
-
-          # wave -110
-          certManager:
-            enabled: true
-
-          # wave -100
-          istio:
-            enabled: false
-
-          # wave -90
-          keda:
-            enabled: false
-          externalSecretOperator:
-            enabled: false
-
-          # wave -80
-          ingressNginx:
-            enabled: false
-
-          # wave -70
-          kong:
-            enabled: false
-
-          # wave -65
-          envoyGateway:
-            enabled: false
-
-          # wave -40
           nats:
             enabled: false
             gateway:
@@ -67,17 +21,6 @@ spec:
               gateways:
                 - name: "cace-2-dev-cluster"
                   url: "nats://nats.cace-2-dev.dramisinfo.com:7222"
-
-          # wave -30
-          cnpg:
-            enabled: false
-          crossplane:
-            enabled: false
-          terraformOperator:
-            enabled: false
-          kubevela:
-            enabled: false
-
   syncPolicy:
     retry:
       limit: 10
