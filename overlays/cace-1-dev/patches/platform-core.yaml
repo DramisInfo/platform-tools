@@ -29,7 +29,7 @@ spec:
 
           # wave -115
           monitoring:
-            enabled: true
+            enabled: false
 
           # wave -110
           certManager:
