@@ -13,16 +13,6 @@ spec:
         bootstrap:
           monitoring:
             enabled: true
-          kong:
-            enabled: false
-          envoyGateway:
-            enabled: false
-          crossplane:
-            enabled: true
-          kubevela:
-            enabled: true
-          keda:
-            enabled: true
           nats:
             enabled: false
             gateway:
