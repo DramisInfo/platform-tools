@@ -15,7 +15,7 @@ spec:
 
           # wave -120
           gatekeeper:
-            enabled: false
+            enabled: true
             policies:
               excludedNamespaces:
                 - kube-system
