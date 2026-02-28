@@ -12,19 +12,19 @@ spec:
           clusterName: cace-1-dev
         bootstrap:
           monitoring:
-            enabled: false
+            enabled: true
           kong:
             enabled: false
           envoyGateway:
             enabled: false
           crossplane:
-            enabled: false
+            enabled: true
           kubevela:
-            enabled: false
+            enabled: true
           keda:
-            enabled: false
+            enabled: true
           nats:
-            enabled: false
+            enabled: true
             gateway:
               enabled: true
               name: "cace-1-dev-cluster"
