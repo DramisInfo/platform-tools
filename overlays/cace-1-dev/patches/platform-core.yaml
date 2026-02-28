@@ -24,7 +24,7 @@ spec:
           keda:
             enabled: false
           nats:
-            enabled: true
+            enabled: false
             gateway:
               enabled: true
               name: "cace-1-dev-cluster"
