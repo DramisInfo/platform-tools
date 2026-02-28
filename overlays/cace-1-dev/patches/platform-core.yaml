@@ -18,7 +18,7 @@ spec:
           envoyGateway:
             enabled: false
           crossplane:
-            enabled: false
+            enabled: true
           nats:
             enabled: true
             gateway:
