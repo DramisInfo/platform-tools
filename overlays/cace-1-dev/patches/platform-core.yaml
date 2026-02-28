@@ -19,6 +19,8 @@ spec:
             enabled: false
           crossplane:
             enabled: true
+          kubevela:
+            enabled: true
           nats:
             enabled: true
             gateway:
