@@ -37,7 +37,7 @@ spec:
 
           # wave -100
           istio:
-            enabled: true
+            enabled: false
 
           # wave -90
           keda:
