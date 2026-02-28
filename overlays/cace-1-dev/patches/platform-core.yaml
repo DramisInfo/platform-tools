@@ -29,15 +29,15 @@ spec:
 
           # wave -115
           monitoring:
-            enabled: true
+            enabled: false
 
           # wave -110
           certManager:
-            enabled: true
+            enabled: false
 
           # wave -100
           istio:
-            enabled: true
+            enabled: false
 
           # wave -90
           keda:
