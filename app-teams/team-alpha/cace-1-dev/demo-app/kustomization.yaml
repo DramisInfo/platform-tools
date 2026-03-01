@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-resources:
-  - jenkins-application.yaml
-  # jenkins-virtualservice.yaml is managed as a second source inside jenkins-application.yaml
-  # - application.yaml
-  # - virtualservice.yaml
