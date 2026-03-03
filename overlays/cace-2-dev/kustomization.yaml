@@ -8,4 +8,5 @@ resources:
 
 patches:
   - path: patches/platform-core.yaml
-  - path: patches/cert-manager-identity.yaml
+  # clientId is managed by Terraform (written on every cluster provision)
+  - path: patches/crossplane-identity.yaml
