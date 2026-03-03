@@ -1,6 +1,3 @@
-# This file is managed by Terraform (home-lab/terraform-provision).
-# It is overwritten on every `terraform apply` with the Crossplane UMI client ID
-# for this cluster. Do not edit manually.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -13,4 +10,4 @@ spec:
         bootstrap:
           crossplane:
             workloadIdentity:
-              clientId: "00000000-0000-0000-0000-000000000000"
+              clientId: "6c2d6747-8180-4ee8-9775-58a440354a26"
