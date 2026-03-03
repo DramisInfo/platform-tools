@@ -4,6 +4,7 @@ commonLabels:
   environment: dev
 resources:
   - ../../base
+  - crossplane/certmanager-identity.yaml
   # - teams/team-alpha
 
 patches:
