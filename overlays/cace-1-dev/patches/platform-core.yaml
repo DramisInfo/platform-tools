@@ -17,7 +17,7 @@ spec:
           argocd:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
           nats:
-            enabled: false
+            enabled: true
             gateway:
               enabled: true
               name: "cace-1-dev-cluster"
