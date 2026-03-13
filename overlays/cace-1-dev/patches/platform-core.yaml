@@ -11,6 +11,14 @@ spec:
         global:
           clusterName: cace-1-dev
         bootstrap:
+          crossplane:
+            dynamicDns:
+              enabled: true
+              recordName: vpn
+              zoneName: dramisinfo.com
+              resourceGroupName: rg-dns
+              subscriptionId: c1d22d5c-418b-4bd9-ba23-5e806c376b56
+              ttl: 300
           cnpg:
             enabled: true
           argocd:
