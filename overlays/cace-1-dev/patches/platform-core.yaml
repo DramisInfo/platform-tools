@@ -13,7 +13,7 @@ spec:
         bootstrap:
           crossplane:
             dynamicDns:
-              enabled: true
+              enabled: false
               recordName: vpn
               zoneName: dramisinfo.com
               resourceGroupName: rg-dns
