@@ -11,13 +11,12 @@ spec:
         global:
           clusterName: cace-1-dev
         bootstrap:
-          crossplane:
           cnpg:
             enabled: true
           argocd:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
           nats:
-            enabled: false
+            enabled: true
             gateway:
               enabled: true
               name: "cace-1-dev-cluster"
