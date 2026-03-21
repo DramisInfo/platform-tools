@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-core
+  namespace: argocd
+spec:
+  source:
+    helm:
+      valuesObject:
+        bootstrap:
+          crossplane:
+            workloadIdentity:
+              clientId: "312bbc3b-2c10-474b-a820-a799c88655eb"
