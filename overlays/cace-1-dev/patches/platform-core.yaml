@@ -11,6 +11,16 @@ spec:
         global:
           clusterName: cace-1-dev
         bootstrap:
+          gatekeeper:
+            policies:
+              excludedNamespaces:
+                - kube-system
+                - gatekeeper-system
+                - cert-manager
+                - istio-system
+                - argocd
+                - azure-arc
+                - it-gitops-enterprise-prd
           monitoring:
             enabled: false
           argocd:
