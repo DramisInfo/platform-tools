@@ -10,6 +10,8 @@ spec:
         global:
           clusterName: cace-2-dev
         bootstrap:
+          gatekeeper:
+            enableK8sNativeValidation: false
           monitoring:
             enabled: true
           nats:
