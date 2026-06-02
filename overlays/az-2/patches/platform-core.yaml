@@ -11,6 +11,8 @@ spec:
         global:
           clusterName: az-2
         bootstrap:
+          gatekeeper:
+            enableK8sNativeValidation: false
           nats:
             enabled: true
             gateway:
