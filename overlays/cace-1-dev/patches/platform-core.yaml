@@ -27,13 +27,14 @@ spec:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
           nats:
             enabled: true
+            # Gateway to cace-2-dev removed 2026-06-23 — that cluster no longer exists,
+            # and the gateway connection was blocking JetStream metadata RAFT from
+            # electing a leader (constant "no metadata leader" warnings).
             gateway:
-              enabled: true
+              enabled: false
               name: "cace-1-dev-cluster"
               advertise: "nats.cace-1-dev.dramisinfo.com:7222"
-              gateways:
-                - name: "cace-2-dev-cluster"
-                  url: "nats://nats.cace-2-dev.dramisinfo.com:7222"
+              gateways: []
   syncPolicy:
     retry:
       limit: 10
