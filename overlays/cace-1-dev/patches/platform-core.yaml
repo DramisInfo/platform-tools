@@ -21,6 +21,8 @@ spec:
                 - argocd
                 - azure-arc
                 - it-gitops-enterprise-prd
+          hermesSre:
+            enabled: true
           monitoring:
             enabled: false
           argocd:
