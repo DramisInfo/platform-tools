@@ -170,3 +170,59 @@ explicitly scoped to `cace-1-dev`. The
 `.github/prompts/manage-component.prompt.md` prompt wires the
 `component-manager` agent. They are convenience wrappers, not a deployment
 mechanism.
+
+## Component summary
+
+The blocks above are slices of one repo. The diagram below ties the
+components together: the upstream Helm chart, the base + four overlays, the
+`team-alpha` sub-kustomization, Argo CD in each of the four clusters, the
+NATS gateway mesh, the workstation tooling that drives the load test and
+the Argo CD refresh, and the repo-local agent specs.
+
+```mermaid
+graph TD
+    helm["Upstream chart<br/>DramisInfo/platform-helm<br/>path: platform-core @ HEAD"]
+    base["base/<br/>Argo CD Application + kustomization"]
+    ov_az1["overlays/az-1"]
+    ov_az2["overlays/az-2"]
+    ov_c1["overlays/cace-1-dev"]
+    ov_c2["overlays/cace-2-dev"]
+    alpha["cace-1-dev/teams/team-alpha<br/>AppProject + ApplicationSet<br/>(standalone kustomization)"]
+    argo1[("Argo CD<br/>az-1")]
+    argo2[("Argo CD<br/>az-2")]
+    argo3[("Argo CD<br/>cace-1-dev")]
+    argo4[("Argo CD<br/>cace-2-dev")]
+    nats_gw["NATS gateway topology<br/>az-1 ↔ az-2 (active mesh)<br/>cace-1-dev ◌── cace-2-dev (peer only)"]
+    ws["Workstation tooling<br/>nats-load-test (publisher/subscriber/k6)<br/>nats-cluster-test.sh<br/>kube.sh<br/>ansible/playbook.yml"]
+    agents[".github/agents/<br/>component-manager, dashboard<br/>+ manage-component prompt<br/>(cace-1-dev scoped)"]
+
+    helm --> base
+    base --> ov_az1
+    base --> ov_az2
+    base --> ov_c1
+    base --> ov_c2
+    ov_c1 --> alpha
+    ov_az1 --> argo1
+    ov_az2 --> argo2
+    ov_c1 --> argo3
+    ov_c2 --> argo4
+    argo1 --- nats_gw
+    argo2 --- nats_gw
+    argo3 --- nats_gw
+    argo4 --- nats_gw
+    ws -. public NATS hostnames / kubectl patch .-> argo1
+    ws -. public NATS hostnames / kubectl patch .-> argo2
+    ws -. public NATS hostnames / kubectl patch .-> argo3
+    ws -. public NATS hostnames / kubectl patch .-> argo4
+    agents -. context .-> ov_c1
+```
+
+Solid arrows are GitOps reconciliation (chart → base → overlays → Argo CD
+per cluster, plus the `team-alpha` sub-kustomization off `cace-1-dev`).
+Unbroken links into `nats_gw` show every cluster that participates in the
+declared gateway mesh; the live state is annotated on the node itself. The
+dashed workstation edges cover both the NATS load test (talking to the
+cace clusters over their public hostnames) and `ansible/playbook.yml`
+pushing a `refresh` operation into every cluster's Argo CD. The dashed
+`agents` edge is purely a context relationship — the agent specs read
+`overlays/cace-1-dev` and do not deploy anything.
