@@ -24,7 +24,7 @@ spec:
           hermesSre:
             enabled: true
           monitoring:
-            enabled: false
+            enabled: true
           argocd:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
           nats:
