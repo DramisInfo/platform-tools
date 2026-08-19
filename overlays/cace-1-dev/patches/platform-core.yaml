@@ -28,7 +28,7 @@ spec:
           argocd:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
           nats:
-            enabled: false
+            enabled: true
             # Gateway to cace-2-dev removed 2026-06-23 — that cluster no longer exists,
             # and the gateway connection was blocking JetStream metadata RAFT from
             # electing a leader (constant "no metadata leader" warnings).
