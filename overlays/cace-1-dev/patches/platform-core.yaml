@@ -12,14 +12,9 @@ spec:
           clusterName: cace-1-dev
         bootstrap:
           cloudflareOperator:
-            # Activated 2026-09-07 — opt-in from DramisInfo/platform-helm PR #118
-            # Chart version managed centrally in platform-helm via version-bump workflow.
-            enabled: true
-            # Cloudflare account ID (public identifier, no AKV needed).
-            # Operator reads it via ConfigMap cloudflare-operator-account-id
-            # in cloudflare-operator-system, rendered by the multi-source
-            # Application (dysnix/raw) in platform-helm PR #122.
-            accountId: "383101591f0a369ea7f73b5bbc97dd36"
+            # Disabled 2026-09-07 — pivoting to Tailscale Operator + Funnel.
+            # Re-enable by flipping enabled: true.
+            enabled: false
           gatekeeper:
             policies:
               excludedNamespaces:
