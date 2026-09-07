@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/DramisInfo/platform-tools/compare/v1.0.0...v1.1.0) (2026-09-07)
+
+
+### Features
+
+* activate tailscaleOperator opt-in on cace-1-dev ([8132318](https://github.com/DramisInfo/platform-tools/commit/8132318a9ee20b31aed72e5605758b2e20a62d43))
+* **cace-1-dev:** activate community-charts/cloudflared ([536fcfa](https://github.com/DramisInfo/platform-tools/commit/536fcfa1eb1495dc36d1d65545fc5aa052281363))
+* **cace-1-dev:** activate community-charts/cloudflared opt-in ([e2d3ecb](https://github.com/DramisInfo/platform-tools/commit/e2d3ecb17ac244e7efbb18d6f2d079a9311025ba))
+* **cace-1-dev:** set bootstrap.cloudflareOperator.accountId ([baa494e](https://github.com/DramisInfo/platform-tools/commit/baa494e202c00924fed353cc1ae5d3c5744afa3c))
+* **cace-1-dev:** set bootstrap.cloudflareOperator.accountId ([9221d3c](https://github.com/DramisInfo/platform-tools/commit/9221d3c620e6703be724a124ea0f095efa8f845d))
+* **cace-1-dev:** swap cloudflared for cloudflare-operator opt-in ([e753743](https://github.com/DramisInfo/platform-tools/commit/e75374388cdef11b78464ebe1f50f16785aa5492))
+* **cace-1-dev:** swap community-charts/cloudflared opt-in for adyanth/cloudflare-operator ([318923f](https://github.com/DramisInfo/platform-tools/commit/318923fa52e20265327838b6cbb439bf74244632))
+* **platform-tools:** activate tailscaleOperator opt-in on cace-1-dev ([0bbb48f](https://github.com/DramisInfo/platform-tools/commit/0bbb48ffb4e5c2221020ba7a6c268c7c7e88d46d))
+
 ## 1.0.0 (2026-08-02)
 
 
