@@ -15,6 +15,10 @@ spec:
             # Disabled 2026-09-07 — pivoting to Tailscale Operator + Funnel.
             # Re-enable by flipping enabled: true.
             enabled: false
+          tailscaleOperator:
+            # Activated 2026-09-07 — opt-in from DramisInfo/platform-helm PR #123.
+            # Chart version managed centrally in platform-helm via version-bump workflow.
+            enabled: true
           gatekeeper:
             policies:
               excludedNamespaces:
