@@ -11,6 +11,10 @@ spec:
         global:
           clusterName: cace-1-dev
         bootstrap:
+          cloudflared:
+            # Activated 2026-09-07 — opt-in from DramisInfo/platform-helm PR #116
+            # chart version is managed centrally in platform-core/values.yaml
+            enabled: true
           gatekeeper:
             policies:
               excludedNamespaces:
