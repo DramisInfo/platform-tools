@@ -19,7 +19,10 @@ spec:
             # Activated 2026-09-07 — opt-in from DramisInfo/platform-helm PR #123.
             # Chart version managed centrally in platform-helm via version-bump workflow.
             enabled: true
+          # Disabled 2026-11-21 — slimming cace-1-dev to one worker so a mini PC
+          # can leave the Proxmox cluster. Re-enable by flipping enabled: true.
           gatekeeper:
+            enabled: false
             policies:
               excludedNamespaces:
                 - kube-system
@@ -30,13 +33,24 @@ spec:
                 - azure-arc
                 - it-gitops-enterprise-prd
           hermesSre:
-            enabled: true
+            enabled: false
           monitoring:
+            enabled: false
+          # Disabled 2026-11-21 — no workload left on cace-1-dev uses them.
+          keda:
+            enabled: false
+          k6Operator:
+            enabled: false
+          argoEvents:
+            enabled: false
+          cnpg:
             enabled: false
           argocd:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
+          # Disabled 2026-11-21 with the Composio relay and Gmail worker, their
+          # only users (Argo Events goes too, agent-bus was a misconfiguration).
           nats:
-            enabled: true
+            enabled: false
             # Gateway to cace-2-dev removed 2026-06-23 — that cluster no longer exists,
             # and the gateway connection was blocking JetStream metadata RAFT from
             # electing a leader (constant "no metadata leader" warnings).
