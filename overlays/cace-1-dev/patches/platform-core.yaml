@@ -41,14 +41,12 @@ spec:
             enabled: false
           k6Operator:
             enabled: false
-          argoEvents:
-            enabled: false
           cnpg:
             enabled: false
           argocd:
             smeeUrl: "https://smee.io/AC2s1ASzSClbnZxI"
           # Disabled 2026-11-21 with the Composio relay and Gmail worker, their
-          # only users (Argo Events goes too, agent-bus was a misconfiguration).
+          # only users (agent-bus was a misconfiguration; Argo Events has its own bus).
           nats:
             enabled: false
             # Gateway to cace-2-dev removed 2026-06-23 — that cluster no longer exists,
